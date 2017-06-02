@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTQ7aC6SjiAOpAWOKfJDfVRY.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTRdwxCXfZpKo5kWAx_74bHs.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTZ6vnaPZw6nYDxM4SVEMFKg.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTfy1_HTwRwgtl1cPga3Fy3Y.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTfgrLsWo7Jk1KvZser0olKY.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTYjoYw3YTyktCCer_ilOlhE.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 300;
+			src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTRampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5UYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEEYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 400;
+			src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSg7aC6SjiAOpAWOKfJDfVRY.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNShdwxCXfZpKo5kWAx_74bHs.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSp6vnaPZw6nYDxM4SVEMFKg.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSvy1_HTwRwgtl1cPga3Fy3Y.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSvgrLsWo7Jk1KvZser0olKY.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSojoYw3YTyktCCer_ilOlhE.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 600;
+			src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNShampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzA7aC6SjiAOpAWOKfJDfVRY.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzBdwxCXfZpKo5kWAx_74bHs.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzJ6vnaPZw6nYDxM4SVEMFKg.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzPy1_HTwRwgtl1cPga3Fy3Y.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzPgrLsWo7Jk1KvZser0olKY.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzIjoYw3YTyktCCer_ilOlhE.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 700;
+			src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzBampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hg7aC6SjiAOpAWOKfJDfVRY.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hhdwxCXfZpKo5kWAx_74bHs.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hp6vnaPZw6nYDxM4SVEMFKg.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hvy1_HTwRwgtl1cPga3Fy3Y.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hvgrLsWo7Jk1KvZser0olKY.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hojoYw3YTyktCCer_ilOlhE.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			font-weight: 800;
+			src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-hhampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		/* cyrillic-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBvZraR2Tg8w2lzm7kLNL0-w.woff2) format('woff2');
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBl4sYYdJg5dU2qzJEVSuta0.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBlBW26QxpSj-_ZKm_xT4hWw.woff2) format('woff2');
+			unicode-range: U+1F00-1FFF;
+		}
+		/* greek */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBgt_Rm691LTebKfY2ZkKSmI.woff2) format('woff2');
+			unicode-range: U+0370-03FF;
+		}
+		/* vietnamese */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBtDiNsR5a-9Oe_Ivpu8XWlY.woff2) format('woff2');
+			unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+		}
+		/* latin-ext */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBqE8kM4xWR1_1bYURRojRGc.woff2) format('woff2');
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: italic;
+			font-weight: 400;
+			src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBogp9Q8gbYrhqGlRav_IXfk.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+		}
+		
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		
+		html,
+		body {
+			height: 100%;
+			overflow: hidden;
+		}
+		
+		body {
+			background: #383838;
+			font-family: 'Open sans', sans-serif;
+		}
+		
+		.lego {
+			border-width: 3px;
+			border-style: solid;
+			border-color: #ffc37b;
+			color: #ffc37b;
+			width: 79px;
+			height: 79px;
+			display: block;
+			border-radius: 50%;
+			position: absolute;
+			margin-left: -39.5px;
+			margin-top: -39.5px;
+			bottom: 45px;
+			right: 30px;
+			background: url(img/legomushroom.svg) no-repeat center 45%;
+			background-size: 75% auto;
+			opacity: 0;
+		}
+		
+		.lego__text {
+			bottom: -25px;
+			width: 100%;
+			text-align: center;
+			margin-left: -13px;
+			font-size: 12px;
+		}
+		
+		.lego__text--header {
+			top: -25px;
+			font-size: 10px;
+			margin-left: 0;
+		}
+		
+		.restart {
+			top: 50%;
+			left: 50%;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			margin-left: -16px;
+			margin-top: 128px;
+			background: url(img/restart.svg) no-repeat center 42.5%;
+			background-size: 50% auto;
+			opacity: 0;
+			border-width: 2px;
+			border-style: solid;
+			border-color: #fff;
+		}
+		
+		.restart:hover {
+			cursor: pointer;
+			border-color: #ccc;
+		}
+		
+		.github {
+			border-width: 3px;
+			border-style: solid;
+			border-color: #00ffc6;
+			width: 201px;
+			height: 201px;
+			border-radius: 50%;
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -181px;
+			margin-left: -100.5px;
+			background: url(img/octocat.svg) no-repeat center center;
+			background-size: 75% auto;
+			opacity: 0;
+		}
+		
+		.github__text {
+			bottom: -40px;
+			color: #00ffc6;
+			width: 100%;
+			text-align: center;
+		}
+		
+		.my-logo {
+			top: 50%;
+			left: 50%;
+			z-index: 20;
+			display: inline-block;
+			color: #fcf7c0;
+			text-align: center;
+		}
+		
+		.my-logo__header {
+			width: 108px;
+			font-size: 14px;
+		}
+		
+		.my-logo__img {
+			margin-top: 25px;
+			border-width: 4px;
+			border-style: solid;
+			border-color: #ff6664;
+			width: 108px;
+			height: 108px;
+			border-radius: 50%;
+			background: #fcf7c0 url(img/up.png);
+		}
+		
+		.my-logo__text {
+			color: #fcf7c0;
+			bottom: -160px;
+			left: -4px;
+			font-size: 14px;
+		}
+		
+		.line {
+			width: 2px;
+			height: 0;
+			top: 50%;
+			left: 50%;
+			margin-left: -1px;
+			background: #00ffc6;
+			-webkit-transform-origin: center bottom;
+			-ms-transform-origin: center bottom;
+			transform-origin: center bottom;
+		}
+		
+		.bubble {
+			width: 24px;
+			height: 24px;
+			border-width: 12px;
+			border-style: solid;
+			border-color: #00ffc6;
+			border-radius: 50%;
+			top: 50%;
+			left: 50%;
+			opacity: 0;
+		}
+		
+		.bubbles {
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			margin-top: -100px;
+			margin-left: -10px;
+		}
+		
+		.easy {
+			top: 50%;
+			left: 50%;
+			line-height: 240px;
+			background: #00ffc6;
+			border-radius: 50%;
+			text-align: center;
+			-webkit-transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 60px;
+			color: #383838;
+			text-transform: uppercase;
+			z-index: 11;
+			width: 0;
+			height: 0;
+			overflow: hidden;
+		}
+		
+		.easy__wrapper {
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+		
+		.easy__text {
+			width: 100%;
+			height: 100%;
+		}
+		
+		.easy__line {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			border-width: 4px;
+			border-style: solid;
+			border-color: #383838;
+			z-index: 0;
+			-webkit-transform: translate(-50%);
+			-ms-transform: translate(-50%);
+			transform: translate(-50%);
+		}
+		
+		.drop {
+			width: 4px;
+			height: 4px;
+			top: 50%;
+			left: 50%;
+			opacity: 0;
+		}
+		
+		.spark {
+			background: #00ffc6;
+			opacity: 0;
+			border-radius: 50%;
+		}
+		
+		.thunder-bg {
+			background: #00ffc6;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 0;
+		}
+		
+		.arrow {
+			width: 2px;
+			height: 200px;
+			-webkit-transform-origin: center bottom;
+			-ms-transform-origin: center bottom;
+			transform-origin: center bottom;
+			background: #00ffc6;
+			top: -100%;
+			left: 100%;
+			margin-top: -175px;
+		}
+		
+		.arrow--center {
+			margin-left: -28px;
+			margin-top: -120px;
+		}
+		
+		.arrow--wrap {
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			margin-top: 0;
+			background: 0 0;
+		}
+		
+		.car {
+			height: 10px;
+			width: 40%;
+			opacity: 0;
+		}
+		
+		.car--1 {
+			right: 100%;
+			top: 40%;
+			border-top-left-radius: 50%;
+			border-bottom-left-radius: 50%;
+		}
+		
+		.car--2 {
+			left: 100%;
+			top: 60%;
+			border-top-right-radius: 50%;
+			border-bottom-right-radius: 50%;
+		}
+		
+		.text {
+			font-family: 'Open Sans';
+			font-size: 60px;
+			text-transform: uppercase;
+			font-weight: 100;
+			text-align: center;
+			letter-spacing: 10px;
+		}
+		
+		.text--fast {
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+		
+		.text--robust {
+			top: 50%;
+			left: 50%;
+			margin-left: -200px;
+			z-index: 8;
+			overflow: hidden;
+			-webkit-transform-origin: left bottom;
+			-ms-transform-origin: left bottom;
+			transform-origin: left bottom;
+		}
+		
+		.text--robust__shade {
+			background: #383838;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.text--robust__shade--1 {
+			-webkit-transform: skew(-20deg) translateX(-4px);
+			-ms-transform: skew(-20deg) translateX(-4px);
+			transform: skew(-20deg) translateX(-4px);
+			left: -90px;
+		}
+		
+		.text--robust__shade--2 {
+			width: 90px;
+			right: 0;
+		}
+		
+		.text__bit {
+			top: 50%;
+			left: 50%;
+		}
+		
+		.text__bit--1 {
+			margin-left: -90px;
+		}
+		
+		.text__bit--2 {
+			margin-left: -45px;
+		}
+		
+		.text__bit--3 {
+			margin-left: 0;
+		}
+		
+		.text__bit--4 {
+			margin-left: 45px;
+		}
+		
+		.text__bit__inner {
+			display: inline-block;
+			position: static;
+			-webkit-transform-origin: center bottom;
+			-ms-transform-origin: center bottom;
+			transform-origin: center bottom;
+		}
+		
+		.text__bit span {
+			display: inline-block;
+			margin-top: -30px;
+		}
+		
+		.c-green-g {
+			background: #00ffc6;
+		}
+		
+		.c-green-c-g {
+			color: #00ffc6;
+		}
+		
+		.c-grey-g {
+			background: #383838;
+		}
+		
+		.c-red-g {
+			background: #ff1493;
+		}
+		
+		.circle {
+			border-radius: 50%;
+		}
+		
+		.center {
+			top: 50%;
+			left: 50%;
+		}
+		
+		.a-g {
+			position: absolute;
+		}
+		
+		div {
+			position: absolute;
+			z-index: 10;
+			font-family: 'Open sans', sans-serif;
+		}
+		
+		.screen {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.screen--robust {
+			z-index: 1;
+		}
+		
+		.screen--easy {
+			z-index: 12;
+		}
+		
+		.screen--logos {
+			z-index: 20;
+		}
+		
+		.inherit-bg {
+			background: inherit;
+		}
+		
+		.velocity {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			color: #00ffc6;
+			font-size: 70px;
+			text-transform: uppercase;
+			font-weight: 100;
+			margin-left: 1320px;
+			min-width: 400px;
+			margin-top: -40px;
+			-webkit-transform: translateX(-160px);
+			-ms-transform: translateX(-160px);
+			transform: translateX(-160px);
+		}
+		
+		.velocity span {
+			display: inline-block;
+		}
+	</style>
+
+	<body>
+		<div id="js-car1" class="car car--1 c-green-g"></div>
+		<div id="js-car2" class="car car--2 c-green-g"></div>
+		<div id="js-fast" class="c-green-c-g text text--fast">
+			<div class="text__bit text__bit--1">
+				<div id="js-bit-inner" class="text__bit__inner"><span id="js-span">f</span></div>
+			</div>
+			<div class="text__bit text__bit--2">
+				<div id="js-bit-inner" class="text__bit__inner"><span id="js-span">a</span></div>
+			</div>
+			<div class="text__bit text__bit--3">
+				<div id="js-bit-inner" class="text__bit__inner"><span id="js-span">s</span></div>
+			</div>
+			<div class="text__bit text__bit--4">
+				<div id="js-bit-inner" class="text__bit__inner"><span id="js-span">t</span></div>
+			</div>
+		</div>
+		<div id="js-arrow1" class="arrow"></div>
+		<div id="js-arrow2" class="arrow"></div>
+		<div id="js-arrow3" class="arrow"></div>
+		<div id="js-arrow-wrap" class="arrow arrow--wrap">
+			<div id="js-arrow4" class="arrow arrow--center"></div>
+		</div>
+		<div id="js-robust-screen2" class="screen screen--robust">
+			<div id="js-robust-screen" class="screen screen--robust">
+				<div id="js-robust" class="text text--robust c-green-c-g">robust
+					<div id="js-robust-shade1" class="text--robust__shade text--robust__shade--1"></div>
+					<div id="js-robust-shade2" class="text--robust__shade text--robust__shade--2"></div>
+				</div>
+			</div>
+		</div>
+		<div id="js-thunder-bg" class="thunder-bg"></div>
+		<div id="js-easy-screen" class="screen screen--easy">
+			<div id="js-easy" class="text easy">
+				<div id="js-easy-wrapper" class="easy__wrapper">
+					<div id="js-easy-text" class="easy__text">easy</div>
+				</div>
+			</div>
+		</div>
+		<div id="js-screen1" class="screen">
+			<div id="js-line" class="line"></div>
+		</div>
+		<div id="js-screen2" class="screen"></div>
+		<div id="js-velocity" class="velocity"><span>v</span><span>e</span><span>l</span><span>o</span><span>c</span><span>i</span><span>t</span><span>y</span><span>.</span><span>j</span><span>s</span></div>
+		<div id="js-logos-screen" class="screen screen--logos">
+			<a href="https://github.com/julianshapiro/velocity" target="_blank" id="js-github" class="github">
+				<div class="github__text">VelocityJS on GitHub</div>
+			</a>
+			<div id="js-restart" class="restart"></div>
+			<a href="https://twitter.com/legomushroom" target="_blank" id="js-lego" class="lego">
+				<div class="lego__text lego__text--header">Demo by:</div>
+				<div class="lego__text lego__text">@legomushroom</div>
+			</a>
+		</div>
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<script src='js/velocity.min.js'></script>
+	<script src='js/velocity.ui.min.js'></script>
+	<script type="text/javascript">
+		(function() {
+			var Helpers;
+
+			Helpers = (function() {
+				function Helpers() {}
+
+				Helpers.prototype.createDiv = function(o) {
+					var $cont, $el;
+					if(o == null) {
+						o = {};
+					}
+					$el = $('<div />');
+					(o["class"] != null) && $el.addClass(o["class"]);
+					$cont = (o != null ? o.container : void 0) || $(document.body);
+					$cont.append($el);
+					return $el;
+				};
+
+				Helpers.prototype.cloneBits = function($proto, cnt, $container) {
+					var $cont, $new, circles, i, _i;
+					if(cnt == null) {
+						cnt = 20;
+					}
+					circles = [];
+					for(i = _i = 0; 0 <= cnt ? _i < cnt : _i > cnt; i = 0 <= cnt ? ++_i : --_i) {
+						$new = $proto.clone();
+						$cont = $container || $(document.body);
+						$cont.append($new);
+						circles.push($new);
+					}
+					return circles;
+				};
+
+				Helpers.prototype.rand = function(min, max) {
+					return Math.floor((Math.random() * ((max + 1) - min)) + min);
+				};
+
+				return Helpers;
+
+			})();
+
+			window.helpers = new Helpers;
+
+			$.easing.quake = function(t) {
+				var b;
+				b = Math.exp(-t * 10) * Math.cos(Math.PI * 2 * t * 10);
+				if(t >= 1) {
+					return 1;
+				}
+				return 1 - b;
+			};
+
+			$.easing.elasticOut = function(t) {
+				var a, p, s;
+				s = void 0;
+				a = 0.1;
+				p = 0.4;
+				if(t === 0) {
+					return 0;
+				}
+				if(t === 1) {
+					return 1;
+				}
+				if(!a || a < 1) {
+					a = 1;
+					s = p / 4;
+				} else {
+					s = p * Math.asin(1 / a) / (2 * Math.PI);
+				}
+				return a * Math.pow(2, -10 * t) * Math.sin((t - s) * (2 * Math.PI) / p) + 1;
+			};
+
+		}).call(this);
+
+		(function() {
+			var Spark;
+
+			Spark = (function() {
+				function Spark(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+				}
+
+				Spark.prototype.vars = function() {};
+
+				Spark.prototype.init = function() {
+					var $proto, $spark, i, size, _i, _len, _ref, _results;
+					$proto = helpers.createDiv({
+						"class": 'spark'
+					});
+					this.sparks = helpers.cloneBits($proto, this.o.cnt || helpers.rand(10, 20));
+					size = this.o.size || 2;
+					_ref = this.sparks;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						$spark = _ref[i];
+						_results.push($spark.css({
+							width: size + helpers.rand(0, size),
+							height: size + helpers.rand(0, size),
+							left: this.o.left || '50%',
+							top: "" + (this.o.top || 50) + "%",
+							marginTop: this.o.shiftY,
+							marginLeft: this.o.shiftX
+						}));
+					}
+					return _results;
+				};
+
+				Spark.prototype.run = function() {
+					var $spark, blowSize, i, top, _i, _len, _ref, _results;
+					_ref = this.sparks;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						$spark = _ref[i];
+						blowSize = this.o.blowSize || 100;
+						top = 2 * this.o.top || 100;
+						if(top < 100) {
+							top = 100;
+						}
+						_results.push($spark.velocity({
+							translateX: helpers.rand(-blowSize, blowSize),
+							translateY: helpers.rand(-blowSize, blowSize),
+							opacity: 1
+						}, {
+							duration: 500 + blowSize,
+							easing: 'easeInOutQuad',
+							delay: (this.o.delay || 0) + helpers.rand(0, 100)
+						}).velocity({
+							top: "" + top + "%",
+							translateY: 0,
+							marginTop: 0,
+							opacity: -2
+						}, {
+							duration: this.o.duration || 2500,
+							easing: 'easeInOutExp'
+						}));
+					}
+					return _results;
+				};
+
+				return Spark;
+
+			})();
+
+			window.Spark = Spark;
+
+		}).call(this);
+
+		(function() {
+			var Bubbles;
+
+			Bubbles = (function() {
+				function Bubbles(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+				}
+
+				Bubbles.prototype.vars = function() {
+					this.$el = helpers.createDiv({
+						"class": "bubbles"
+					});
+					return this.$proto = $('<div class="bubble" />');
+				};
+
+				Bubbles.prototype.init = function() {
+					var $bit, i, size, _i, _len, _ref, _results;
+					this.bits = helpers.cloneBits(this.$proto, 30, this.$el);
+					_ref = this.bits;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						$bit = _ref[i];
+						size = helpers.rand(12, 24);
+						_results.push($bit.css({
+							width: size,
+							height: size,
+							borderWidth: size / 2
+						}));
+					}
+					return _results;
+				};
+
+				Bubbles.prototype.run = function(delay) {
+					var $bit, i, _i, _len, _ref;
+					_ref = this.bits;
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						$bit = _ref[i];
+						$bit.velocity({
+							top: '-10%',
+							borderWidth: 0,
+							translateX: helpers.rand(-120, 120),
+							translateY: helpers.rand(0, 300),
+							opacity: 100
+						}, {
+							duration: 1400,
+							delay: helpers.rand(i * 25, i * 25 + 1000) + delay
+						});
+					}
+					return this.$el.velocity({
+						marginTop: 0
+					}, {
+						duration: 1000,
+						delay: delay
+					});
+				};
+
+				return Bubbles;
+
+			})();
+
+			window.Bubbles = Bubbles;
+
+		}).call(this);
+
+		(function() {
+			var Drop;
+
+			Drop = (function() {
+				function Drop(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+				}
+
+				Drop.prototype.vars = function() {
+					return this.$proto = $('<div class="circle c-green-g drop" />');
+				};
+
+				Drop.prototype.init = function() {
+					this.radius = this.o.radius;
+					if(this.radius == null) {
+						this.radius = 200;
+					}
+					this.cnt = this.radius / 10;
+					return this.$els = helpers.cloneBits(this.$proto, this.cnt, this.o.$container);
+				};
+
+				Drop.prototype.run = function() {
+					var $el, angle, centerX, centerY, coef, delay, delayStep, i, left, left2, step, stepCalc, top, top2, _i, _j, _k, _len, _ref, _results;
+					step = (2 * Math.PI) / this.cnt;
+					angle = 0;
+					centerX = 0;
+					centerY = 0;
+					_ref = this.$els;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						$el = _ref[i];
+						left = parseInt(centerX + (Math.cos(angle) * (this.radius / 1.25)), 10);
+						top = parseInt(centerY + (Math.sin(angle) * (this.radius / 1.25)), 10);
+						$el.css({
+							marginLeft: left,
+							marginTop: top
+						});
+						left2 = parseInt(centerY + (Math.cos(angle) * (1.1 * this.radius)), 10);
+						top2 = parseInt(centerY + (Math.sin(angle) * (1.1 * this.radius)), 10);
+						left2 -= left;
+						top2 -= top;
+						$el.velocity({
+							translateX: left2,
+							translateY: top2,
+							opacity: 1
+						}, {
+							delay: this.o.i * 15,
+							easing: 'easeOutElastic',
+							duration: 1500
+						});
+						coef = 1;
+						if(left >= 0) {
+							delayStep = 100 * coef;
+							stepCalc = 50;
+							for(i = _j = 0; _j <= 1200; i = _j += stepCalc) {
+								if((top >= i) && (top <= i + stepCalc)) {
+									delay = (i / stepCalc) * delayStep;
+								}
+							}
+							delayStep = 20 * coef;
+							for(i = _k = 0; _k <= 1200; i = _k += stepCalc) {
+								if((top <= -i) && (top >= -i - stepCalc)) {
+									delay = (i / stepCalc) * delayStep;
+								}
+							}
+							if(delay == null) {
+								delay = 100 * coef;
+							}
+							$el.velocity({
+								translateX: -helpers.rand(20, 400),
+								translateY: helpers.rand(-600, 600),
+								left: 0
+							}, {
+								delay: ((10 - this.o.i) * 50 * coef) + delay + helpers.rand(0, delayStep) + 3350,
+								duration: 1000 * coef
+							});
+						}
+						_results.push(angle += step);
+					}
+					return _results;
+				};
+
+				return Drop;
+
+			})();
+
+			window.Drop = Drop;
+
+		}).call(this);
+
+		(function() {
+			var Cloud, CloudBit;
+
+			Cloud = (function() {
+				function Cloud(o) {
+					var timeout;
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+					timeout = setTimeout((function(_this) {
+						return function() {
+							clearTimeout(timeout);
+							return _this.hide();
+						};
+					})(this), this.o.hideDelay);
+				}
+
+				Cloud.prototype.vars = function() {
+					this.$el = helpers.createDiv({
+						"class": 'center c-green-g'
+					});
+					return window.$cloud = this.$el;
+				};
+
+				Cloud.prototype.init = function() {
+					var className;
+					className = 'inherit-bg circle center';
+					this.bits = [];
+					this.bits.push(new CloudBit({
+						width: 90,
+						height: 120,
+						deg: 5,
+						"class": className,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 80,
+						height: 90,
+						deg: 45,
+						"class": className,
+						shiftY: 40,
+						shiftX: -5,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 80,
+						height: 100,
+						deg: -35,
+						"class": className,
+						shiftY: 20,
+						shiftX: -90,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 60,
+						height: 60,
+						deg: 0,
+						"class": className,
+						shiftY: 30,
+						shiftX: -40,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 70,
+						height: 70,
+						deg: 10,
+						"class": className,
+						shiftX: 55,
+						shiftY: 40,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 60,
+						height: 30,
+						deg: 0,
+						"class": className,
+						shiftX: 75,
+						shiftY: 60,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 70,
+						height: 30,
+						deg: 0,
+						"class": className,
+						shiftX: -100,
+						shiftY: 60,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 80,
+						height: 50,
+						deg: 0,
+						"class": className,
+						shiftX: -60,
+						shiftY: 55,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 40,
+						height: 30,
+						deg: 0,
+						"class": className,
+						shiftX: 25,
+						shiftY: 55,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 10,
+						height: 10,
+						deg: 0,
+						"class": className,
+						shiftX: 103,
+						shiftY: 65,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 5,
+						height: 5,
+						deg: 0,
+						"class": className,
+						shiftX: 110,
+						shiftY: 66,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					this.bits.push(new CloudBit({
+						width: 10,
+						height: 10,
+						deg: 0,
+						"class": className,
+						shiftX: -128,
+						shiftY: 65,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+					return this.bits.push(new CloudBit({
+						width: 8,
+						height: 5,
+						deg: 0,
+						"class": className,
+						shiftX: -135,
+						shiftY: 65,
+						container: this.$el,
+						delay: this.o.delay,
+						hideDelay: this.o.hideDelay
+					}));
+				};
+
+				Cloud.prototype.hide = function() {
+					var bit, i, _i, _len, _ref, _results;
+					_ref = this.bits;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						bit = _ref[i];
+						_results.push(bit.hide());
+					}
+					return _results;
+				};
+
+				return Cloud;
+
+			})();
+
+			CloudBit = (function() {
+				function CloudBit(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.$el = helpers.createDiv({
+						"class": this.o["class"],
+						container: this.o.container
+					});
+					this.setAttrs();
+					this.loop();
+					this.show();
+				}
+
+				CloudBit.prototype.vars = function() {
+					this.scale = 0;
+					return this.opacity = 0;
+				};
+
+				CloudBit.prototype.setAttrs = function() {
+					var _base, _base1;
+					return this.$el.css({
+						width: this.o.width,
+						height: this.o.height,
+						marginLeft: (-this.o.width / 2) + ((_base = this.o).shiftX != null ? _base.shiftX : _base.shiftX = 0),
+						marginTop: (-this.o.height / 2) + ((_base1 = this.o).shiftY != null ? _base1.shiftY : _base1.shiftY = 0),
+						'opacity': 0
+					}).velocity({
+						scale: 0
+					}, {
+						duration: 0
+					});
+				};
+
+				CloudBit.prototype.show = function() {
+					return this.$el.velocity({
+						opacity: 100,
+						scale: 1
+					}, {
+						easing: 'easeOutElastic',
+						delay: this.o.delay + helpers.rand(0, 100),
+						duration: 1200
+					});
+				};
+
+				CloudBit.prototype.loop = function() {
+					return this.$el.velocity({
+						scaleX: .9,
+						scaleY: 1,
+						translateX: this.o.width / 20,
+						translateY: 0,
+						rotateZ: this.o.deg
+					}, {
+						duration: 500
+					}).velocity({
+						scaleY: .9,
+						scaleX: 1,
+						translateX: 0,
+						translateY: this.o.height / 20,
+						rotateZ: this.o.deg,
+						complete: (function(_this) {
+							return function() {
+								return !_this.disallowAnimation && _this.loop();
+							};
+						})(this)
+					}, {
+						duration: 500
+					});
+				};
+
+				CloudBit.prototype.destroy = function() {
+					return this.disallowAnimation = true;
+				};
+
+				CloudBit.prototype.hide = function() {
+					this.destroy();
+					return this.$el.velocity({
+						scale: 0,
+						translateX: -500
+					}, {
+						duration: 750
+					});
+				};
+
+				return CloudBit;
+
+			})();
+
+			window.Cloud = Cloud;
+
+		}).call(this);
+
+		(function() {
+			var Thunder;
+
+			Thunder = (function() {
+				function Thunder(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+				}
+
+				Thunder.prototype.vars = function() {
+					this.$background = $('#js-thunder-bg');
+					this.$robust = $('#js-robust');
+					this.$robustScreen = $('#js-robust-screen');
+					this.$robustScreen2 = $('#js-robust-screen2');
+					return this.boomCnt = 0;
+				};
+
+				Thunder.prototype.init = function() {
+					this.spark1 = new Spark({
+						shiftY: -140,
+						shiftX: -120,
+						top: 100,
+						blowSize: 50
+					});
+					this.spark2 = new Spark({
+						shiftY: -80,
+						shiftX: -210,
+						top: 100,
+						blowSize: 50
+					});
+					this.spark3 = new Spark({
+						shiftY: -100,
+						shiftX: 50,
+						top: 100,
+						blowSize: 75
+					});
+					this.spark4 = new Spark({
+						shiftY: -120,
+						shiftX: -190,
+						top: 100
+					});
+					this.$bit = helpers.createDiv({
+						"class": 'c-grey-g center circle'
+					});
+					this.$bit.css({
+						width: 2,
+						height: 0,
+						marginLeft: -1,
+						'transform-origin': 'top center'
+					});
+					return this.thunder = helpers.cloneBits(this.$bit, 20);
+				};
+
+				Thunder.prototype.run = function() {
+					return setTimeout((function(_this) {
+						return function() {
+							_this.makeBoom(_this.thunder, _this.$bit);
+							return setTimeout(function() {
+								return _this.makeBoom(_this.thunder, _this.$bit);
+							}, 320);
+						};
+					})(this), this.o.delay);
+				};
+
+				Thunder.prototype.makeBoom = function(thunder, $bit) {
+					var $bit1, $prevBit, i, jump, sign, size, _fn, _i, _len;
+					this.boomCnt++;
+					this.prevAngle = 100;
+					$prevBit = $bit;
+					$bit.css({
+						'z-index': 9
+					});
+					$cloud.addClass('c-grey-g').removeClass('c-green-g');
+					this.$robust.css('color', '#383838');
+					this.$background.velocity({
+						'opacity': 1
+					}, {
+						duration: 40
+					}).velocity({
+						'opacity': 0
+					}, {
+						delay: 200,
+						duration: 40,
+						complete: (function(_this) {
+							return function() {
+								$cloud.removeClass('c-grey-g').addClass('c-green-g');
+								return _this.$robust.css('color', '#00FFC6');
+							};
+						})(this)
+					});
+					_fn = function(i) {
+						return $bit1.velocity({
+							height: size.height,
+							rotateZ: size.angle,
+							opacity: 1,
+							width: 4,
+							marginLeft: -2
+						}, {
+							duration: 200
+						}).velocity({
+							width: 0,
+							marginLeft: 0
+						}, {
+							duration: 50
+						});
+					};
+					for(i = _i = 0, _len = thunder.length; _i < _len; i = ++_i) {
+						$bit1 = thunder[i];
+						$bit1.css({
+							top: '100%',
+							opacity: 0
+						});
+						$prevBit.append($bit1);
+						size = this.calcSize(i);
+						_fn(i);
+						$prevBit = $bit1;
+					}
+					this.s = 1;
+					if(this.boomCnt === 1) {
+						this.$robust.css({
+							'transform-origin': 'center bottom'
+						});
+						sign = helpers.rand(-1, 1);
+						(sign === 0) && (sign = 1);
+						this.$robust.velocity({
+							rotateZ: helpers.rand(15, 25) * sign
+						}, {
+							duration: 100 * this.s,
+							delay: 160 * this.s
+						}).velocity({
+							rotateZ: 0
+						}, {
+							duration: 500 * this.s,
+							easing: 'easeOutBounce'
+						});
+						jump = 100;
+						this.$robustScreen.velocity({
+							marginTop: -jump
+						}, {
+							duration: 50 * this.s,
+							delay: 160 * this.s
+						});
+						this.$robustScreen2.velocity({
+							marginTop: jump
+						}, {
+							duration: 900 * this.s,
+							delay: 150 * this.s,
+							easing: 'easeOutBounce'
+						});
+					}
+					if(this.boomCnt === 1) {
+						this.spark1.run();
+						setTimeout((function(_this) {
+							return function() {
+								return _this.spark3.run();
+							};
+						})(this), 100);
+					}
+					if(this.boomCnt === 2) {
+						this.spark2.run();
+						return setTimeout((function(_this) {
+							return function() {
+								return _this.spark4.run();
+							};
+						})(this), 50);
+					}
+				};
+
+				Thunder.prototype.calcSize = function(i) {
+					var angle, height;
+					angle = 0;
+					if(i === 0) {
+						angle = helpers.rand(15, 25);
+						height = 50;
+					} else {
+						if(i % 2 === 0) {
+							angle = -this.prevAngle + helpers.rand(0, 10);
+							this.prevAngle = angle;
+							height = helpers.rand(40, 150);
+						} else {
+							angle = -this.prevAngle + helpers.rand(0, 20);
+							height = helpers.rand(10, 40);
+							this.prevAngle = angle;
+						}
+					}
+					return {
+						angle: angle,
+						height: height
+					};
+				};
+
+				return Thunder;
+
+			})();
+
+			window.Thunder = Thunder;
+
+		}).call(this);
+
+		(function() {
+
+		}).call(this);
+
+		(function() {
+			var Main;
+
+			Main = (function() {
+				function Main(o) {
+					this.o = o != null ? o : {};
+					this.vars();
+					this.init();
+				}
+
+				Main.prototype.vars = function() {
+					var $lineProto, i;
+					this.$fast = $('#js-fast');
+					this.$car1 = $('#js-car1');
+					this.$car2 = $('#js-car2');
+					this.$arrow1 = $('#js-arrow1');
+					this.$arrow2 = $('#js-arrow2');
+					this.$arrow3 = $('#js-arrow3');
+					this.$arrow4 = $('#js-arrow4');
+					this.$arrowWrap = $('#js-arrow-wrap');
+					this.$robust = $('#js-robust');
+					this.$robustShade1 = this.$robust.find('#js-robust-shade1');
+					this.$robustShade2 = this.$robust.find('#js-robust-shade2');
+					this.$easy = $('#js-easy');
+					this.$easyWrapper = $('#js-easy-wrapper');
+					this.$easyText = $('#js-easy-text');
+					this.$easyScreen = $('#js-easy-screen');
+					this.$screen1 = $('#js-screen1');
+					this.$screen2 = $('#js-screen2');
+					this.$logosScreen = $('#js-logos-screen');
+					this.$restart = $('#js-restart');
+					this.$github = $('#js-github');
+					this.$lego = $('#js-lego');
+					this.$easyLine1 = $('#js-easy-line1');
+					this.$easyLine2 = $('#js-easy-line2');
+					this.$restart.on('click', function() {
+						return location.href = location.href;
+					});
+					this.$velocity = $('#js-velocity');
+					this.$line = $('#js-line');
+					$lineProto = this.$line.clone();
+					$lineProto.css({
+						top: '100%',
+						transform: "none"
+					});
+					this.lines = helpers.cloneBits($lineProto, 20, this.$screen1);
+					this.thunder = new Thunder;
+					this.drops = (function() {
+						var _i, _results;
+						_results = [];
+						for(i = _i = 0; _i < 10; i = ++_i) {
+							_results.push(new Drop({
+								radius: i * 50,
+								i: i,
+								$container: this.$screen2
+							}));
+						}
+						return _results;
+					}).call(this);
+					return this.bubbles = new Bubbles;
+				};
+
+				Main.prototype.init = function() {
+					this.s = 1;
+					this.car1(0);
+					this.car2(700);
+					this.arrows();
+					this.throwFA(2200);
+					this.shiftRobustArrow(3400);
+					this.fallRobust(3800);
+					this.showCloud(3200 * this.s);
+					this.showThunder(5200 * this.s);
+					this.waterDrop(7400 * this.s);
+					this.showBubbles(8800 * this.s);
+					this.shiftScreen(10900 * this.s);
+					this.blow(12100 * this.s);
+					return this.showLogos(14000 * this.s);
+				};
+
+				Main.prototype.showLogos = function(delay) {
+					return this.$logosScreen.velocity({
+						opacity: 1
+					}, {
+						delay: delay,
+						complete: (function(_this) {
+							return function() {
+								var amount;
+								_this.$logosScreen.show();
+								amount = 15;
+								_this.$github.velocity({
+									translateY: -amount
+								}, {
+									duration: 1
+								}).velocity({
+									translateY: 0,
+									opacity: 1
+								}, {
+									easing: 'easeInOutQuad',
+									duration: 1500 * _this.s,
+									delay: 0 * _this.s
+								});
+								_this.$lego.velocity({
+									translateY: amount
+								}, {
+									duration: 1
+								}).velocity({
+									translateY: 0,
+									opacity: 1
+								}, {
+									easing: 'easeInOutQuad',
+									duration: 1500 * _this.s,
+									delay: 0 * _this.s
+								});
+								return _this.$restart.velocity({
+									translateY: -amount
+								}, {
+									duration: 1
+								}).velocity({
+									opacity: 1,
+									translateY: 0
+								}, {
+									easing: 'easeInOutQuad',
+									duration: 1500 * _this.s,
+									delay: 0 * _this.s
+								});
+							};
+						})(this)
+					});
+				};
+
+				Main.prototype.blow = function(delay) {
+					var $child, childs, coef, i, _i, _ref;
+					coef = 1;
+					childs = this.$velocity.children();
+					for(i = _i = _ref = childs.length - 1; _ref <= 0 ? _i <= 0 : _i >= 0; i = _ref <= 0 ? ++_i : --_i) {
+						$child = $(childs[i]);
+						$child.velocity({
+							translateX: -2000,
+							translateY: -200 - helpers.rand(0, 400),
+							rotateZ: helpers.rand(-500, 500)
+						}, {
+							delay: delay + ((childs.length - i) * 75),
+							duration: 2000 * this.s * coef
+						});
+					}
+					return setTimeout((function(_this) {
+						return function() {
+							var $line, _j, _len, _ref1, _results;
+							_ref1 = _this.lines;
+							_results = [];
+							for(i = _j = 0, _len = _ref1.length; _j < _len; i = ++_j) {
+								$line = _ref1[i];
+								_results.push((function(i) {
+									return $line.velocity({
+										rotateZ: -90
+									}, {
+										duration: 600 * _this.s * coef,
+										delay: 450 + ((_this.lines.length - i) * 100 * coef),
+										easing: 'easeOutBounce',
+										complete: function() {
+											return $(this).css({
+												'display': 'none'
+											});
+										}
+									});
+								})(i));
+							}
+							return _results;
+						};
+					})(this), delay);
+				};
+
+				Main.prototype.shiftScreen = function(delay) {
+					var dur;
+					dur = 1400 * this.s;
+					this.$screen1.velocity({
+						translateX: -2000
+					}, {
+						delay: delay,
+						duration: dur
+					});
+					this.$screen2.velocity({
+						left: '-50%'
+					}, {
+						delay: delay,
+						duration: dur
+					});
+					return this.$velocity.velocity({
+						translateX: -1500
+					}, {
+						delay: delay,
+						duration: dur
+					});
+				};
+
+				Main.prototype.showBubbles = function(delay) {
+					this.bubbles.run(delay);
+					return setTimeout((function(_this) {
+						return function() {
+							var $line, h, i, y, _i, _len, _ref, _results;
+							_this.$easyText.css({
+								height: 240,
+								width: 240
+							}).velocity({
+								translateX: -120,
+								translateY: -120
+							}, {
+								duration: 1400 * _this.s,
+								delay: 115 * _this.s
+							});
+							_this.$easy.velocity({
+								width: 0,
+								height: 0
+							}, {
+								duration: 1400 * _this.s
+							});
+							_this.$line.velocity({
+								height: 200,
+								translateY: -200
+							}, {
+								delay: 1000 * _this.s,
+								duration: 700 * _this.s
+							}).velocity({
+								top: '100%'
+							}, {
+								easing: 'easeInExpo',
+								duration: 500 * _this.s
+							}).velocity({
+								rotateZ: 20
+							}, {
+								duration: 1
+							}).velocity({
+								rotateZ: 0
+							}, {
+								easing: 'quake',
+								duration: 1500 * _this.s
+							});
+							_ref = _this.lines;
+							_results = [];
+							for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+								$line = _ref[i];
+								y = (i + 1) % 5 === 0 ? -200 : -100;
+								h = (i + 1) % 5 === 0 ? 200 : 100;
+								$line.css({
+									height: h,
+									marginLeft: "" + (-1 + ((i + 1) * 100)) + "px",
+									transform: "rotate(20deg)"
+								});
+								_results.push($line.velocity({
+									translateY: y
+								}, {
+									delay: 2250 + (i * 50),
+									duration: 100 * _this.s
+								}));
+							}
+							return _results;
+						};
+					})(this), delay);
+				};
+
+				Main.prototype.waterDrop = function(delay) {
+					return setTimeout((function(_this) {
+						return function() {
+							_this.$easy.velocity({
+								width: 240,
+								height: 240
+							}, {
+								easing: 'easeOutElastic',
+								duration: 1500 * _this.s
+							});
+							_this.$easyWrapper.velocity({
+								rotateZ: -30
+							}, {
+								duration: 1
+							}).velocity({
+								rotateZ: 0
+							}, {
+								easing: 'quake',
+								duration: 6000 * _this.s
+							});
+							return setTimeout(function() {
+								var drop, _i, _len, _ref;
+								_ref = _this.drops;
+								for(_i = 0, _len = _ref.length; _i < _len; _i++) {
+									drop = _ref[_i];
+									drop.run();
+								}
+								return _this.$robust.velocity({
+									top: '100%',
+									marginTop: 0
+								});
+							}, 100);
+						};
+					})(this), delay);
+				};
+
+				Main.prototype.showThunder = function(delay) {
+					return setTimeout((function(_this) {
+						return function() {
+							return _this.thunder.run();
+						};
+					})(this), delay);
+				};
+
+				Main.prototype.showCloud = function(delay) {
+					return this.cloud = new Cloud({
+						delay: delay,
+						hideDelay: 6000 * this.s
+					});
+				};
+
+				Main.prototype.car1 = function(delay) {
+					var $child, child, i, _i, _len, _ref, _results;
+					this.$car1.velocity({
+						right: '-40%',
+						opacity: 2
+					}, {
+						duration: 400 * this.s,
+						delay: delay * this.s
+					});
+					this.fastChilds = this.$fast.children();
+					_ref = this.fastChilds;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						child = _ref[i];
+						$child = $(child);
+						$child = $child.find('#js-bit-inner');
+						_results.push($child.velocity({
+							rotateZ: 40
+						}, {
+							delay: (delay + 160 + (i * 15)) * this.s,
+							duration: 100 * this.s
+						}).velocity({
+							rotateZ: 0
+						}, {
+							delay: (60 + (i * 15)) * this.s,
+							duration: 5000 * this.s,
+							easing: 'quake'
+						}));
+					}
+					return _results;
+				};
+
+				Main.prototype.car2 = function(delay) {
+					var $child, child, i, _i, _len, _ref, _results;
+					this.$car2.velocity({
+						left: '-40%',
+						opacity: 1
+					}, {
+						delay: delay * this.s,
+						duration: 400 * this.s
+					});
+					_ref = this.fastChilds;
+					_results = [];
+					for(i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+						child = _ref[i];
+						$child = $(child);
+						$child = $child.find('#js-span');
+						$child.css({
+							'transform-origin': 'center top'
+						});
+						_results.push($child.velocity({
+							rotateZ: 40
+						}, {
+							delay: (delay + 160 + (this.fastChilds.length - i) * 15) * this.s,
+							duration: 100 * this.s
+						}).velocity({
+							rotateZ: 0
+						}, {
+							delay: (60 + (this.fastChilds.length - i) * 15) * this.s,
+							duration: 5000 * this.s,
+							easing: 'quake'
+						}));
+					}
+					return _results;
+				};
+
+				Main.prototype.fallRobust = function(delay) {
+					var $arrow, arrows, i, _i, _len;
+					this.$robust.velocity({
+						top: '100%',
+						rotateZ: -50,
+						marginTop: -55
+					}, {
+						delay: delay * this.s,
+						easing: 'easeInQuad',
+						duration: 300 * this.s
+					}).velocity({
+						rotateZ: 0
+					}, {
+						duration: 500 * this.s,
+						easing: 'easeOutBounce'
+					});
+					arrows = [this.$arrow1, this.$arrow2, this.$arrow3];
+					for(i = _i = 0, _len = arrows.length; _i < _len; i = ++_i) {
+						$arrow = arrows[i];
+						$arrow.velocity({
+							'top': '100%',
+							marginTop: 0,
+							rotateZ: 60 + helpers.rand(0, 20)
+						}, {
+							easing: 'easeInQuad'
+						}).velocity({
+							rotateZ: 90
+						}, {
+							easing: 'easeOutBounce',
+							duration: 400 * this.s,
+							complete: function() {
+								return $(this).hide();
+							}
+						});
+					}
+					return this.$arrow4.velocity({
+						'top': '100%',
+						marginTop: 0,
+						rotateZ: 60 + helpers.rand(0, 20)
+					}, {
+						easing: 'easeInQuad'
+					}).velocity({
+						rotateZ: 90
+					}, {
+						easing: 'easeOutBounce',
+						duration: 400 * this.s,
+						complete: function() {
+							return $(this).hide();
+						}
+					});
+				};
+
+				Main.prototype.shiftRobustArrow = function(delay) {
+					this.$arrowWrap.velocity({
+						translateX: -208
+					}, {
+						delay: delay * this.s
+					});
+					return this.$robustShade1.velocity({
+						marginLeft: -208
+					}, {
+						delay: delay * this.s,
+						complete: (function(_this) {
+							return function() {
+								_this.$robustShade2.hide();
+								return _this.$fast.hide();
+							};
+						})(this)
+					});
+				};
+
+				Main.prototype.throwFA = function(delay) {
+					var $child, angle, attrs2, i, _i, _results;
+					_results = [];
+					for(i = _i = 0; _i <= 1; i = ++_i) {
+						$child = $(this.fastChilds[i]);
+						$child.css({
+							'transform-origin': 'center center',
+							'position': 'absolute'
+						});
+						if(i === 1) {
+							angle = 280;
+							_results.push($child.velocity({
+								rotateZ: angle / 5,
+								left: '45%',
+								top: '55%'
+							}, {
+								duration: 50 * this.s,
+								easing: 'linear',
+								delay: delay * this.s
+							}).velocity({
+								rotateZ: angle,
+								left: '-10%',
+								top: '110%'
+							}, {
+								duration: 1000 * this.s,
+								easing: 'linear'
+							}));
+						} else {
+							angle = 600;
+							attrs2 = {
+								rotateZ: angle + helpers.rand(0, 40),
+								left: '-10%',
+								top: '20%'
+							};
+							_results.push($child.velocity({
+								rotateZ: angle / 10,
+								left: '50%',
+								top: '50%'
+							}, {
+								duration: 50 * this.s,
+								easing: 'linear',
+								delay: delay * this.s
+							}).velocity(attrs2, {
+								duration: 1000 * this.s,
+								easing: 'linear'
+							}));
+						}
+					}
+					return _results;
+				};
+
+				Main.prototype.arrows = function() {
+					var angle, arrowAngle, delay, duration;
+					arrowAngle = 20;
+					delay = 1400;
+					duration = 2000;
+					angle = arrowAngle + helpers.rand(0, arrowAngle);
+					this.$arrow1.velocity({
+						rotateZ: 90,
+						left: '150%'
+					}, {
+						duration: 1,
+						delay: delay * this.s
+					}).velocity({
+						left: '70%',
+						top: '50%',
+						rotateZ: angle
+					}, {
+						duration: 400 * this.s
+					}).velocity({
+						rotateZ: 1.5 * angle
+					}, {
+						duration: 1
+					}).velocity({
+						rotateZ: angle
+					}, {
+						duration: duration * this.s,
+						easing: 'quake'
+					});
+					angle = arrowAngle + helpers.rand(0, arrowAngle);
+					this.$arrow2.velocity({
+						rotateZ: 90,
+						left: '150%'
+					}, {
+						duration: 1,
+						delay: (delay + 200) * this.s
+					}).velocity({
+						left: '10%',
+						top: '50%',
+						rotateZ: angle
+					}, {
+						duration: 400 * this.s
+					}).velocity({
+						rotateZ: 1.5 * angle
+					}, {
+						duration: 1
+					}).velocity({
+						rotateZ: angle
+					}, {
+						duration: duration * this.s,
+						easing: 'quake'
+					});
+					angle = arrowAngle + helpers.rand(0, arrowAngle);
+					this.$arrow3.velocity({
+						rotateZ: 90,
+						left: '150%'
+					}, {
+						duration: 1,
+						delay: (delay + 250) * this.s
+					}).velocity({
+						left: '20%',
+						top: '50%',
+						rotateZ: angle
+					}, {
+						duration: 400 * this.s
+					}).velocity({
+						rotateZ: 1.5 * angle
+					}, {
+						duration: 1
+					}).velocity({
+						rotateZ: angle
+					}, {
+						duration: duration * this.s,
+						easing: 'quake'
+					});
+					angle = 20;
+					return this.$arrow4.velocity({
+						rotateZ: 90,
+						left: '150%'
+					}, {
+						duration: 1,
+						delay: (delay + 400) * this.s
+					}).velocity({
+						left: '50%',
+						top: '50%',
+						rotateZ: angle
+					}, {
+						duration: 400 * this.s
+					}).velocity({
+						rotateZ: 1.5 * angle
+					}, {
+						duration: 1
+					}).velocity({
+						rotateZ: angle
+					}, {
+						duration: duration * this.s,
+						easing: 'quake'
+					});
+				};
+
+				return Main;
+
+			})();
+
+			setTimeout(function() {
+				return new Main;
+			}, 1000);
+
+		}).call(this);
+	</script>
+
+</html>
