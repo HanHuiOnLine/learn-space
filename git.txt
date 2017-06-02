@@ -1,0 +1,156 @@
+
+git diff 查看修改内容
+git diff HEAD -- readme.txt查看工作区readme.txt文件与版本库里面最新版本的区别
+git log  查看提交历史
+git log --pretty=oneline 整理后的提交历史
+git log --graph 可以看到分支合并图。
+git reset --hard 3628164 版本回退,其中的数字是git log 下对应的版本号,不用写全,能够模糊定位
+git reflog 记录每次命令
+git checkout -- readme.txt 让这个文件回到最近一次git commit或git add时的状态。
+//删除
+$ git rm test.txt
+$ git commit -m "remove test.txt"
+//查看内容
+git ls-files//显示工作区和暂存区文件
+git rm --cached .DS_Store//把文件.DS_Store从git的索引库中移除,但是对文件.DS_Store本身并不进行任何操作也就是说本地还是有.DS_Store文件的
+//分支
+git branch 查看分支
+git branch <name> 创建分支
+git checkout <name> 切换分支
+git checkout -b <name> 创建并切换分支
+git merge <name> 合并某分支到当前分支
+git branch -d <name> 删除分支
+git branch --set-upstream master origin/next指定master分支追踪origin/next分支,如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名
+
+git fetch
+例:
+ git fetch origin master
+ git log -p master..origin/master
+ git merge origin/master
+ 1.从远程的origin仓库的master主分支更新最新的版本到origin/master分支上
+ 2.比较本地的master分支和origin/master分支的差别
+ 3.合并内容到本地master分支
+注意:相当于git fetch 和 git merge，即更新远程仓库的代码到本地仓库，然后将内容合并到当前分支
+
+
+
+
+git基本使用
+
+声明：为方便描述：A，B，C都代表“分支”或者说“仓库”的名字
+声明：gitAddress  代表git地址
+（例如：https://github.com/dacaoyuan/SlidingMenu.git）
+
+几个专用名词的译名：
+
+Workspace : 工作区
+Index / Stage : 暂存区
+Repository : 本地仓库
+Remote : 远程仓库
+1.新建代码库
+
+git init 创建本地仓库
+git remote add origin gitAddress 本地库“关联”远程库
+Git remote remove origin 取消本地目录下关联的远程库
+
+git clone gitAddress           从远程仓库克隆项目代码
+
+git clone -b C gitAddress   从远程仓库克隆“指定分支C”上的代码
+2.增加/删除文件
+
+git add [file] 将指定文件添加到暂存区
+git add .       添加当前目录下所有文件
+git add -p 添加每个变化前，都会要求确认；对于同一个文件的多处变化，可以实现分次提交
+git add -u
+git add -A
+git rm [file1] [file2] … 删除工作区文件，并且将这次删除放入暂存区
+git rm –cached [file1 [file2] （说法1：删除本地仓储文件，但不会删除文件）；（说法2：停止追踪指定文件，但该文件会保留在工作区）这个命令可删除远程仓库中的文件
+
+删除远程仓库中的文件
+1.git rm -r --cached a/2.txt //删除a目录下的2.txt文件   
+删除a目录(文件夹) git rm -r --cached a
+2.git commit -m "删除a目录下的2.txt文件" 
+3.git push
+
+git mv [file-original] [file-renamed] 改名文件，兵器将这个改名放入暂存区
+3.代码提交
+
+git commit -m “first commit” 提交暂存区到仓库区
+git commit [file1] [file2] … -m [message] 提交暂存区的指定文件到仓库区
+git commit -a 提交工作区自上次commit之后的变化，直接到仓库区
+git commit -v 提交时显示所有diff信息
+git commit –amend [file1] [file2] … 重做上一次的commit，并包括指定文件的新变化
+git commit –amend -m [message] 使用一次新的commit，代替上一次提交；如果代码没有任何新变化，则用来改写上一次commit的提交信息
+4.分支
+
+git branch A 创建分支
+git branch -b A 创建分支A，并且切换到A分支上
+git checkout B 切换到B分支上
+git branch -a 查看所有本地分支和远程分支
+
+git merge B 合并指定分支B到当前分支
+
+git branch -d B 删除分支
+git branch -D B 删除分支 强制删除
+git push origin –-delete B 删除远程分支B
+git branch -dr [remote / branch] 也是删除远程分支
+git push origin 本地分支A：远程分支A 将本地分支push到远程分支 ，并且命名远程分支的名字为A
+git fetch origin 同步远程仓库
+5.撤销
+
+1.git checkout [file] 恢复暂存区的指定文件到工作区
+
+2：在还没有add，的时候 
+git checkout 那个路径下的文件夹或者文件名。（就能撤销未添加的修改）
+
+3：如果已经add过的文件： 
+git reset HEAD 那个路径下的文件夹或者文件名。（就能回到未添加的状态） 
+然后在用 1 中的方法撤销修改。
+
+注意：如果你把某个文件删除了，或者是新添加的文件，都不会在恢复，或者去掉，，但是会把文件中的添加的代码去掉。
+
+二.已经push
+
+粗暴的方法：（只需两行命令） 
+git reset –hard 1243ad3(commit唯一标识) 或者 git checkout （commit唯一标识 前7位） 
+git push origin HEAD –force (强行push)
+
+//放弃本地修改,强制更新
+git fetch --all
+git reset --hard origin/master
+
+6.删除
+
+git branch -D A 删除分支A
+
+7.配置
+
+git config – list 显示当前的git配置 
+git config -e [–global]编辑git配置文件
+
+设置提交代码时的用户信息 
+git config [–global] user.name 
+git config [–global] user.email
+
+8.其他
+
+git diff
+
+git status 查看当前状态
+
+1.git push origin A 将代码push到A远程仓库中 
+(例如：git push origin matser 将代码push到master远程仓库中)
+
+2.git pull gitAddress origin A 将远程仓库A中的代码，拉取到本地仓库中
+
+在本地目录下找到.git文件
+ ls -a 显示当前目录下所有文件,包括隐藏的文件
+
+删除 .git 
+ rm -rf .git
+
+git rm #删除文件 
+git rm filename
+
+git mv #修改文件名，或搬移目录 
+git mv filename newfilename
