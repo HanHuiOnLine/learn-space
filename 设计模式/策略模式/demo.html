@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>demo</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+        table, td, th {
+            border-collapse: collapse;
+            border: 1px solid #808080;
+        }
+
+        .text {
+            display: none;
+        }
+
+        td, th {
+            width: 200px;
+        }
+
+        input {
+            text-align: center;
+            width: 160px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $(".btn_edit").click(function () {
+                $(this).parents("tr").children().find("span").hide();
+                $(this).parents("tr").children().find("input[class='text']").each(function () {
+                    $(this).val($(this).siblings("span").text());
+                    $(this).show();
+                })
+                $(this).parent("div").siblings("div").show();
+                $(this).parent("div").hide();
+            })
+            $(".btn_save").click(function () {
+                var name = $(this).parents("tr").children().find("input[name='name']").val();
+                $(this).parents("tr").children().find("input[name='name']").siblings("span").text(name);
+                var age = $(this).parents("tr").children().find("input[name='age']").val();
+                $(this).parents("tr").children().find("input[name='age']").siblings("span").text(age);
+                var address = $(this).parents("tr").children().find("input[name='address']").val();
+                $(this).parents("tr").children().find("input[name='address']").siblings("span").text(address);
+                var sex = $(this).parents("tr").children().find("input[name='sex']").val();
+                $(this).parents("tr").children().find("input[name='sex']").siblings("span").text(sex);
+                //通过ajax掉后台，修改数据
+                //.....
+
+                $(this).parents("tr").children().find("input[class='text']").hide();
+                $(this).parents("tr").children().find("span").show();
+                $(this).parent("div").siblings("div").show();
+                $(this).parent("div").hide();
+
+            })
+
+            $(".btn_canel").click(function () {
+                $(this).parents("tr").children().find("input[class='text']").hide();
+                $(this).parents("tr").children().find("span").show();
+                $(this).parent("div").siblings("div").show();
+                $(this).parent("div").hide();
+            })
+
+            $(".btn_del").click(function () {
+                var id = $(this).attr("data-id");
+
+                //根据id去后台删除数据
+                //.....
+
+                $(this).parents("tr").remove();
+            })
+        })
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>名字</th>
+            <th>年龄</th>
+            <th>地址</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>
+                <span>韩慧</span>
+                <input type="text" name="name" value="韩慧" class="text" />
+            </td>
+            <td>
+                <span>45</span>
+                <input type="text" name="age" value="45" class="text" />
+            </td>
+            <td>
+                <span>人民路</span>
+                <input type="text" name="address" value="人民路" class="text" />
+            </td>
+            <td>
+                <span>女</span>
+                <input type="text" name="sex" value="女" class="text" />
+            </td>
+            <td>
+                <div style="display: none;">
+                    <a href="javascript:;" class="btn_save">保存</a>
+                    <a href="javascript:;" class="btn_canel">取消</a>
+                </div>
+                <div>
+                    <a href="javascript:;" class="btn_edit">编辑</a>
+                    <a href="javascript:;" class="btn_del">删除</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>韩慧</span>
+                <input type="text" name="name" value="韩慧" class="text" />
+            </td>
+            <td>
+                <span>45</span>
+                <input type="text" name="age" value="45" class="text" />
+            </td>
+            <td>
+                <span>人民路</span>
+                <input type="text" name="address" value="人民路" class="text" />
+            </td>
+            <td>
+                <span>女</span>
+                <input type="text" name="sex" value="女" class="text" />
+            </td>
+            <td>
+                <div style="display: none;">
+                    <a href="javascript:;" class="btn_save">保存</a>
+                    <a href="javascript:;" class="btn_canel">取消</a>
+                </div>
+                <div>
+                    <a href="javascript:;" class="btn_edit" data-id="1">编辑</a>
+                    <a href="javascript:;" class="btn_del" data-id="1">删除</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>韩慧</span>
+                <input type="text" name="name" value="韩慧" class="text" />
+            </td>
+            <td>
+                <span>45</span>
+                <input type="text" name="age" value="45" class="text" />
+            </td>
+            <td>
+                <span>人民路</span>
+                <input type="text" name="address" value="人民路" class="text" />
+            </td>
+            <td>
+                <span>女</span>
+                <input type="text" name="sex" value="女" class="text" />
+            </td>
+            <td>
+                <div style="display: none;">
+                    <a href="javascript:;" class="btn_save">保存</a>
+                    <a href="javascript:;" class="btn_canel">取消</a>
+                </div>
+                <div>
+                    <a href="javascript:;" class="btn_edit">编辑</a>
+                    <a href="javascript:;" class="btn_del">删除</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>韩慧</span>
+                <input type="text" name="name" value="韩慧" class="text" />
+            </td>
+            <td>
+                <span>45</span>
+                <input type="text" name="age" value="45" class="text" />
+            </td>
+            <td>
+                <span>人民路</span>
+                <input type="text" name="address" value="人民路" class="text" />
+            </td>
+            <td>
+                <span>女</span>
+                <input type="text" name="sex" value="女" class="text" />
+            </td>
+            <td>
+                <div style="display: none;">
+                    <a href="javascript:;" class="btn_save">保存</a>
+                    <a href="javascript:;" class="btn_canel">取消</a>
+                </div>
+                <div>
+                    <a href="javascript:;" class="btn_edit">编辑</a>
+                    <a href="javascript:;" class="btn_del">删除</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

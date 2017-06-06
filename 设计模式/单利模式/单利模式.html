@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charst="utf-8">
+<title>单利模式的实现</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//单例模式的核心是确保只有一个实例，并提供全局访问
+	var SingletonTester=(function () {
+		function Singleton (args) {
+			//设置args变量为接受的参数或者为空（没有提供的话）；
+			var args=args || {};
+			//设置name参数
+			this.name='SingletonTester';
+			//设置pointX的值
+			this.pointX=args.pointX || 6;//从接收的参数里面获得或者为默认值
+			//设置pointY值
+			this.pointY=args.pointY || 10;
+		}
+		//实例容器
+		var instance;
+		var _static={
+			name:'SingletonTester',
+			//获取实例的方法
+			//返回Singleton的实例
+			getInstance:function (args){
+				if (instance === undefined) {
+					instance = new Singleton(args);
+				}
+				return instance;
+			}
+		};
+		return _static;
+	})()
+	var singleTest=SingletonTester.getInstance({name:'hanhui',pointY:4,pointX:8});
+	console.log(singleTest.pointY);
+</script>
+</html>

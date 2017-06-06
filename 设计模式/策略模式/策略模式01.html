@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>策略模式的定义</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//策略模式的定义
+	//定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。
+
+	/*
+		例子：
+		很多公司的年终奖是根据员工的工资基数和年底绩效情况来发放的。例如，绩效为 S的人年
+        终奖有 4倍工资，绩效为 A的人年终奖有 3倍工资，而绩效为 B的人年终奖是 2倍工资。假设财
+        务部要求我们提供一段代码，来方便他们计算员工的年终奖。
+	*/
+	//常规思维的实现
+
+	var calculateBonus = function (performanceLevel, salary) {
+		if (performanceLevel === 'S') {
+			return salary*4;		
+		} else if (performanceLevel === 'A') {
+			return salary*3;
+		} else if (performanceLevel === 'B') {
+			return salary*2;
+		}
+	};
+	console.log(calculateBonus('A', 200));
+	/*
+	缺点：
+		1.calculateBonus 函数比较庞大，包含了很多 if-else 语句，这些语句需要覆盖所有的逻辑分支；
+		2.calculateBonus 函数缺乏弹性，如果增加了一种新的绩效等级 C，或者想把绩效 S 的奖金系数改为 5，那我们必须深入  calculateBonus 函数的内部实现，这是违反开放封闭原则的。
+		3.算法的复用性差，如果在程序的其他地方需要重用这些计算奖金的算法呢？我们的选择只有复制和粘贴
+	*/ 
+	
+	//改进版
+
+	var performanceS = function (salary) {
+		return salary*4;
+	};
+
+	var performanceA = function (salary) {
+		return salary*3;
+	};
+
+	var performanceB = function (salary) {
+		return salary*2;
+	};
+
+	var calculateBonus = function (performanceLevel, salary) {
+		if (performanceLevel === 'S') {
+			return performanceS(salary);
+		}else if (performanceLevel === 'A') {
+			return performanceA(salary);
+		}else if (performanceLevel === 'B') {
+			return performanceB(salary);
+		}
+	};
+
+	calculateBonus('A', 200);
+
+	//使用策略模式改进
+	/*策略模式指的是定义一系列的算法，把它们一个个封装起来。将不变的部分和变化的部分隔开是每个设计模式的主题，
+	  策略模式也不例外，策略模式的目的就是将算法的使用与算法的实现分离开来。
+
+	  一个基于策略模式的程序至少由两部分组成。第一个部分是一组策略类，策略类封装了具体
+	  的算法，并负责具体的计算过程。 第二个部分是环境类 Context，Context接受客户的请求，随后
+      把请求委托给某一个策略类。要做到这点，说明 Context中要维持对某个策略对象的引用
+	*/  
+
+	var performanceS = function () {};
+	performanceS.prototype.calculate = function (salary) {
+		return salary*4;
+	}
+
+	var performanceA = function () {};
+	performanceA.prototype.calculate = function (salary) {
+		return salary*3;
+	}
+
+	var performanceB = function () {};
+	performanceB.prototype.calculate = function (salary) {
+		return salary*2;
+	}
+
+	//定义奖金类
+	var Bonus = function () {
+		this.salary = null;//原始工资
+		this.strategy = null;//绩效等级对应的策略对象
+	}；
+	Bonus.prototype.setSalary = function (salary) {
+		this.salary = salary;//设置员工的原始工资
+	}
+	Bonus.prototype.setStrategy = function (strategy) {
+		this.strategy = strategy;//设置员工绩效等级对应的策略对象
+	}
+	Bonus.prototype.getBonus = function () {
+		return this.strategy.calculate( this.salary ); // 把计算奖金的操作委托给对应的策略对象
+	}
+
+	var bouns = new Bonus();
+	bouns.setSalary(100);
+	bouns.setStrategy(new performanceS());//设置策略对象
+	console.log( bonus.getBonus() );
+
+	bouns.setStrategy(new performanceA());//设置策略对象
+	console.log( bonus.getBonus() );
+
+	/*
+		典型的Javascript版
+	*/
+	var strategies = {
+		"S": function( salary ){
+			return salary * 4;
+		},
+		"A": function( salary ){
+			return salary * 3;
+		},
+		"B": function( salary ){
+			return salary * 2;
+	    }
+	}；
+	var calculateBonus = function (level, salary) {
+		return strategies[level](salary);
+	}
+	console.log( calculateBonus( 'S', 20000 ) ); // 输出：80000
+    console.log( calculateBonus( 'A', 10000 ) ); // 输出：30000    	
+
+
+</script>
+</html>
