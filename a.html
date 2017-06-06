@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	全选<input type="checkbox" id="checkAll" />
+	<br />
+	<input type="checkbox" id="1" class="checkList" />
+	<input type="checkbox" id="2" class="checkList" />
+	<input type="checkbox" id="3" class="checkList" />
+	<input type="checkbox" id="4" class="checkList" />
+	<input type="checkbox" id="5" class="checkList" />
+	<input type="checkbox" id="6" class="checkList" />
+</body>
+<script src="jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	Array.prototype.indexOf = function(val) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == val) return i;
+		}
+		return -1;
+	};
+	Array.prototype.remove = function(val) {
+		var index = this.indexOf(val);
+		if (index > -1) {
+			this.splice(index, 1);
+		}
+	};
+	var checkBox = {
+        cache: [],
+        addOrDeteleOne: function ($targetAll, $targetList) {
+        		var _self = this; 
+            $targetList.on('click', function (event) {
+                var $tr_id = $(this).attr('id');
+                console.log($(this).is(':checked'));
+                if ($(this).is(':checked')) {
+                   _self.cache.push($tr_id);
+                } else {
+                		_self.cache.remove($tr_id);              
+                }
+                _self.checkAllState($targetAll, $targetList);
+                console.log(_self.cache);
+            });
+        },
+        addOrDeleteAll: function ($targetAll, $targetList) {
+        		var _self = this;
+            $targetAll.on('click', function (event) {
+                if (!$(this).is(':checked')) {
+                   
+                    $targetList.prop('checked', false);
+                    _self.cache.splice(0, _self.cache.length);
+                } else {
+                		$targetList.prop('checked', true);
+                		$targetList.each(function (i, ele) {
+                			if (_self.cache.indexOf($(ele).attr('id')) === -1) {
+                				_self.cache.push($(ele).attr('id'));	
+                			}
+                		});
+                
+                }
+                console.log(_self.cache);
+            })
+        },
+        checkAllState: function ($targetAll, $targetList) {
+            $targetList.each(function (j, elem) {
+                if (!$(elem).is(':checked')) {
+                    $targetAll.prop('checked', false);
+                    return false;
+                } else {
+                    $targetAll.prop('checked', true);
+                }
+            })
+        },
+        empty: function () {
+            
+        }
+    };
+	checkBox.addOrDeteleOne($('#checkAll'), $('.checkList'));
+	checkBox.addOrDeleteAll($('#checkAll'), $('.checkList'));
+	
+</script>
+</html>
