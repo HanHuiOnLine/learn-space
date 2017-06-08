@@ -5,6 +5,28 @@
 	<title>Document</title>
 </head>
 <body>
+	<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
 	全选<input type="checkbox" id="checkAll" />
 	<br />
 	选项一<input type="checkbox" id="1" class="checkList" /><br>
@@ -15,6 +37,7 @@
 	选项六<input type="checkbox" id="6" class="checkList" />
 </body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	Array.prototype.indexOf = function(val) {
 		for (var i = 0; i < this.length; i++) {
@@ -79,6 +102,12 @@
     };
 	checkBox.addOrDeteleOne($('#checkAll'), $('.checkList'));
 	checkBox.addOrDeleteAll($('#checkAll'), $('.checkList'));
+	$('#example').DataTable({
+			        "ajax": './new_file.txt',
+			        fnPreDrawCallback: function () {
+			        		console.log(555);
+			        }
+			    });
 	
 </script>
 </html>
