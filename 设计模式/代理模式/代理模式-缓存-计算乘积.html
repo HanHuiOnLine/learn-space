@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>缓存，计算乘积</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	var mult = function () {
+		var a = 1;
+		for (var i=0;i<arguments.length;i++) {
+			a = a*arguments[i];
+		}
+		return a;
+	}
+
+	//设置缓存代理
+	var proxyMult = (function () {
+		var cache = {};
+		return function () {
+			var argStr = Array.prototype.join.call(arguments, ','); 
+			if (argStr in cache) {
+				return cache[argStr];
+			}
+			return cache[argStr] = mult.apply(this, arguments);
+		}
+	})();
+
+	proxyMult(1,2,3,4);
+	console.log(proxyMult(1,2,3,4));
+
+	/*
+	当我们第二次调用 proxyMult( 1, 2, 3, 4 ) 的时候，本体 mult 函数并没有被计算， proxyMult
+	直接返回了之前缓存好的计算结果。
+	通过增加缓存代理的方式， mult 函数可以继续专注于自身的职责——计算乘积，缓存的功能
+	是由代理对象实现的。
+	*/
+</script>
+</html>
