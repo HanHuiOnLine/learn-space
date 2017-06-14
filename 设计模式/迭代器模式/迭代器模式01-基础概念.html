@@ -12,15 +12,37 @@
 	的内部表示。迭代器模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即
 	使不关心对象的内部构造，也可以按顺序访问其中的每个元素。
 	*/
+	//内部迭代器
 	var each = function (arg, callback) {
 		for (var i=0;i<arg.length;i++) {
 			// 把下标和元素当作参数传给 callback 函数
 			callback.call(arg[i], i, arg[ i ]);
 		}
 	}
-	//调用
+	//调用 
 	each([1,2,3], function (i, ele) {
 		console.log(i+':'+ele);
 	})
+
+	/*
+	内部迭代器在调用的时候非常方便，外界不用关心迭代器内部的实现，跟迭代器的交互也仅
+	仅是一次初始调用，但这也刚好是内部迭代器的缺点。由于内部迭代器的迭代规则已经被提前规
+	定，上面的 each 函数就无法同时迭代 2个数组了
+	*/
+
+	//判断两个数组是否相等
+	var compare = function (ary1, ary2) {
+		if (ary1.length !== ary2.length) {
+			throw new Error('不相等');
+		}
+		each(ary1, function (i, ele) {
+			if (ele !== ary2[i]) {
+				throw new Error('不相等')
+			}
+		});
+		alert('两个数组相等');
+	}
+
+	compare([1,2,3], [1,2,4]);
 </script>
 </html>
