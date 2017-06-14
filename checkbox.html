@@ -76,6 +76,7 @@
                     _self.cache.splice(0, _self.cache.length);
                 } else {
                 		$targetList.prop('checked', true);
+                		console.log($targetList);
                 		$targetList.each(function (i, ele) {
                 			if (_self.cache.indexOf($(ele).attr('id')) === -1) {
                 				_self.cache.push($(ele).attr('id'));	
