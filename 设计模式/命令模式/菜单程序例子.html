@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>菜单程序例子</title>
+</head>
+<body>
+ 	<button id="button1">点击按钮1</button>
+ 	<button id="button2">点击按钮2</button>
+ 	<button id="button3">点击按钮3</button>
+</body>
+<script type="text/javascript">
+	/*
+	假设我们正在编写一个用户界面程序，该用户界面上至少有数十个 Button 按钮。因为项目
+比较复杂，所以我们决定让某个程序员负责绘制这些按钮，而另外一些程序员则负责编写点击按
+钮后的具体行为，这些行为都将被封装在对象里。
+	在大型项目开发中，这是很正常的分工。对于绘制按钮的程序员来说，他完全不知道某个按
+钮未来将用来做什么，可能用来刷新菜单界面，也可能用来增加一些子菜单，他只知道点击这个
+按钮会发生某些事情。那么当完成这个按钮的绘制之后，应该如何给它绑定 onclick 事件呢？
+	我们很快可以找到在这里运用命令模式的理由：点击了按钮之后，必须向某些负责具体行为
+的对象发送请求，这些对象就是请求的接收者。但是目前并不知道接收者是什么对象，也不知道
+接收者究竟会做什么。此时我们需要借助命令对象的帮助，以便解开按钮和负责具体行为对象之
+间的耦合。
+	设计模式的主题总是把不变的事物和变化的事物分离开来，命令模式也不例外。按下按钮之
+后会发生一些事情是不变的，而具体会发生什么事情是可变的。通过 command 对象的帮助，将来
+我们可以轻易地改变这种关联，因此也可以在将来再次改变按钮的行为。
+	*/
+
+	var button1 = document.getElementById('button1'),
+	    button2 = document.getElementById('button2'),
+	    button3 = document.getElementById('button3');
+	// setCommand 函数负责往按钮上面安装命令    
+	var setCommond = function (button, command) {
+		button.onclick = function () {
+			command.execute();
+		}
+	};
+
+	/*
+	最后，负责编写点击按钮之后的具体行为的程序员总算交上了他们的成果，他们完成了刷新
+菜单界面、增加子菜单和删除子菜单这几个功能，这几个功能被分布在 MenuBar 和 SubMenu 这两
+个对象中
+	*/
+	var MenuBar = {
+		refresh: function () {
+			console.log('刷新菜单目录');
+		}
+	};
+	var SubMenu = {
+		add: function () {
+			console.log('增加子菜单');
+		},
+		del: function () {
+			console.log('删除子菜单');
+		}
+	}
+
+	//在让 button 变得有用起来之前，我们要先把这些行为都封装在命令类中
+	var RefreshMenuBarCommond = function (receiver) {
+		this.receiver = receiver;
+	}
+
+	RefreshMenuBarCommond.prototype.execute = function () {
+		this.receiver.refresh();
+	}
+
+	var AddSubMebuCommond = function (receiver) {
+		this.receiver = receiver;
+	}
+
+	AddSubMebuCommond.prototype.execute = function () {
+		this.receiver.add();
+	}
+
+	var DelSubMenuBarCommond = function (receiver) {
+		this.receiver = this;
+	}    
+
+	DelSubMenuBarCommond.prototype.execute = function () {
+		console.log('删除子菜单');
+	}
+
+	var refreshMenuBarCommond = new RefreshMenuBarCommond(MenuBar),
+	    addSubMebuCommond     = new AddSubMebuCommond(SubMenu),
+	    delSubMenuBarCommond  = new DelSubMenuBarCommond(SubMenu);
+	setCommond(button1, refreshMenuBarCommond);
+	setCommond(button2, addSubMebuCommond);
+	setCommond(button3, delSubMenuBarCommond);    
+</script>
+</html>
