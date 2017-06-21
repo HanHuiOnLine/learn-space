@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<button id="button">超级遥控器</button>
+</body>
+<script type="text/javascript">
+	/*
+	现在我们需要一个“超级
+万能遥控器”，可以控制家里所有的电器，这个遥控器拥有以下功能：
+	1.打开空调
+  2.打开电视和音响
+  3.关门、开电脑、登录 QQ
+	*/
+	var MacroCommand = function () {
+		return {
+			commandsList: [],
+			add: function (command) {
+				this.commandsList.push(command);
+			},
+			excute: function () {
+				for (var i = 0, command; command = this.commandsList[i++];) {
+					command.excute();
+				}
+			}
+		}
+	};
+
+	var openAcCommand = {
+		excute: function () {
+			console.log('打开空调');
+		}
+	};
+	/*家里的电视和音响是连接在一起的，所以可以用一个宏命令来组合打开电视和打开音响的命令*/
+	var openTvCommand = {
+		excute: function () {
+			console.log('打开电视');
+		}
+	};
+	var openSoundCommand = {
+		excute: function () {
+			console.log('打开音响');
+		}
+	};
+	var macroCommand1 = MacroCommand();
+	macroCommand1.add(openTvCommand);
+	macroCommand1.add(openSoundCommand);
+	/*关门、打开电脑和打登录 QQ 的命令*/
+	var closeDoorCommand = {
+		excute: function () {
+			console.log('关门');
+		}
+	};
+	var openPcCommand = {
+		excute: function () {
+			console.log('打开电脑');
+		}
+	};
+	var openQQCommand = {
+		excute: function () {
+			console.log('登录QQ');
+		}
+	};
+	macroCommand2 = MacroCommand();
+	macroCommand2.add(closeDoorCommand);
+	macroCommand2.add(openPcCommand);
+	macroCommand2.add(openQQCommand);
+
+	/*现在把所有的命令组合成一个“超级命令*/
+	var macroCommand = MacroCommand();
+	macroCommand.add(openAcCommand);
+	macroCommand.add(macroCommand1);
+	macroCommand.add(macroCommand2);
+	/*最后给遥控器绑定“超级命令*/
+	var setCommand = (function (command) {
+		document.getElementById('button').onclick = function () {
+			command.excute();
+		}
+	})(macroCommand)
+</script>
+</html>
