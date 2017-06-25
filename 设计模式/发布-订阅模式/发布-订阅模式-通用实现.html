@@ -14,7 +14,7 @@
 				this.clientList[key] = [];
 			}
 			this.clientList[key].push(fn);//订阅的消息添加进缓存列表
-		}，
+		},
 		trigger: function () {
 			var key =  Array.prototype.shift.call(arguments),
 			    fns = this.clientList[key];
