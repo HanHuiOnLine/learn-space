@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>对象池</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	var toolTipFactory = (function () {
+		var toolTipPool = [];//对象池
+		return {
+			create: function () {
+				if (toolTipPool.length === 0) {//对象池为空
+					var div = document.createElement('div');
+					document.body.appendChild(div);
+					return div;
+				} else {
+					return toolTipPool.shift();//从对象池中取出一个dom
+				}
+			},
+			recover: function (tooltipDom) {
+				return toolTipPool.push(tooltipDom);//回收dom
+			}
+		}
+	})();
+
+	var arg = [];
+	for (var i = 0, str; str = ['A', 'B'][i++];) {
+		var toolTip = toolTipFactory.create();
+		toolTip.innerHTML = str;
+		arg.push(toolTip);
+	}
+
+	//接下来假设地图需要开始重新绘制，在此之前要把这两个节点回收进对象池
+	for (var i = 0, toolTip; toolTip = arg[i++];) {
+		toolTipFactory.recover(toolTip);
+	}
+
+	//
+	for ( var i = 0, str; str = [ 'A', 'B', 'C', 'D', 'E', 'F' ][ i++ ]; ){
+		var toolTip = toolTipFactory.create();
+		toolTip.innerHTML = str;
+	};
+
+</script>
+</html>
