@@ -26,6 +26,23 @@
 		也就是重新发布里面的事件。当然离线事件的生命周期只有一次，就像 QQ的未读消息只会被重
 		新阅读一次，所以刚才的操作我们只能进行一次
 			*/
+			/*
+			在提供最终的代码之前，我们来感受一下怎么使用这两个新增的功能。
+			//先发布后订阅
+				Event.trigger( 'click', 1 );
+				Event.listen( 'click', function( a ){ 
+					console.log( a ); // 输出:1
+				});
+			//使用命名空间
+			Event.create( 'namespace1' ).listen( 'click', function( a ){ 
+				console.log( a ); // 输出:1
+			});
+			Event.create( 'namespace1' ).trigger( 'click', 1 );
+			Event.create( 'namespace2' ).listen( 'click', function( a ){ 
+				console.log( a ); // 输出:1
+			});
+			Event.create( 'namespace2' ).trigger( 'click', 2 );
+			*/
 
 		var Event = (function() {
 			var global = this,
