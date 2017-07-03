@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<title>单利模式实例</title>
-</head>
-<body>
-<button id="login">登陆</button>
-</body>
-<script type="text/javascript">
-	/*例如；用户登陆后；进入应用；正在应用的c页面；一段时间后，登陆过期；需要在c页面弹出一个可以重新登陆的弹框；
-	  在整个应用的任何页面；都有可能会弹出这个弹框；因为不能确定登录过期的时候用户会在应用的那个页面上
-	  因此；这个弹框就是个全局的；也可以说是唯一的
-	  用单利模式实现是这样的；*/
-    
-    //管理单例的逻辑
-    var getSingle=function (fn) {
-    	var result;
-    	return function () {
-    		return result || (result = fn.apply(this,arguments));
-    	}
-    };
 
-    //创建登陆的弹框
-    var createLoginLayer = function () {
-    	var div = document.createElement('div'),
-    	    aa  = document.createElement('i');
-    	aa.innerHTML = '关闭';
-        aa.setAttribute('class','close');
-    	aa.style.color = 'red';
-    	div.innerHTML = '我是登陆弹框';
-    	div.appendChild(aa);
-    	div.style.display='none';
-    	document.body.appendChild(div);
-    	return div;
-    }
+	<head>
+		<meta charset="utf-8" />
+		<title>单利模式实例</title>
+	</head>
 
-    var createSingleLoginLayer=getSingle( createLoginLayer );
+	<body>
+		<button id="login">登陆</button>
+	</body>
+	<script type="text/javascript">
+		/*
+		  例如；用户登陆后；进入应用；正在应用的c页面；一段时间后，登陆过期；需要在c页面弹出一个可以重新登陆的弹框；
+			  在整个应用的任何页面；都有可能会弹出这个弹框；因为不能确定登录过期的时候用户会在应用的那个页面上
+			  因此；这个弹框就是个全局的；也可以说是唯一的
+			  用单利模式实现是这样的；
+		*/
 
-    document.getElementById('login').onclick = function () {
-    	var loginLayer = createSingleLoginLayer();
-    	loginLayer.style.display = 'block';
-    }
-    
-    var closeEle = document.getElementByClassName('close')[0];
-    closeEle.onclick = function () {
+		//管理单例的逻辑
+		var getSingle = function(fn) {
+			var result;
+			return function() {
+				return result || (result = fn.apply(this, arguments));
+			}
+		};
 
-    }
+		//创建登陆的弹框
+		var createLoginLayer = function() {
+			var div = document.createElement('div'),
+				aa = document.createElement('i');
+			aa.innerHTML = '关闭';
+			aa.setAttribute('class', 'close');
+			aa.style.color = 'red';
+			div.innerHTML = '我是登陆弹框';
+			div.appendChild(aa);
+			div.style.display = 'none';
+			document.body.appendChild(div);
+			return div;
+		}
 
+		var createSingleLoginLayer = getSingle(createLoginLayer);
 
+		document.getElementById('login').onclick = function() {
+			var loginLayer = createSingleLoginLayer();
+			loginLayer.style.display = 'block';
+		}
 
+		var closeEle = document.getElementByClassName('close')[0];
+		closeEle.onclick = function() {
 
-</script>
+		}
+	</script>
+
 </html>
