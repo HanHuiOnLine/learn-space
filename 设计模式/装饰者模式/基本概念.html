@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>基本概念</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	装饰者模式可以动态的给某个对象添加一些额外的职责,而不会影响从这个类中派生的其他对象
+	装饰者模式能够在不改变对象自身的基础上,在程序运行期间给对象动态的添加职责,
+	*/
+	//模拟传统面向对象语言的装饰者模式
+
+	/*
+	假设哦我们在编写一个飞机大战的游戏m,随着经验值的增加,我们操作的飞机对象可以升级成更厉害的飞机,
+	一开始这些飞机只能发射普通的子弹,升级到第二级是可以发射导弹,升级的第三极时可以发射原子弹...
+	*/
+
+	var Plane = function () {};
+	Plane.prototype.fire = function () {
+		console.log('普通的子弹');
+	}
+
+	//增加两个装饰类,分别是导弹和原子弹:
+
+	var MissileDecorator = function (plane) {
+		this.plane = plane;
+	};
+	MissileDecorator.prototype.fire = function () {
+		this.plane.fire();
+		console.log('发射导弹');
+	}
+
+	var AtomDecorator = function (plane) {
+		this.plane = plane;
+	};
+	AtomDecorator.prototype.fire = function () {
+		this.plane.fire();
+		console.log('发射原子弹');
+	}
+
+	//测试
+	var plane = new Plane();
+	plane = new MissileDecorator(plane);
+	plane = new AtomDecorator(plane);
+
+	plane.fire();//输出:发射子弹,发射导弹,发射原子弹
+</script>
+</html>

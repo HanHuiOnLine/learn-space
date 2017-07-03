@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>装饰函数</title>
+</head>
+<body>
+	<button id="button"></button>
+</body>
+<script type="text/javascript">
+	/*
+	要想为函数台南佳一些功能,最简单粗暴的方法就是直接改写该函数,但是也时最差的方法,违反了开放-封闭原则
+	我们需要一种在不改变函数源代码的情况下,能给函数添加功能,要实现这个目的没我们可以试试保存原引用
+	*/
+
+	var a = function () {
+		alert(1);
+	}
+
+	var _a = a;
+
+	a = function () {
+		_a();
+		alert(2);
+	}
+
+	a();
+	/*
+	这是开发中常见的做法,比如我们想给window绑定onload事件,但是又不确定这个事件是不是已经被其他人绑定过,为了避免覆盖掉之前的window.onload函数中的行为,我们一般都会先保存好原先的window.onload,把它放入新的window.onload里执行
+	*/ 
+
+	window.onload = function () {
+		alert(1);
+	}
+
+	var _onload = window.onload || function () {};
+
+	window.onload = function () {
+		_onload();
+		alert(2);
+	}
+
+	/*
+	有些问题
+	1.必须维护_onload这个中间变量,虽然看起来并不起眼,但如果函数的装饰链比较长,或者需要装饰的函数变多,这些中间变量的数量也会越来越多
+	2.this被劫持的问题,在window.onload的例子中不会有这个问题,是因为调用普通函数_onload时,this也指向window,跟调用window.onload时一样,现在把window.onload换成document.getElementById(),
+	代码如下:
+	*/
+
+	var _getElementById = document.getElementById;
+
+	document.getElementById = function (id) {
+		alert(1);
+		return _getElementById(id);//(1)
+	}
+
+	var button = document.getElementById('button');//输出一个错误:Illegal invocation
+
+	/*
+	错误出在(1),此时_getElementById,是一个全局函数;当调用一个全局得函数时;this是指向window得,,
+	而document.getElementById方法的内部实现需要使用this引用,this在这个方法内预期是指向document
+	而不是window,这是错误出现的原因.
+	*/
+
+	//需要手动把document当作上下文this传入_getElementById
+	//(1)改成:_getElementById.apply(document, arguments);
+
+	//上述得方法不是很方便,我们可以用AOP装饰函数
+</script>
+</html>
