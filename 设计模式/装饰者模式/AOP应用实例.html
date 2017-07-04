@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>AOP应用实例</title>
+</head>
+<body>
+	<button tag="login" id="button">点击打开登录浮层</button>
+</body>
+<script type="text/javascript">
+	//数据统计上报
+	//例如页面中有一个登录button,点击这个button会弹出登录浮层,与此同时要进行数据上报,来统计有多少用户点击了这个登录button
+
+	var showLogin = function () {
+		console.log('打开登录浮层');
+		log(this.getAttribute('tag'));
+	};
+
+	var log = function (tag) {
+		console.log('上报标签为:'+tag);
+	};
+
+	document.getElementById('button').onclick = showLogin;
+
+	/*
+	我们看到在showLogin函数里,既要负责打开登录浮层,又要负责数据上报,这是两个层面得功能,在此处却被藕合在一起,
+	*/
+
+	//使用AOP分离
+
+	Function.prototype.after = function (afterfn) {
+		var _self = this;
+		return function () {
+			var ret = _self.apply(this, arguments);
+			afterfn.apply(this, arguments);
+			return ret;
+		}
+	};
+
+	var showLoginAop = function () {
+		console.log('打开登录浮层');
+	};
+
+	var logAop = function () {
+		console.log('上报标签为:'+ this.getAttribute('tag'));
+	};
+
+	showLoginAop = showLoginAop.after(logAop);//打开登录浮层之后上报数据
+
+	document.getElementById('button').onclick = showLoginAop;
+
+	Function.prototype.before = function (beforefn) {
+		var _self = this;
+		return function () {
+			beforefn.apply(this, arguments);
+			return _self.apply(this, arguments);
+		}
+	} 
+
+	/*
+	beforefn和原函数_self公用一组参数列表arguments,
+	现在来个before函数得参数动态添加属性
+	*/
+
+	var func = function (param) {
+		console.log(param);//输出:{a:'a', b:'b'}
+	};
+	func = func.before(function (param) {
+		param.b = 'b';		
+	})
+	func({a:'a'});
+
+	//现在有一个用于发起ajax请求得函数,这个函数负责项目中所有ajax得异步请求
+
+	var ajax0 = function (type, url, param) {
+		console.log(param);
+		//发送ajax得代码省略
+	};
+	//调用
+	ajax0('get', 'http://www.baidu.com', {name: 'sven'});
+
+	/*
+	这样写当然没有问题;,假设有一天,网站遭受CSRF攻击;而解决这种攻击得一个办法就是在HTTP请求带一个Token参数,假设我们已经有了一个用于生成token得函数
+	*/
+
+	var getToken = function () {
+		return 'Token';
+	};
+	
+	//现在的任务是给每个请求添加Token参数
+
+	var ajax1 = function (type, url, param) {
+		param = param || {};
+		param.Token = getToken();//发送请求的代码省略
+	};
+
+	/*
+	虽然问题已经得到解决,但是请求变得僵硬,加入把请求函数拿到别的项目中用,这时token参数无疑时多余的
+	这时我们可能就需要重新修改请求函数
+	为了解决这个问题,我们先把请求函数还原成一个干净的函数
+	*/
+
+	var ajax2 = function (type, url, param) {
+		console.log(param);
+		//发送请求的代码省略
+	};
+
+	//然后把Token参数通过Function.prototype.before装饰到Ajax函数的参数param对象中
+
+	var getToken2 = function () {
+		return 'Token';
+	};
+
+	ajax2 = ajax2.before(function (type, url, param) {
+		param.Token = getToken2();
+	});
+
+	ajax2('get', 'http://www.baidu.com', {name: 'sven'});
+
+</script>
+</html>
