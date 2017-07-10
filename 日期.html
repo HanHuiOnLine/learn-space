@@ -7,50 +7,20 @@
 
 	<body>
 		<script language="JavaScript" type="text/javascript">
-			function getDay(day) {
-				var today = new Date();
-
-				var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
-
-				today.setTime(targetday_milliseconds); //注意，这行是关键代码    
-
-				var tYear = today.getFullYear();
-				var tMonth = today.getMonth();
-				var tDate = today.getDate();
-				tMonth = doHandleMonth(tMonth + 1);
-				tDate = doHandleMonth(tDate);
-				return tYear + "-" + tMonth + "-" + tDate;
-			}
-
-			function doHandleMonth(month) {
-				var m = month;
-				if(month.toString().length == 1) {
-					m = "0" + month;
-				}
-				return m;
-			}
-
-			document.write("前天：" + getDay(-2));
-			document.write("<br />昨天：" + getDay(-1));
-			document.write("<br />今天：" + getDay(0));
-			document.write("<br />明天：" + getDay(1));
-			document.write("<br />后天：" + getDay(2));
-			document.write("<br />大后天：" + getDay(3));
-			
-/*======================分割线========================*/
-
 			var str = 1478508411000;
 			console.log(new Date(str).toDateString());
 			if(new Date(str).toDateString() === new Date().toDateString()) {
 				//今天
 				console.log("当天");
-			} else if(new Date(str) < new Date()) {
+			} else if (new Date(str) < new Date()) {
 				//之前
 				console.log(new Date(str).toISOString().slice(0, 10));
 			}
 
 			//函数形式
 			function isToday(str) {
+				console.log(new Date(str).toDateString() );
+				console.log( new Date().toDateString());
 				if(new Date(str).toDateString() === new Date().toDateString()) {
 					//今天
 					console.log("当天");
@@ -59,8 +29,74 @@
 					console.log("以前的日期");
 				}
 			}
-			var str = 1474172800000;
+			var str = 1499386322;
 			isToday(str);
+			/*======================分割线========================*/
+			
+			function judgeTimeStamp (stamp) {
+				var stamp = parseInt(parseFloat(stamp)*1000);
+				console.log(stamp);
+				returnStr = {
+					'today': '今天',
+					'yesterday': '昨天',
+					'beforeYesterday ': '前天',
+					'threeDaysAgo': '3天前',
+					'aWeekAgo': '一周前',
+					'aMothAgo ': '一个月前',
+					'aYearAgo':'一年前'
+				},
+				    designatedTime = function (stamp) {
+				    	var  today  = new Date(stamp),
+				    	       year    = parseFloat(today.getFullYear()),
+				    	       month= parseFloat(today.getMonth()+1),
+				    	       day     = parseFloat(today.getDate()),
+				    	       hour   = parseFloat(today.getHours());
+				    	return {
+				    		year: year,
+				    		month: month,
+				    		day: day,
+				    		hour: hour
+				    	}       
+				    },
+				    CurrentTime = function () {
+				    	var  today   = new Date(),
+				    	       year     = parseFloat(today.getFullYear()),
+				    	       month  = parseFloat(today.getMonth()+1),
+				    	       day      = parseFloat(today.getDate()),
+				    	       hour    = parseFloat(today.getHours());
+				    	return {
+				    		year: year,
+				    		month: month,
+				    		day: day,
+				    		hour: hour
+				    	}
+				    };
+			
+					var designatedTimeObj  = designatedTime(stamp),
+					      currentTimeObj       = CurrentTime();
+					if (currentTimeObj.year === designatedTimeObj.year) {//同一年
+						if (currentTimeObj.month === designatedTimeObj.month) {//同一月
+							if (currentTimeObj.day === designatedTimeObj.day) {//同一天.今天
+								return returnStr.today;
+							} else if (currentTimeObj.day - designatedTimeObj.day == 1) {//昨天
+								return returnStr.yesterday;
+							} else if (currentTimeObj.day - designatedTimeObj.day == 2 ) {//前天
+								return returnStr.beforeYesterday;
+							} else if (currentTimeObj.day - designatedTimeObj.day > 2) {//三天前
+								return returnStr.threeDaysAgo;
+							} else if (currentTimeObj.day - designatedTimeObj.day >= 6) {//一周前
+								return returnStr.aWeekAgo;
+							}
+						} else if (currentTimeObj.month - designatedTimeObj.month >= 1) {
+							return returnStr.aMothAgo ;
+						}
+					} else  if (currentTimeObj.year - designatedTimeObj.year >= 1) {//一年前
+						return returnStr.aYearAgo;
+					}
+				
+			}
+			console.log(judgeTimeStamp(1499386322.572344));
+			
 		</script>
 
 	</body>
