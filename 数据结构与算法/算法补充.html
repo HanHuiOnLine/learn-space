@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>算法补充</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//测试浏览器调用栈大小的限制
+	/*
+	var i = 0;
+	function recursiveFn () {
+		i++;
+		recursiveFn();
+	}
+	try {
+		recursiveFn();
+	} catch (ex) {
+		alert('i = ' + i + ',error' + ex);
+	}
+	*/
+
+	//with的使用
+	var obj = {
+		user1: {
+			name: 'zhangsan',
+			sex: '男',
+			age: '23',
+			adress: '1231'
+		},
+		user2: {
+			name: 'zhangsan111',
+			sex: '男11',
+			age: '231111',
+			adress: '1231111'
+		}
+	};
+
+	with (obj.user1) {
+		console.log(name);
+	}
+
+	//实现斐波那契数列
+	/*
+	1,2的斐波那契数是1
+	n(n>2)的斐波那契数是n-的斐波那契数加上n-2的斐波那契数
+	*/
+	function fibonacci (num) {
+		if (num === 1 || num === 2) {
+			return 1;
+		}
+		return fibonacci(num-1)+fibonacci(num-2);
+	}
+	console.log(fibonacci(6));
+	//非递归方式实现
+	function fib (num) {
+		var n1 = 1,
+		    n2 = 1,
+		    n  = 1;
+		for (var i = 3; i <= num; i++) {
+			n = n1 + n2;
+			n1 = n2;
+			n2 = n;
+		}
+		return n;
+	}
+	console.log(fib(6));
+	//最少硬币找零问题
+	/*
+	 硬币找零：给出面额为d 1 …d n 的一定数量的硬币和要找零的钱数，找出有多少种找零的
+	方法。
+	最少硬币找零问题是给出要找零的钱数，
+	以及可用的硬币面额d 1 …d n 及其数量，找到所需的最少的硬币个数
+
+		例如，美国有以下面额（硬币）：d 1 =1，d 2 =5，d 3 =10，d 4 =25。
+	如果要找36美分的零钱，我们可以用1个25美分、1个10美分和1个便士（1美分）。
+	如何将这个解答转化成算法？
+	最少硬币找零的解决方案是找到n所需的最小硬币数。但要做到这一点，首先得找到对每个
+	x<n的解。然后，我们将解建立在更小的值的解的基础上。
+	*/
+	function MinCoinChange (coins) {
+		var coins = coins,
+		    cache = {};
+		this.makeChange = function (amount) {
+			var me = this;
+			if (!amount) {
+				return [];
+			}
+			if (cache[amount]) {
+				return cache[amount];
+			}
+			var min = [], newMin, newAmount;
+			for (var i = 0; i < coins.length; i++) {
+				var coin = coins[i];
+				newAmount = amount - coins;
+				if (newAmount >= 0) {
+					newMin = me.makeChange(newAmount);
+				}
+				if (newAmount >= 0 && (newMin.length < min.length - 1 || !min.length) && (newMin.length || !newAmount)) {
+					min = [coin].concat(newMin);
+					console.log('newMin ' + min +' for ' + amount);
+				}
+			}
+			return (cache[amount] = min);
+		}    
+	}
+	//贪心算法
+	//同样是上述问题
+	function MinCoinChange2 (coins) {
+		var coins = coins;
+		this.makeChange = function (amount) {
+			var change = [],
+			    total  = 0;
+			for (var i = coins.length; i >= 0; i--) {
+				var coin = coins[i];
+				while (total + coin <= amount) {
+					change.push(coin);
+					total += coin;
+				}
+			}
+			return change;    
+		}
+	}
+	/*
+	1.  UVa Online Judge（http://uva.onlinejudge.org/）：这个网站包含了世界各大赛事的题目，
+	包括由IBM赞助的ACM国际大学生程序竞赛（ICPC。若你依然在校，应尽量参与这项赛
+	事，如果团队获胜，则有可能免费享受一次国际旅行）。这个网站包括了成百上千的题目，
+	可以应用本书所学的算法。
+	2. Sphere Online Judge（http://www.spoj.com/）： 这个网站和UVa Online Judge差不多，但支
+	持用更多语言解题（包括JavaScript）。
+	3. Coder Byte（http://coderbyte.com/）：这个网站包含了74个可以用JavaScript解答的题目（简
+	单、中等难度和非常困难）。
+	4. Project Euler（https://projecteuler.net/）：这个网站包含了一系列数学/计算机的编程题目。
+你所要做的就是输入那些题目的答案，不过我们可以用算法来找到正确的解答。
+	5. Hacker Rank（https://www.hackerrank.com）：这个网站包含了263个挑战，分为16个类别
+（可以应用本书中的算法和更多其他算法）。它也支持JavaScript和其他语言。
+	6. Code Chef（http://www.codechef.com/）：这个网站包含一些题目，并会举办在线比赛
+	7. Top Coder（http://www.topcoder.com/）：此网站会举办算法联赛，这些联赛通常由NASA、
+	Google、Yahoo!、Amazon和Facebook这样的公司赞助。参加其中一些赛事，你可以获得
+	到赞助公司工作的机会，而参与另一些赛事会赢得奖金。这个网站也提供很棒的解题和
+	算法教程。
+	*/
+</script>
+</html>
