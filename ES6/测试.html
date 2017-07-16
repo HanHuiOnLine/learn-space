@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>测试</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	(function () {
+		let age = 25;
+		age = 30;
+		// let age = 40;//报错
+		console.log(age);
+		// var name = 'head';
+		// var name = 'ddd';
+		// console.log(name);//ddd
+
+		const adress = 'adg';
+		//const adress = 'bgg';//报错
+		// adress = 'bgg';//const申明的不允许重新赋值
+
+		const obj = {
+			age: 25
+		};
+		obj.age = 30;
+		console.log(obj);//正常
+
+		// obj = {
+		// 	age: 40
+		// };
+		// console.log(obj);//报错
+	})();
+
+/*
+	因此:记住:const 阻止的是绑定的修
+		 改，而不是绑定值的修改。
+*/
+	
+	
+</script>
+</html>

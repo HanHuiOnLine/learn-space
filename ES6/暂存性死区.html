@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>暂存性死区</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	let contion = 1;
+	console.log(typeof name);
+	if (contion) {
+		// console.log(typeof name);//报错
+		let name = true;
+	}
+
+	//循环
+	/*
+	for (var i = 1; i < 4; i++) {
+		//.....
+	}
+	console.log(i);//可以访问到i, 值为4
+	*/
+
+	//
+	var funcs = [];
+	for (var i = 0; i < 10; i++) {
+		funcs.push(function () {console.log(i)});
+	}
+	funcs.forEach(function (func) {
+		func();//输出10;共10次;
+	})
+</script>
+</html>

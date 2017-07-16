@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>构造函数</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+/*
+	function Person (name) {
+		//instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。
+		if (this instanceof Person) {
+			this.name = name;
+		} else {
+			throw new Error('必须用New关键字')
+		}
+	}
+	var person = Person('韩辉');//会出错
+	//通常用来判断构造函数是否被new调用,
+	//但是如果这样调用也不会出错,var person = Person.call(person, '韩辉');
+	//所以并不靠谱
+*/
+	//es6新方法
+	function Person (name) {
+		//在函数之外使用 new.target 会抛出语法错误
+		if (typeof new.target !== 'undefined') {
+			this.name = name;
+		} else {
+			throw new Error('必须用New关键字')
+		}
+	}
+	var person1 = new Person('hanhui');
+	    person2 = Person.call(this, 'hanhui');//出错
+	/*
+		为了解决这个问题，ECMAScript 6 引入了 new.target 这个元属性。元属性指的是和目标（如
+new）相关但并非被包含在一个对象内的属性。当函数内部的 [[Construct]] 方法被调用后，
+new 操作符调用的目标（target）将赋给 new.target。该目标通常为创建对象实例并将该实例
+赋值给 this 的构造函数。如果 [[call]] 被执行，那么 new.target 的值为 undefined 。
+	*/     
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>arguments的变化</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function mixArgs (first, second = 'b') {
+		console.log(arguments.length);
+		console.log(first === arguments[0]);
+		console.log(second === arguments[1]);
+
+		first = '1';
+		second = '2';
+
+		console.log(first === arguments[0]);
+		console.log(second === arguments[1]);
+	}
+	mixArgs('a');
+	/*
+	输出:1,true,false,false,false
+	arguments.length 的值为 1 是因为你只给 mixArgs() 提供了一个参数。这说明
+arguments[1] 的值如我们所期待的那样是 undefined，同时 first 也等同于 arguments[0] 。改
+变 first 和 second 的值不会对 arguments 造成任何效果，不论是在非严格模式还是严格模式
+下，所以你可以期待 arguments 总是反映出函数的首次调用状态
+	*/
+
+	function getValue () {
+		return 5;
+	}
+	function add (first, second = getValue()) {
+		return (first + second);
+	}
+	console.log(add(1, 1));//2
+	console.log(add(1));//6
+
+	//前一个参数也可以作为后一个参数的参数使用,例如
+	function getValue1 (value) {
+		return 5+value;
+	}
+	function add1 (first, second = getValue1(first)) {
+		return (first + second);
+	}
+	console.log(add1(1, 1));//2
+	console.log(add1(1));//7
+	/*
+	注意:默认参数引用其它参数的场景只发生在引用之前的参数，即前面的参数不能访问后面的参数
+	function (first = second, second) {
+		当使用调用时使用默认参数时会出错
+	}
+	*/
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ES6中的函数</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function fun1 (url, time = 1, callback = function () {console.log('heihei')}) {
+		console.log(url);
+		console.log(time);
+		console.log(callback);
+	};
+	fun1('http://');//输出:http://,1, function () {console.log('heihei')}
+
+	fun1('http://', 2);//输出:http://,2,function () {console.log('heihei')}
+
+	fun1('http://', 3, function () {console.log('嘿嘿啥')});//输出:http://,3,function () {console.log('嘿嘿啥')}
+
+	/*
+	ECMAScript 6 会认为 url 参数是必须传入的，这就是三次调用都传入了 "/foo" 的原因。其余
+	两个参数被视作是可选的。
+	*/
+</script>
+</html>
