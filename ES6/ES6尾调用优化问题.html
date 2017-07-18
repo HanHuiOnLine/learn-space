@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>尾调用优化问题</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//只有严格模式下有尾部调用优化
+	//ES6下需要满足三个条件
+	/*
+	1. 尾部调用不能引用当前堆栈帧中的变量(即尾调用的函数不能是闭包);
+	2. 使用尾部调用的函数在尾部调用结束后不能再有其他操作;
+	3. 尾部调用函数值作为当前函数的返回值;
+	*/
+
+	//例:
+
+	// 'use strict'
+	// function fun () {
+		//1.优化情况
+		/*
+		return doSomething();
+		*/
+		//2.不优化,未作为返回值
+		/*
+		doSomething();
+		*/
+		//3. 不优化,有额外的操作
+		/*
+		return 1+doSomething();
+		*/
+		//4.不优化,函数调用未发生在尾部
+		/*
+		var result = doSomething();
+		return result;
+		*/
+	//}
+
+	/*==================分割线==================*/
+
+	//尾调用优化实例
+	function factorial (n) {
+		'use strict'
+		if (n <= 1) {
+			return 1;
+		} else {
+			return n*factorial(n-1);
+		}
+	}
+	//这种情况是不会进行尾部调用优化的;
+	//修改
+	function factorial1 (n, p = 1) {
+		'use strict'
+		if (n <= 1) {
+			return 1*p;
+		} else {
+			let result = n*p;
+			return factorial1(n-1, result);
+		}
+	}
+	//具备优化条件
+</script>
+</html>

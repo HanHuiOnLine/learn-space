@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>箭头函数</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	箭头函数特征:
+	1. 没有this,super,arguments, new.target绑定
+	上述的值由最近的不包含箭头函数函数的作用域决定;
+	2. 不能用new方法调用;箭头函数内部没有[[construct]]方法;因此,不能当构造函数使用
+	3. 没有prototype属性,同上;
+	4. 不能更改this,this的值在函数内部不能被修改,在函数的整个生命周期中this值时永恒不变的
+	5. 没有arguments对象;必须依赖命名或者剩余参数来访问函数的参数;
+	6. 不允许重复的命名参数
+	*/
+
+	//箭头函数语法
+/*	
+	var reflect = value => value;
+	//等同
+	var reflect = function (value) {
+		return value;
+	}
+
+	var sum = (num1, num2) => num1 + num2;
+	//等同
+	var sum = function (num1, num2) {
+		return num1 + num2;
+	};
+
+	//无参数时,必须留下括号
+	var getName = () => 'hanhui';
+	//等同
+	var getName = function () {
+		return 'hanhui';
+	}
+*/
+
+//例:
+/*
+	var pageHandler = {
+		id: 1,
+		init: function () {
+			document.addEventListener('click', function (event) {
+				this.doSomething();//这个this指向的是document,所以会出错,
+			}, false);
+		},
+		doSomething: function () {
+			console.log('做了什么');
+		}
+	};
+*/
+//用箭头函数改写
+	var pageHandler = {
+		id: 1,
+		init: function () {
+			document.addEventListener('click',
+				event => {
+					this.doSomething();
+				}, fales
+			);
+		} 
+	}		
+</script>
+</html>

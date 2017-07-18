@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>块函数</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+
+/*=========严格模式==========*/
+
+/*
+	//es5中
+	'use strict'
+	if (true) {
+		//es5中会报错
+		function doSomething () {
+
+		}
+	}
+*/
+
+/*
+	//es6
+	'use strict'
+	if (true) {
+		console.log(typeof doSomething);//function
+		function doSomething () {
+			//.....
+		}
+		doSomething();
+	}
+	console.log(typeof doSomething);//undefined
+	//块级函数会被提升到块内的顶部，即使 typeof doSomething 语句在函数声明之前也会返回
+	//"function"。一旦代码块执行完毕，doSomething() 也将不复存在
+*/
+
+/*================非严格模式================*/
+	/*
+	if (true) {
+		console.log(typeof doSomething);//function
+		function doSomething () {
+			//.....
+		}
+		doSomething();
+	}
+	console.log(typeof doSomething);//function
+	*/
+</script>
+</html>
