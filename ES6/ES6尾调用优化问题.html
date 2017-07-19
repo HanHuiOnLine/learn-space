@@ -42,6 +42,8 @@
 	/*==================分割线==================*/
 
 	//尾调用优化实例
+
+/*
 	function factorial (n) {
 		'use strict'
 		if (n <= 1) {
@@ -50,10 +52,12 @@
 			return n*factorial(n-1);
 		}
 	}
+	factorial(100000);
+*/	
 	//这种情况是不会进行尾部调用优化的;
 	//修改
+	
 	function factorial1 (n, p = 1) {
-		'use strict'
 		if (n <= 1) {
 			return 1*p;
 		} else {
@@ -61,6 +65,7 @@
 			return factorial1(n-1, result);
 		}
 	}
+	factorial1(10);
 	//具备优化条件
 </script>
 </html>
