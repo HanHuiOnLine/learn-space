@@ -46,14 +46,16 @@
 
 	/*
 	数字类型
-	1.根据 ECMAScript 标准，JavaScript 中只有一种数字类型：基于 IEEE 754 标准的双精度 64 位二进制格式的值（-(263 -1) 到 263 -1）。它并没有为整数给出一种特定的类型。除了能够表示浮点数外，还有一些带符号的值：+Infinity，-Infinity 和 NaN (非数值，Not-a-Number)。
-
+	1.根据 ECMAScript 标准，JavaScript 中只有一种数字类型：基于 IEEE 754 标准的双精度 64 位二进制格式的值（-(263 -1) 到 263 -1）。
+	它并没有为整数给出一种特定的类型。除了能够表示浮点数外，还有一些带符号的值：+Infinity，-Infinity 和 NaN (非数值，Not-a-Number)。
 	2.+Infinity，-Infinity表示js能够安全处理数据的范围;
 		可以通过Number.MAX_VALUE,Number.MIN_VALUE获知
 	3. ES6新增方法
 		Number.isSafeInteger() 方法用来判断传入的参数值是否是一个“安全整数”,
 		安全整数范围为 -(253 - 1)到 253 - 1 之间的整数，包含 -(253 - 1)和 253 - 1。
-		比如，253 - 1 是一个安全整数，它能被精确表示，在任何 IEEE-754 舍入模式（rounding mode）下，没有其他整数舍入结果为该整数。作为对比，253 就不是一个安全整数，它能够使用 IEEE-754 表示，但是 253 + 1 不能使用 IEEE-754 直接表示，在就近舍入（round-to-nearest）和向零舍入中，会被舍入为 253
+		比如，253 - 1 是一个安全整数，它能被精确表示，在任何 IEEE-754 舍入模式（rounding mode）下，没有其他整数舍入结果为该整数。
+		作为对比，253 就不是一个安全整数，它能够使用 IEEE-754 表示，但是 253 + 1 不能使用 IEEE-754 直接表示，
+		在就近舍入（round-to-nearest）和向零舍入中，会被舍入为 253
 	*/
 	console.log(Number.MAX_VALUE);
 	console.log(Number.MIN_VALUE);
@@ -61,22 +63,37 @@
 
 	/*
 	字符串类型
-	JavaScript的字符串类型用于表示文本数据。它是一组16位的无符号整数值的“元素”。在字符串中的每个元素占据了字符串的位置。第一个元素的索引为0，下一个是索引1，依此类推。字符串的长度是它的元素的数量。
+	JavaScript的字符串类型用于表示文本数据。它是一组16位的无符号整数值的“元素”。在字符串中的每个元素占据了字符串的位置。
+	第一个元素的索引为0，下一个是索引1，依此类推。字符串的长度是它的元素的数量。
 	*/
-
+	var s = new String('hello');
+	console.log(s);
+	var s1 = 'hello';
+	console.log(s1[0]);//h
 	/*
 	Symbol类型
-	符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值(如下). 在某些语言当中也有类似的原子类型(Atoms). 你也可以认为为它们是C里面的枚举类型
+	符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值(如下). 
+	在某些语言当中也有类似的原子类型(Atoms). 你也可以认为为它们是C里面的枚举类型
 	*/
 	var sym2 = Symbol("symbol2");
 	var sym3 = Symbol("symbol2");
 	console.log(sym2 === sym3);//false
 	console.log(typeof sym2);//symbol
 
-	var sym = new Symbol(); // TypeError
+//	var sym = new Symbol(); // TypeError
 	/*
-	这会阻止创建一个显式的 Symbol 包装器对象而不是一个 Symbol 值。围绕原始数据类型创建一个显式包装器对象从 ECMAScript 6 开始不再被支持。 然而，现有的原始包装器对象，如 new Boolean、 new String以及new Number因为遗留原因仍可被创建。
+	这会阻止创建一个显式的 Symbol 包装器对象而不是一个 Symbol 值。围绕原始数据类型创建一个显式包装器对象从 ECMAScript 6 开始不再被支持。 
+	然而，现有的原始包装器对象，如 new Boolean、 new String以及new Number因为遗留原因仍可被创建。
 	*/
 
+	var obj1 = {name: 'hanhui'};
+	var obj2 = obj1;
+	obj2.name = 'heihei';
+	console.log(obj1);//heihei
+	
+	var str1 = 'hello';
+	var str2 = str1;
+	str2 = 'world';
+	console.log(str1);//hello
 </script>
 </html>
