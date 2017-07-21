@@ -70,40 +70,7 @@
 	console.log(s);
 	var s1 = 'hello';
 	console.log(s1[0]);//h
-	/*
-	Symbol类型
-	符号(Symbols)是ECMAScript 第6版新定义的。符号类型是唯一的并且是不可修改的, 并且也可以用来作为Object的key的值(如下). 
-	在某些语言当中也有类似的原子类型(Atoms). 你也可以认为为它们是C里面的枚举类型
-	*/
-	var sym2 = Symbol("symbol2");
-	var sym3 = Symbol("symbol2");
-	console.log(sym2 === sym3);//false
-	console.log(typeof sym2);//symbol
-//	var sym = new Symbol(); // TypeError
-	/*
-	这会阻止创建一个显式的 Symbol 包装器对象而不是一个 Symbol 值。围绕原始数据类型创建一个显式包装器对象从 ECMAScript 6 开始不再被支持。 
-	然而，现有的原始包装器对象，如 new Boolean、 new String以及new Number因为遗留原因仍可被创建。
-	*/
-	var sym4 = Symbol('sym');
-	var symObj = Object(sym4);
-	console.log(symObj);
 	
-	//symbol创建
-	var symObj = {
-		age: 1
-	};
-	var sym5 = Symbol('name');
-	console.log(sym5);
-	symObj[sym5] = '韩辉';
-	console.log(symObj[sym5]);//韩辉
-	console.log(symObj);//{age:1,Symbol(name):"韩辉"}
-	//查询
-	console.log(Object.getOwnPropertySymbols(symObj));//获取Symbol属性名,但是也会忽略内置的Symbol,,,//[Symbol(name)]....Object.getOwnPropertyNames(obj)会忽略Symbol
-	console.log(Reflect.ownKeys(symObj));//获取所有属性名[age,Symbol(name)]
-	//symbol不可枚举,for in也不可
-	console.log(Object.keys(symObj));//[age]
-	var sym6 = Symbol('name');
-	symObj[sym6] = '李磊';
-	console.log(symObj);
+	
 </script>
 </html>
