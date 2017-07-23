@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>引用类型</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+
+	//1.对象是引用类型的实例
+	/*
+	定义了一个对象其实是在栈内存中存储了一个指针，这个指针指向堆内存中该对象的存储地址。复制给另一个对象的过程其实是把该对象的地址复制给了另一个对象变量，两个指针都指向同一个对象，所以若其中一个修改了，则另一个也会改变。
+	*/
+	//例子
+	var obj = {
+		name: 'hanhui'
+	};
+	var objShallowCopy = obj;
+	objShallowCopy.name = 'liheng';
+	console.log(obj.name);//liheng
+	//引出问题;如何给对象深拷贝;
+	/*
+	方法 1.迭代
+		 2.转换成json再转换成对象实现对象的深拷贝
+	*/
+
+	//每个对象都有以下几个属性
+	/*
+	custructor:保存用于创建当前对象的的函数;
+	hasOwnProperty(propertyName);用于检查给定的属性在当前对象实例中是否存在
+	isPrototypeOf(object);用于检查传入对象是否是另外一饿对象的原型
+	prototypeIsEnumerable(propertyName);用于检查传入的属性是否能够用于for in,枚举
+	toLocaleString();返回对下给你的字符串表示,字符串与执行环境所在地区相对应;
+	toString();返回字符串表示
+	valueOf();返回对象的字符串,数值,或者布尔表示
+	*/
+	var objProperty = {name: 'hanhui'};
+	console.log(objProperty.custructor === Object);//false;
+	console.log(objProperty.hasOwnProperty('name'));//true
+	console.log(obj.isPrototypeOf(objProperty));//false
+	console.dir(objProperty.toLocaleString());//[object object]
+	console.log(objProperty.toString());
+
+
+	/*=======================================*/
+	//2.使用字面量生命对象不会走new Object();
+	//3.对象属性的调用可以用.和[],[]可以使用变量,系统保留字,或者有间隔的属性名;
+	var objName = {
+		'first name': 'hanhui'
+	};
+	console.log(objName['first name']);
+
+
+	/*======================*/
+	var objOverwrite = {
+		a: 1,
+		a: 5
+	};
+	console.log(objOverwrite);//{a:5}
+
+</script>
+</html>
