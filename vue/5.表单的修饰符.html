@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="example">
+			<input v-model.number='message' placeholder="输入..."/>
+			<p>{{ typeof message }}</p>
+		</div>
+	</body>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var example = new Vue({
+			el: '#example',
+			data: {
+				message: ''
+			}
+		})
+	</script>
+
+</html>

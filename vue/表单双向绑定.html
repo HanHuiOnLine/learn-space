@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="example">
+			<input v-model='message' placeholder="编辑" />
+			<p>消息: {{ message }} </p>
+			<hr />
+			<input type="checkbox" id="checkbox" v-model='checked' />
+			<label for="#checkbox">{{ checked }}</label>
+			<hr /> 
+			<!--多选-->
+			<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+			<label for="jack">Jack</label>
+			<input type="checkbox" id="john" value="John" v-model="checkedNames">
+			<label for="john">John</label>
+			<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+			<label for="mike">Mike</label>
+			<br>
+			<span>Checked names: {{ checkedNames }}</span>
+		</div>
+		<hr />
+		<!--单选-->
+		<div id="example-2">
+			<input type="radio" id="one" value="One" v-model="picked">
+			<label for="one">One</label>
+			<br>
+			<input type="radio" id="two" value="Two" v-model="picked">
+			<label for="two">Two</label>
+			<br>
+  			<span>Picked: {{ picked }}</span>
+		</div>
+	</body>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var example = new Vue({
+			el: '#example',
+			data: {
+				message: '',
+				checked: true,
+				checkedNames: []
+			}
+		});
+		//单选
+		var example1 = new Vue({
+			el: '#example-2',
+			data: {
+				picked: ''
+			}
+		})
+	</script>
+
+</html>

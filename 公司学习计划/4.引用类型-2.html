@@ -11,7 +11,9 @@
 	/*=================Object==================*/
 	/*
 	1.对象构造函数为给定值创建一个对象包装器。。如果给定值是  null or undefined，将会创建并返回一个空对象，否则，将返回一个与给定值对应类型的对象。
-	2.JavaScript中几乎所有的对象都是 Object 的实例; 所有的对象都继承了Object.prototype的属性和方法，它们可以被覆盖（除了以null为原型的对象，如 Object.create(null)）。例如，新的构造函数的原型覆盖原来的构造函数的原型，提供它们自己的 toString() 方法.。对象的原型的改变会传播到所有对象上，除非这些属性和方法被其他对原型链更里层的改动所覆盖。
+	2.JavaScript中几乎所有的对象都是 Object 的实例; 所有的对象都继承了Object.prototype的属性和方法，
+	它们可以被覆盖（除了以null为原型的对象，如 Object.create(null)）。例如，新的构造函数的原型覆盖原来的构造函数的原型，
+	提供它们自己的 toString() 方法.。对象的原型的改变会传播到所有对象上，除非这些属性和方法被其他对原型链更里层的改动所覆盖。
 	*/
 	Object.prototype.fun1 = function () {
 		console.log(1111);
@@ -27,6 +29,7 @@
 	var o;
 	//创建一个原型为null的对象
 	o = new Object(null);
+	console.log(o.constructor.prototype);
 
 	//o = {};
 	// 以字面量方式创建的空对象就相当于:
@@ -42,7 +45,7 @@
 		}
 	})
 	console.log(o);
-	console.log(Array.constructor);
+	console.log(Function.constructor.prototype);
 
 	/*=================================*/
 	/*
@@ -55,5 +58,13 @@
 	console.log(o);
 	// 当然,如果在Constructor函数中有一些初始化代码,Object.create不能执行那些代码
 	*/ 
+	
+	var objO = new Object();
+	objO.fun1 = function () {
+		console.log(1221);
+	}
+	console.log(Object.prototype);
+	
+	
 </script>
 </html>
