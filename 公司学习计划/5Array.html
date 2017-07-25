@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		/*
+		JavaScript 中数字开头的属性不能跟在点号后面；必须在方括号中使用。比如说，如果你有一个名为 ‘3d’ 的属性，它只能通过方括号的形式进行访问。
+		换言之访问合法的属性名可以用"."或者"[ ]",但是访问非法的属性只能用"[]"
+		*/
+		/*
+		Array 构造器将会根据给出的元素创建一个 JavaScript 数组，但是当参数仅有一个参数且其为数字时除外，
+		参考下面的 arrayLength。值得注意的是，这种情况仅在使用 Array 构造器时出现，使用带方括号的数组字面量则不会。
+		向 Array 构造函数传入一个在 0 到 232-1 之间的整数，将返回一个以此为长度的数组对象。通过 length 属性可以访问这个值。
+		如果传入的参数不是有效的数值，则抛出 RangeError 异常
+		*/
+		var a = new Array(3);
+		a[0] = 0;
+		a[1] = 1;
+		a[2] = 2;
+		a[3] = 3;
+		console.log(a);
+		/*
+		 1.运用构造函数传入一个数字时;返回一个以此为长度的数组对象;但是数组长度仍然可以改变.如上所示;
+		*/
+		/*
+		2.当你在 array 上使用一个合法的数组下标，而且该下标超出了当前数组的大小的时候，引擎会根据其值自动更新 array 的length属性
+			如下:b的长度会更新为6;中间缺失的项,b[4],b[5]会是undefined
+		*/
+		var b = ['a', 'b', 'c'];
+		b[6] = 'd';
+		console.log(b[4], b[5]);//undefined, undefined
+		/*
+		3.减小 array 的length属性会删掉超出的元素;如下 
+		*/
+		b.length = 2;
+		console.log(b);//["a", "b"]
+		/*
+		4.正则表达式与字符串之间的匹配结果可以创建一个数组。这个数组包含了正则匹配的属性与匹配结果。
+			RegExp.exec，String.match， 与String.replace的返回值就是这样的数组
+		*/
+		var myRe = /d(b+)(d)/i;
+        var myArray = myRe.exec("cdbBdbsbz");
+        console.log(myArray);//["dbBd", "bB", "d", index: 1, input: "cdbBdbsbz"]
+        
+        /*
+        方法:
+        */
+       /*
+        1.copyWithin(target, start, end) 方法浅复制数组的一部分到同一数组中的另一个位置，并返回它，而不修改其大小
+			target
+				0 为基底的索引，复制序列到该位置。如果是负数，target 将从末尾开始计算。
+				如果 target 大于等于 arr.length，将会不发生拷贝。如果 target 在 start 之后，复制的序列将被修改以符合 arr.length。
+			start
+				0 为基底的索引，开始复制元素的起始位置。如果是负数，start 将从末尾开始计算。
+				如果 start 被忽略，copyWithin 将会从0开始复制。
+			end
+				0 为基底的索引，开始复制元素的结束位置。copyWithin 将会拷贝到该位置，但不包括 end 这个位置的元素。如果是负数， end 将从末尾开始计算。
+				如果 end 被忽略，copyWithin 将会复制到 arr.length。	
+       */
+       var copyWithin = ['a', 'b', 'c', 'd', 'e'];
+	   copyWithin.copyWithin(1);//["a", "a", "b", "c", "d"]
+//	   copyWithin.copyWithin(1,2);//["a", "c", "d", "e", "e"]
+//     copyWithin.copyWithin(1,2,4);
+       console.log(copyWithin);
+	</script>
+</html>
