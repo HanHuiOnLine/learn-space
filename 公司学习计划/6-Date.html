@@ -1,22 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8"/>
 	<title></title>
 </head>
 <body>
-
+	<div id="divdown1"></div>
 </body>
 <script type="text/javascript">
+	/*====================new Date======================*/
+	/*
+	 * //最佳格式
+	new Date();
+	new Date("month dd,yyyy hh:mm:ss");
+	new Date("month dd,yyyy");
+	new Date(yyyy,mth,dd,hh,mm,ss);
+	new Date(yyyy,mth,dd);
+	new Date(ms);
+	当Date作为构造函数调用并传入多个参数时，所定义参数代表的是当地时间。如果需要世界协调时，使用 new Date({{jsxref("Date.UTC()", "Date.UTC(...)")}}) 和相同参数
+	*/
+	
+	
+	/*====================格式化时间======================*/
+	/*
+	 日期格式:
+	 1.ISO-8601 日期格式;2004-05-03T17:30:08+08:00
+	 2,RFC2822 日期格式;Mon, 25 Dec 1995 13:30:00 GMT==或者==Mon, 25 Dec 1995 13:30:00 +0430" （格林威治的子午线向东偏移4小时30分钟）;
+	                 
+	*/
 	var now = new Date();
-	console.log(now);//Wed Jul 26 2017 21:18:39 GMT+0800 (中国标准时间)
+	console.log(now);//实时变化:Wed Jul 26 2017 21:18:39 GMT+0800 (中国标准时间)
+	console.log(now.getTime(),Date.now());
 	/*
 	没有参数时,返回当前时间;
-	如果想要获得指定日期的时间对象;必须传入该日期的毫秒数
+		当Date作为构造函数调用并传入多个参数时，如果数值大于合理范围时（如月份为13或者分钟数为70），相邻的数值会被调整。
+	比如 new Date(2013, 13, 1)等于new Date(2014, 1, 1)，它们都表示日期2014-02-01（注意月份是从0开始的）,
+	其他数值也是类似，new Date(2013, 2, 1, 0, 70)等于new Date(2013, 2, 1, 1, 10)，都表示时间2013-03-01T01:10:00。
 	*/
 	//格式化时间的方法
 	/*
 	1.Date.parse();
+		(1)方法解析一个表示某个日期的字符串，并返回从1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的UTC时间）的毫秒数;不合法返回NaN;
+		(2)如果参数字符串只包含日期格式，那么将会使用UTC时区来解析该参数。而如果是ISO 8601 格式中规定的时间加日期的格式，则将会被作为本地时区处理。
+		(3)如果没有指定时区，默认使用本地时区。
+	
 	2.Date.UTC();
+		(1)Date.UTC() 方法接受的参数同日期构造函数接受最多参数时一样，返回从1970-1-1 00:00:00 UTC到指定日期的的毫秒数
+		(2)Date.UTC 方法使用协调世界时代替本地时间。
+		(3)Date.UTC 方法返回一个时间数值，而不是一个日期对象。
 	*/
+	var parse = Date.parse('2017-07-27');
+	console.log(parse);
+	
+	/*===========获取具体日期的方法=============*/
+	var parseDate = Date.parse('2017-07-27T11:07:08+08:00');//获得时间戳
+	var parseObj = new Date(parseDate);//获得指定日期的时间对象
+	
+	console.log(parseObj.getFullYear());//返回指定日期对象的年份（四位数年份时返回四位数字）
+	console.log(parseObj.getMonth());//返回指定日期对象的月份（0-11）
+	console.log(parseObj.getDate());//返回指定日期对象的月份中的第几天（1-31)
+	console.log(parseObj.getDay());//返回指定日期对象的星期中的第几天（0-6）
+	console.log(parseObj.getHours());//返回指定日期对象的小时（0-23）
+	console.log(parseObj.getMinutes());//返回指定日期对象的分钟（0-59)
+	console.log(parseObj.getSeconds());//返回指定日期对象的秒数（0-59）
+	console.log(parseObj.getTime());//获得日期对象的时间戳
+	
+	
+	
+	/*============获取当前时间的时间戳==========*/
+	//四种方式;
+	var timestamp1 = Date.parse(new Date());//只能精确到秒
+	var timestamp2 = (new Date()).valueOf();
+	var timestamp3 = new Date().getTime();
+	var timestamp4 = Date.now();
+	console.log(timestamp1, timestamp2, timestamp3, timestamp4);
+	
+	
+	/*============测量代码执行时间==============*/
+	/*
+	 方法一:console.time();
+	 		使用:
+	 		console.time('a');
+			function fun () {
+				alert('嘿嘿');
+			}	 		
+			fun();
+			console.timeEnd('a');
+	*/
+	/*
+	 方法二:Date.now();
+	 		使用:
+	 		console.log(Date.now());
+			(function () {
+				alert('heihie');
+			})();
+			console.log(Date.now());
+	*/
+	/*
+	 方法三:getTime();
+	 		使用:
+	 		var end, start, i;
+			start = new Date();
+			for (i = 0; i < 1000; i++) {
+		  		Math.sqrt(i);
+			}
+			end = new Date();
+			console.log("Operation took " + (end.getTime() - start.getTime()) + " msec");
+	*/
+	
+	
+	/*==============js倒计时===============*/
+	function ShowCountDown(year, month, day, divname) {
+			var now = new Date();
+			var endDate = new Date(year, month - 1, day);
+			var leftTime = endDate.getTime() - now.getTime();
+			var leftsecond = parseInt(leftTime / 1000);
+			var day1 = Math.floor(leftsecond / (60 * 60 * 24));
+			var hour = Math.floor((leftsecond - day1 * 24 * 60 * 60) / 3600);
+			var minute = Math.floor((leftsecond - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+			var second = Math.floor(leftsecond - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+			var cc = document.getElementById(divname);
+			cc.innerHTML = "距离" + year + "年" + month + "月" + day + "日还有：" + day1 + "天" + hour + "小时" + minute + "分" + second + "秒";
+		}
+		window.setInterval(function() {
+			ShowCountDown(2017, 7, 28, 'divdown1');
+		}, 1000);
+	
+	
+	/*=============判断日期距离现在多久===============*/
+	function deduceDate (yourTimeStamp) {
+		var nowStamp = new Date().getTime();
+		console.log(nowStamp);
+		//相差的毫秒数
+		var timeGap = nowStamp - yourTimeStamp;
+		//如果传入的是未来时间,直接返回
+		if (timeGap < 0) {
+			return false;
+		}
+		var month  = timeGap/(30*24*60*60*1000),
+		    week   = timeGap/(7*24*60*60*1000),
+		    day    = timeGap/(24*60*60*1000),
+		    hour   = timeGap/(60*60*1000),
+		    minu   = timeGap/(60*1000);
+		if (month >=1 ) {
+			return parseInt(month)+'个月前';
+		} else if (week >= 1) {
+			return parseInt(week) + '周前';
+		} else if (day >= 1) {
+			return parseInt(day) + '天前';
+		} else if (hour >= 1) {
+			return parseInt(hour) + '小时前';
+		} else if (minu >= 1) {
+			return parseInt(minu) + '分钟前'
+		} else {
+			return '刚刚';
+		}
+	}
+	
+	
+	//改版
+	function DateS (timeStamp) {
+		var nowStamp = Date.now();
+		//如果传入时间大于当前时间,直接返回
+		if (timeStamp > nowStamp) {
+			return false;
+		}
+		var yearOld  = timeStamp.getFullYear(),//获取旧的年份
+		    yearNow  = nowStamp.getFullYear(),//获取当前年份
+		    monthOld = timeStamp.getMonth(),//获取旧的月份
+			monthNow = nowStamp.getMonth(),//获取当前月份
+			yearGap  = yearNow - yearOld;//年份差值
+		if (yearGap === 0) {       //如果是同一年
+			return monthNow - monthOld + '个月前';
+		} else {
+			var monthGap = monthNow - monthOld + yearGap*12;
+			if (monthGap >= 12) {
+				return '一年前';
+			} else {
+				return monthGap + '月前';
+			}
+		}
+	}
 </script>
 </html>
