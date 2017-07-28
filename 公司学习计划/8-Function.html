@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Function</title>
+	</head>
+
+	<body>
+		<div class="testClass">Lorem ipsum</div>
+		<p>Some text</p>
+		<div class="testClass">dolor sit amet</div>
+	</body>
+	<script type="text/javascript">
+		/*
+			函数是一个可以被其他代码或其自身调用的代码片段，或者是一个指该函数的变量variable 。 .当函数被调用时, 参数arguments 作为输入传递到函数，并且函数可以可选地返回输出。 在 JavaScript 中函数也是一个对象object. 
+				*/
+
+		/*
+			(1)注意: 使用Function构造器生成的函数，并不会在创建它们的上下文中创建闭包；它们一般在全局作用域中被创建。当运行这些函数的时候，它们只能访问自己的本地变量和全局变量，不能访问Function构造器被调用生成的上下文的作用域。这和使用带有函数表达式代码的 eval 不同。
+			(2)全局的Function对象没有自己的属性和方法, 但是, 因为它本身也是函数，所以它也会通过原型链从Function.prototype上继承部分属性和方法。
+			(3)使用 Function 构造器创建函数是从一个函数中动态地创建一些不确定数量的有可执行代码的在全局范围里可用的新对象的方式之一
+			
+		*/
+
+		/*=================不同类型的函数=====================*/
+		
+		/*
+			1.匿名函数:
+				function () {}
+			2.命名函数
+				(1)函数声明定义一个函数
+			 		function fun () {}
+			 	(2)函数表达式声明一个函数
+			 		var a = function () {}
+			3.内部函数是另一个函数内的函数(square 在这种情况下). 外部函数是包含一个函数的函数 (addSquares 包含一个函数):
+				function addSquares(a,b) {
+ 				    function square(x) {
+      				   return x * x;
+   					}
+   					return square(a) + square(b);
+				}
+			4.递归函数
+				function loop(x) {
+ 				    if (x >= 10)
+      		      		return;
+   				    loop(x + 1);
+                }
+            5.立即调用函数表达式（IIFE）是一个函数, 其在函数被加载到浏览器的编译器之后直接调用的。. 识别IIFE的方法是通过在函数声明的末尾定位额外的左和右括号。 这种类型的函数表达式有很多优点
+                (function () {
+                		console.log('立即调用');
+                }());//道格拉斯·克罗克福德的风格
+                
+                (function () {
+                		console.log('立即调用');
+                })()
+		*/
+		
+		
+		/*========================大量修改DOM元素的递归快捷方式==========================*/
+			//(3)使用 Function 构造器创建函数是从一个函数中动态地创建一些不确定数量的有可执行代码的在全局范围里可用的新对象的方式之一
+
+		var domQuery = (function() {
+			var aDOMFunc = [
+				Element.prototype.removeAttribute,
+				Element.prototype.setAttribute,
+				CSSStyleDeclaration.prototype.removeProperty,
+				CSSStyleDeclaration.prototype.setProperty
+			];
+
+			function setSomething(bStyle, sProp, sVal) {
+				var bSet = Boolean(sVal),
+					fAction = aDOMFunc[bSet | bStyle << 1],
+					aArgs = Array.prototype.slice.call(arguments, 1, bSet ? 3 : 2),
+					aNodeList = bStyle ? this.cssNodes : this.nodes;
+
+				if(bSet && bStyle) {
+					aArgs.push("");
+				}
+				for(
+					var nItem = 0, nLen = this.nodes.length; nItem < nLen; fAction.apply(aNodeList[nItem++], aArgs)
+				);
+				this.follow = setSomething.caller;
+				return this;
+			}
+
+			function setStyles(sProp, sVal) {
+				return setSomething.call(this, true, sProp, sVal);
+			}
+
+			function setAttribs(sProp, sVal) {
+				return setSomething.call(this, false, sProp, sVal);
+			}
+
+			function getSelectors() {
+				return this.selectors;
+			};
+
+			function getNodes() {
+				return this.nodes;
+			};
+
+			return(function(sSelectors) {
+				var oQuery = new Function('return arguments.callee.follow.apply(arguments.callee, arguments);');
+				oQuery.selectors = sSelectors;
+				oQuery.nodes = document.querySelectorAll(sSelectors);
+				oQuery.cssNodes = Array.prototype.map.call(oQuery.nodes, function(oInlineCSS) {
+					return oInlineCSS.style;
+				});
+				oQuery.attributes = setAttribs;
+				oQuery.inlineStyle = setStyles;
+				oQuery.follow = getNodes;
+				oQuery.toString = getSelectors;
+				oQuery.valueOf = getNodes;
+				return oQuery;
+			});
+		})();
+	</script>
+	<script type="text/javascript">
+		domQuery('.testClass').attributes('lang', 'en')('title','嗨嗨')
+		.inlineStyle('background-color', 'black')('color','white')('width');
+	</script>
+</html>
