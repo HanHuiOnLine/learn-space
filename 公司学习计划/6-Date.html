@@ -37,6 +37,7 @@
 	比如 new Date(2013, 13, 1)等于new Date(2014, 1, 1)，它们都表示日期2014-02-01（注意月份是从0开始的）,
 	其他数值也是类似，new Date(2013, 2, 1, 0, 70)等于new Date(2013, 2, 1, 1, 10)，都表示时间2013-03-01T01:10:00。
 	*/
+	
 	//格式化时间的方法
 	/*
 	1.Date.parse();
@@ -129,12 +130,12 @@
 	
 	/*=============判断日期距离现在多久===============*/
 	function deduceDate (yourTimeStamp) {
-		var nowStamp = new Date().getTime();
+		var nowStamp = (new Date('2016-03-01T00:00:00')).getTime();
 		console.log(nowStamp);
 		//相差的毫秒数
 		var timeGap = nowStamp - yourTimeStamp;
-		//如果传入的是未来时间,直接返回
-		if (timeGap < 0) {
+		//如果传入的是未来时间或者不是数值,直接返回
+		if (timeGap < 0 && isNaN(timeGap) === true) {
 			return false;
 		}
 		var month  = timeGap/(30*24*60*60*1000),
@@ -157,6 +158,10 @@
 		}
 	}
 	
+	var de = (new Date('2016-02-01T00:00:00')).getTime();
+	console.log(de);
+	console.log(deduceDate(de));
+	
 	
 	//改版
 	function DateS (timeStamp) {
@@ -167,17 +172,32 @@
 		}
 		var yearOld  = timeStamp.getFullYear(),//获取旧的年份
 		    yearNow  = nowStamp.getFullYear(),//获取当前年份
-		    monthOld = timeStamp.getMonth(),//获取旧的月份
-			monthNow = nowStamp.getMonth(),//获取当前月份
-			yearGap  = yearNow - yearOld;//年份差值
+		    monthOld = timeStamp.getMonth()+1,//获取旧的月份
+			monthNow = nowStamp.getMonth()+1,//获取当前月份
+			yearGap  = yearNow - yearOld,//年份差值
+			monthObj = {
+				"1": 31,
+				"2p": 28,
+				"2r": 29,
+				"3": 31,
+				"4": 30,
+				"5": 31,
+				"6": 30,
+				"7": 31,
+				"8": 31,
+				"9": 30,
+				"10": 31,
+				"11": 30,
+				"12": 31
+			};
 		if (yearGap === 0) {       //如果是同一年
-			return monthNow - monthOld + '个月前';
+			
 		} else {
 			var monthGap = monthNow - monthOld + yearGap*12;
 			if (monthGap >= 12) {
 				return '一年前';
 			} else {
-				return monthGap + '月前';
+				return monthGap + '个月前';
 			}
 		}
 	}
