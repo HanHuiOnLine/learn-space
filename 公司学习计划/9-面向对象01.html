@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>面向对象01</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	我们可以把JavaScript的对象想象成散列表;
+	*/
+	/*
+	js中有两种属性;数据属性和访问器属性;
+	1.数据属性
+		(1)[[configurable]]:能否用delete删除属性,能否修改属性的特性,能否把属性修改为访问器属性,默认true
+		(2)[[enumerable]]:能否通过for in 循环遍历,默认true
+		(3)[[writable]]:能否修改属性的值;默认为true
+		(4)[[value]]:读取或者写入属性值的位置默认值为:undefined
+		要修改属性的默认特性必须使用Object.defineProperty(属性所在的对象,属性的名字,一个描述符对象)方法;
+		//注意:
+		把configurable设置为false,如果对对象的某个属性调用delete,在非严格模式下什么也不会发生,在严格模式下会报错,而且一旦设置为false,就不可在更改,这时调用Object.definProperty()方法修改除了writebale之外的特性都会报错
+		在调用这个方法时;如果不指定configurable, enumerable, wriable,都默认为false
+	2.访问器属性:
+		(1)[[configurable]]:能否用delete删除属性,能否修改属性的特性,能否把属性修改为访问器属性,默认true
+		(2)[[enumerable]]:能否通过for in 循环遍历,默认true
+		(3)[[get]]读取属性时调用的函数;默认为undefined
+		(4)[[set]]写入属性时调用的函数;默认为undefined
+		访问器属性不能直接定义;需要使用Object.defineProperty();
+		不一定非要同时指定个getter,和setter(严格模式除外)
+	*/
+	//例如:
+	var person = {};
+	Object.defineProperty(person, 'name', {
+		writable: false,
+		value: 'hanhui'
+	});
+	console.log(person.name);//hanhui
+	person.name = 'jjjjj';
+	console.log(person.name);//hanhui
+
+	var animail = {name: 'fish'};
+	Object.defineProperty(animail, 'name', {
+		configurable: false
+	})
+	// Object.defineProperty(animail, 'name', {
+	// 	configurable: true,
+	// 	value: 'pig'
+	// })
+	// console.log(animail.name);//出错
+
+
+	/*=======================访问器属性的例子=======================*/
+	var book = {
+		_year:2017,
+		edition: 0
+	};
+	Object.defineProperty(book, 'year', {
+		get: function () {
+			return this._year;
+		},
+		set: function (newValue) {
+			if (newValue > 2017) {
+				this._year = newValue;
+				this.edition += newValue - 2017; 
+			}
+		}
+	});
+	book.year = 2019;
+	console.log(book);
+
+	/*====================定义多个属性====================*/
+
+	var book1 = {};
+	Object.defineProperties(book1, {
+		_year: {
+			value: 2017
+		},
+		edition: {
+			value: 0
+		},
+		year: {
+			get: function () {
+				return this._year;
+			},
+			set: function (newValue) {
+				if (newValue > 2017) {
+					this._year = newValue;
+					this.edition += newValue - 2017; 
+				}
+			}
+		}
+	});
+
+	/*=======================读取属性=======================*/
+
+	var descriptor = Object.getOwnPropertyDescriptor(book1, "_year");
+	console.log(descriptor);//{value: 2017, writable: false, enumerable: false, configurable:false}
+	var descriptor1 = Object.getOwnPropertyDescriptor(book1, 'year');
+	console.log(descriptor1);//{enumerable: false, configurable: false, get: function,set:function}
+</script>
+</html>
