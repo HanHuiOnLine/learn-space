@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//1.动态原型模式
+	function Person (name, age, job) {
+		this.name = name;
+		this.age = age;
+		this.job = job;
+		if (typeof sayName != "function") {
+			Person.prototype.sayName = function () {
+				console.log(this.name);
+			}
+		}
+	}
+	var my = new Person('hanhui', 20, 'chengxuyuan');
+	my.sayName();//hanhui
+
+	//2.寄生构造函数模式(与工厂模式一摸一样)
+	function Person1 (name, age, job) {
+		var o = new Object();
+		o.name = name;
+		o.age = age;
+		o.job = job;
+		o.sayName = function () {
+			console.log(this.name);
+		}
+		return o;
+	}
+	var you = new Person1('xiaoxue', 23, 'meinv');
+	you.sayName();//xioaxue
+	/*这个模式在特殊的情况下用来为对象创建构造函数,假设我们想创建一个具有额外方法的特殊数组;
+	由于不能直接修改Array构造函数,因此可以用这个模式*/
+	function SpercialArray () {
+		//创建数组
+		var values = new Array();
+		//添加值
+		values.push.apply(values, arguments);
+		//添加方法
+		values.toPipedString = function () {
+			return this.join("|");
+		};
+		//返回数组
+		return values;
+	}
+	var colors = new SpercialArray('red', 'bule', 'green');
+	console.log(colors.toPipedString());//red|bule|green
+
+	//3.稳妥构造函数模式(指没有公共属性,其方法也不引用this对象)
+	function Person2 (name, age, job) {
+		var o = new Object();
+		//这里定义私有变量和函数
+		//添加方法
+		o.sayName = function () {
+			console.log(this.name);
+		}
+		return o;
+	}
+	/*
+	除了调用sayName方法之外,没有别的方式可以访问其数据成员
+	*/
+</script>
+</html>
