@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>call方法实现的继承</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function A (name, age) {
+			this.name = name;
+			this.age = age;
+			console.log(name,age);
+		}
+		function B (name, age) {
+			A.call(this,name,age);
+		}
+	</script>
+</html>
