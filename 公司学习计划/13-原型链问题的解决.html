@@ -26,6 +26,48 @@
 	console.log(example2.colors);//["red", "blue", "green"]
 
 	//1.传递参数
-	
+	function SuperType1 (name) {
+		this.name = name;
+	}
+	function SubType1 () {
+		//继承
+		SuperType1.call(this, 'hanhui');
+		//实例属性
+		this.age = 20;
+	}
+	var inst1 = new SubType1();
+	console.log(inst1.name, inst1.age);//hanhui 20
+
+	/*========================组合继承==========================*/
+
+	function FatherType (name) {
+		this.name = name;
+		this.colors = ['red', 'blue', 'green'];
+	}
+	FatherType.prototype.sayName = function () {
+		console.log(this.name);
+	};
+	function ChildType (name, age) {
+		//继承属性
+		FatherType.call(this, name);
+		this.age = age;
+	}
+	//继承方法
+	ChildType.prototype = new FatherType();
+	ChildType.prototype.sayAge = function () {
+		console.log(this.age);
+	}
+
+	var fa1 = new ChildType('hanhui', 20);
+	fa1.colors.push('black');
+	console.log(fa1.colors);//["red", "blue", "green", "black"]
+	fa1.sayName();//hanhui
+	fa1.sayAge();//20\
+
+	var fa2 = new ChildType('xiaoxue', 18);
+	console.log(fa2.colors);//["red", "blue", "green"]
+	fa2.sayName();//xiaoxue
+	fa2.sayAge();//18
+
 </script>
 </html>
