@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>原型链问题的解决</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	借用构造函数(解决原型中包含引用类型值所带来的问题)
+	*/
+	function SuperType () {
+		this.colors = ['red', 'blue', 'green'];
+	}
+	function SubType () {
+		//继承
+		SuperType.call(this);
+	}
+	var example1 = new SubType();
+	example1.colors.push('black');
+	console.log(example1.colors);//["red", "blue", "green", "black"]
+
+	var example2 = new SubType();
+	console.log(example2.colors);//["red", "blue", "green"]
+
+	//1.传递参数
+	
+</script>
+</html>

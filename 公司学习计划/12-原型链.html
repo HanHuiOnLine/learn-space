@@ -33,5 +33,46 @@
 	 当我们调用example.getFatherValue()方法时:
 	 1.搜索实例;2.搜索ChildType.prototype;3.搜索FatherType;在找不到属性或方法时;搜索过程一步一步进行到原型链的底部
 	*/
+
+	/*======================谨慎的定义方法======================*/
+
+	function SuperType () {
+		this.a = true;
+	}
+	SuperType.prototype.getSuperValue = function () {
+		return this.a;
+	}
+	function SubType () {
+		this.b = false;
+	}
+	//继承
+	SubType.prototype = new SuperType();
+	//添加新方法
+	SubType.prototype.getSubValue = function () {
+		return this.b;
+	}
+	//重写超类型中的方法
+	SubType.prototype.getSuperValue = function () {
+		return false;
+	}
+	var insta = new SubType();
+	console.log(insta.getSuperValue());//false
+
+	/*=================原型链的一些问题=====================*/
+	//1.引用类型值的原型属性会被所有实例共享
+	function Father () {
+		this.colors = ['red', 'blue', 'green'];
+	}
+	function Child () {}
+	//继承
+	Child.prototype = new Father();
+
+	var example1 = new Child();
+	example1.colors.push('black');
+	console.log(example1.colors);//["red", "blue", "green", "black"]
+
+	var example2 = new Child();
+	console.log(example2.colors);//["red", "blue", "green", "black"]
+	//2.在创建子类型的实例时,不能向超类型的构造函数中传递参数,实际上,应该说是没有办法在不影响所有对象实例的情况下,给超类型的构造函数传递参数
 </script>
 </html>
