@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue项目中的跨域问题</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    //使用node.js做代理
+    //直接用vue-cli脚手架工具构建项目
+    //找到项目文件夹下的config/index.js, 里面有一行proxyTable: {}, 这里就是作者为我们留的接口, 我们添加代理规则进去
+    var path = require('path');
+    module.exports = {
+        build: {
+            env: require('./prod.env'),
+            index: path.resolve(__dirname, '../xxx/index.html'),
+            assetsRoot: path.resolve(__dirname, '../xxx'),
+            assetsSubDirectory: 'static',
+            assetsPublicPath: '/',
+            productionSourceMap: true,
+            productionGzip: false,
+            productionGzipExtensions: ['js', 'css']
+        },
+        dev: {
+            env: require('./dev.env'),
+            port: 8080,
+            assetsSubDirectory: 'static',
+            assetsPublicPath: '/',
+            proxyTable: {
+                '/api': {
+                    target: 'http://www.xxx.com/api.php/',
+                    changeOrigin: true,
+                    pathRewrite: {
+                        '^/api': '/'
+                    }
+                }
+            },
+            cssSourceMap: false
+        }
+    }
+    //这里target为目标域名，pathRewrite为转换规则，请求数据时将接口地址 根据转换规则请求就可以解决跨域啦！（这里也可以配置headers，设置cookis，token等）
+</script>
+</html>
