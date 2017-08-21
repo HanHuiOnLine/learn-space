@@ -8,8 +8,15 @@
 
 </body>
 <script type="text/javascript">
-    var format = ['一', '二', '三', '四', '五'];
-    var a = ['二', '三', '四', '五'];
+	var name = 'jac';
+	(function () {
+		console.log(name);
+		if (typeof name === 'undefined') {
+			console.log(1);
+		} else {
+			console.log(2);
+		}
+	})()
 
 </script>
 </html>
