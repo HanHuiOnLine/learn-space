@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Number方法</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	1.true转换成1.false转换成0
+	2.如果传入数字值,返回这个数字值
+	3.如果是null,返回0
+	4.如果是undefined,返回NaN
+	5.如果是字符串
+	 (1).只包含数字,转换成数字值
+	 (2).包含浮点数,转换成浮点数
+	 (3).十六进制转换成10进制数
+	 (4).空字符串转换成0
+	 (5).除上述之外的转换成NaN
+	6.如果是对象
+	调用对象的valueOf方法,然后按照前面的规则转换返回回来的值,如果转换的结果是NaN,调用对象的toString方法,然后按照前面的方法 
+	*/
+	console.log(Number('hello world'));//NaN
+	console.log(Number(''));//0
+	console.log(Number('00011'));//11
+	console.log(Number(true));//1
+
+	/*=============parseInt()===========*/
+	console.log(parseInt('1234blue'));//1324
+	console.log(parseInt(''));//NaN
+	console.log(parseInt('0xf'));//10(十六进制数)
+	console.log(parseInt(22.5));//22
+	console.log(parseInt('070'));//56(八进制数);注意:ES3与ES5的区别
+	console.log(parseInt(70));//70
+	console.log(parseInt('0xf'))//15(十六进制数)
+
+	//注意:为了避免错误,我们一般在处理有进制的数的之后,带上进制
+	console.log(parseInt('10', 2));//2(按照二进制解析)
+
+
+	/*===============parseFloat()===============*/
+	console.log(parseFloat('1234blue'));//1324
+	console.log(parseFloat('0xA'));//0
+	console.log(parseFloat(22.5));//22.5
+	console.log(parseFloat(22.34.5));//22.34
+	console.log(parseFloat('098.5'));//98.5
+	console.log(parseFloat(3.125e3));//3125
+</script>
+</html>
