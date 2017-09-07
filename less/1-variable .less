@@ -1,0 +1,48 @@
+@link-color: red;
+@link-color-hover: darken(@link-color, 20%);
+.div{
+  color: @link-color;
+}
+a{
+  color: @link-color;
+  &:hover{
+    color: @link-color-hover;
+  }
+}
+.box{
+  color: @link-color;
+}
+//除了上述用变量存储公用的属性值,我们还可以用变量存储供用电URL,选择器等
+.@{selector} {
+  width: 100px;
+  height: 100px;
+  @{property}: #000;
+  background: url("@{bgImg}/test.png");
+  &:after{
+    display: block;
+    content: @@var;
+  }
+}
+@selector: box;
+@bgImg: './img';
+@property: color;
+@name: '韩辉';
+@var: 'name';
+/*
+    //->编译为CSS的结果
+    .box {
+        width: 100px;
+        height: 100px;
+        color: #000;
+        background: url("../img/test.png");
+    }
+    .box:after {
+        display: block;
+*/
+
+/*
+在上述的代码中,我们发现,变量存储的值可以作为选择器,也可以作为样式属性名.同样也可以像类似于js中字符串拼接的方式把
+变量值和另外一个字符串进行拼接,而@@var是把var变量存储的值作为另外一个变量的名从而获取对应的值,还有一点值得我们
+注意的是,变量可以定位在使用代码的下面,这个有点类似与js中预解释,不管写在上面还是下面,都是相当于全局的变量
+并且都可以把存储值获取到
+*/
