@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>break和continue</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+	/*
+	break和continue语句用于在循环中精确地控制代码的执行，其中，break语句会立即退出勋魂，强制继续执行循环后面的语句，而
+	continue语句虽然也是立即退出循环，但是退出循环后会从循环的顶部继续执行
+	*/
+	var num1 = 0;
+	for (var i = 1; i < 10; i++) {
+		if (i % 5 === 0) {
+			break;
+		}
+		num1++;
+	}
+	console.log(num1);//4
+	
+	var num2 = 0;
+	for (var j = 1; j < 10; j++) {
+		if (j % 5 === 0) {
+			continue;
+		}
+		num2++;
+	}
+	console.log(num2);//8
+	
+	//接合label语句使用
+	var num3 = 0;
+	outermost:
+	for (var k = 0; k < 10; k++) {
+		for (var l = 0; l < 10; l++) {
+			if (k === 5 && l === 5) {
+				break outermost;
+			}
+			num3++;
+		}
+	}
+	console.log(num3);//55
+	/*
+		在这个例子中，outermost标签标示外部的for语句，如果每个循环正常执行10次，则num++的语句就会正常执行100次，
+		换句话说，如果两个循环都自然结束，num的值应该是100，但内部循环中的break语句带了一个参数，要返回到的标签；
+		添加这个标签的结果将导致break语句不仅会退出内部的for语句，而且也会退出外部的for语句，为此，当变量k,l都等于5时
+		num3的值正好是55，同样，continue语句也可以像这样与label语句连用
+	*/
+	var num4 = 0;
+	start:
+	for (var a = 0; a < 10; a++) {
+		for (var b = 0; b < 10; b++) {
+			if (a === 5 && b === 5) {
+				continue start;
+			}
+			num++;
+		}
+	}
+	console.log(num4);//95
+	/*
+		这种情况，continue语句将会强制继续执行循环，退出内部循环，执行外部循环，当b=5时，continue语句执行，而这也意味着
+		内部循环少执行了5次，因此，num的结果是95
+	*/
+</script>
+</html>

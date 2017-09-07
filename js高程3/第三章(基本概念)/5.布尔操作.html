@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>布尔操作<title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+	/*==================逻辑非==================*/
+	/*
+	1.如果操作数是一个对象，返回false
+	2.如果操作数是一个空字符串，返回true
+	3.如果操作数是一个非空字符串，返回false
+	4.如果操作数是数值0，返回true
+	5.如果操作数是任意非0的数值（包括Infinity），返回false
+	6.如果操作数是null，返回true
+	7.如果操作数是NaN，返回true
+	8.如果操作数是undefined，返回true
+	*/
+	console.log(!false);//true
+	console.log(!'blue');//false
+	console.log(!0);//true
+	console.log(!NaN);//true
+	console.log(!'');//true
+	console.log(!1346);//false
+	
+	/*==================逻辑与==================*/
+	/*
+		第一个操作数    第二个操作数   结果
+		     true           true        true
+			 true           false       false
+			 false          true        false
+			 false          false       false
+		//遵循以下规则
+		1.如果第一个操作数是对象，则返回第二个操作数
+		2.如果第二个操作数是对象，则只有在第一个操作数的求值结果为true的情况下才会返回该对象
+		3.如果两个操作数都是对象，则返回第二个操作数
+		4.如果有一个操作数是null，则返回null
+		5.如果有一个操作数是NaN，则返回NaN
+		6.如果有一个操作数是undefined，则返回undefined
+		逻辑与操作属于短路操作，即如果第一个操作数能够决定结果，那么就不会再对第二个操作数求值，
+		对于逻辑与操作而言，如果第一个操作数是false，则无论第二个操作数是什么值吗，结果都不再可能是true了
+	*/
+	var found = true;
+	var result = (found && someUndefinedVariable);//这里会发生错误
+	console.log(result);//这里不会执行
+	
+	var found1 = false;
+	var result1 = (found1 && someUndefinedVariable);//这里不会发生错误
+	console.log(result1);//执行结果false
+	
+	/*==================逻辑或==================*/
+	/*
+			第一个操作数   第二个操作数   结果
+			    true            true       true
+				true            false      true
+				false           true       true
+				false           false      false
+			遵循以下规则
+			1.如果的哥操作数是对象，则返回第一个操作数
+			2.如果第一个操作数的求值结果是false，则返回第二个操作数
+			3.如果两个操作数都是对象，则返回第一个操作数
+			4.如果两个操作数都是null，则返回null
+			5.如果俩个操作数都是NaN，则返回NaN
+			6.如果两个操作数都是undefined，则返回undefined
+		逻辑与操作符也是短路操作符，如果第一个操作数的求值结果为true，就不会对第二个操作数求值了	
+	*/
+	var found2 = true;
+	var result2 = (found2 || someUndefinedVariable);//不会发生错误
+	console.log(result2);//会执行，true
+	
+	var found3 = true;
+	var result3 = (found3 || someUndefinedVariable);//会发生错误
+	console.log(result3);//不会执行
+</script>
+</html>
