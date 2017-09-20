@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<style type="text/css">
+	#order-goods-type{
+    height: 30px;
+    width: 138px;
+    border: 1px solid #ccc;
+    position: relative;
+    display: inline-block;
+	}
+	#order-goods-type .hover-btn{
+	    padding: 0 8px;
+	    font-size: 14px;
+	    cursor: pointer;
+	}
+	#order-goods-type .select-list-wrap{
+	    position: absolute;
+	    top: 102%;
+	    left: -1px;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    border-top: none;
+	    width: 100%;
+	    display: none;
+	}
+	#order-goods-type .select-list-wrap li{
+	    padding: 0 8px;
+	    cursor: pointer;
+	}
+	#order-goods-type .select-list-wrap li:hover{
+	    background-color: #ddd;
+	}
+</style>
+<body>
+	 <div id="select9891-wrap">
+        <div class="hover-btn">
+            <span>默认为一</span>
+        </div>
+        <ul class="select9891-list-wrap">
+            <li>11111</li>
+            <li>22222</li>
+        </ul>
+    </div>
+</body>
+<script  src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    /*
+    	为了避免和其他JavaScript库冲突，我们最好将jQuery传递给一个自我执行的封闭程序，
+    	jQuery在此程序中映射为$符号，这样可以避免$号被其他库覆写。
+    */	
+	(function ($) {
+		//方法集合
+		var methods = {
+			init: function () {
+				console.log('初始化');
+			},
+			renderDom: function (arg) {
+				
+			},
+			ajax: function () {
+
+			}
+		};
+		$.fn.Select9891 = function (options) {
+			//如果optons不是一个对象,返回false
+			if (typeof options !== 'object') {
+				throw new Error('参数不是对象!');
+				return false;
+			}
+			//data代表本地数据,ajax代表远程数据,二者必须有一个,否则返回false
+			if (options.hasOwnProperty('data') === false && options.hasOwnProperty('ajax') === false) {
+				throw new Error('必须有数据,data或者ajax属性');
+				return false;
+			}
+
+			//方法调用
+			if (methods[method]) {
+            	return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        	} else if (typeof method === 'object' || !method) {
+            	return methods.init.apply(this, arguments);
+        	} else {
+            	$.error('方法: ' + method + ' 不存在!');
+        	}
+
+			/*
+				console.log(this);
+
+				this关键字代表了这个插件将要执行的jQuery对象， 这里容易产生一个普遍的误区，
+				因为在其他包含callback的jQuery函数中，this关键字代表了原生的DOM元素。
+				这常常会导致开发者误将this关键字无谓的包在jQuery中
+			*/
+
+			var _self = this;
+
+			//设置默认参数
+			var defaultParameter = $.extend({
+				data: '',
+				placeholder: '请选择'
+			}, options);
+		}
+	})(jQuery);
+
+</script>
+<script type="text/javascript">
+	$('#select9891-wrap').Select9891({
+		data: ''
+	});
+</script>
+</html>
