@@ -15,6 +15,7 @@
 	#select9891-wrap .select9891-hover-btn{
 	    padding: 0 8px;
 	    font-size: 14px;
+	    height: 100%;
 	    cursor: pointer;
 	}
 	#select9891-wrap .select9891-list-wrap{
@@ -63,12 +64,17 @@
 			},
 			init: function (options) {
 				var _self = this;
+				if (options.hasOwnProperty('initSelection')) {
+
+				} else {
+                    //将本地数据加载到下拉列表
+                    var liDom = methods.renderDom(options.data);
+                    this.find('.select9891-list-wrap').html(liDom);
+                }
 				//渲染数据
 				//1.设置默认显示
 				this.find('.select9891-hover-btn > span').html(options.placeholder);
-				//2.将数据加载到下拉列表
-				var liDom = methods.renderDom(options.data);
-				this.find('.select9891-list-wrap').html(liDom);
+
 				//绑定事件
 				this.on('click', '.select9891-hover-btn', function (e) {
 					_self.find('.select9891-list-wrap').slideToggle('fast', 'swing');
@@ -81,10 +87,24 @@
 					_self.find('.select9891-list-wrap').slideUp('fast', 'swing');
 				});
 			},
-			setDefaultVal: function (val) {
-				this.find('')
+			setDefaultVal: function (id) {
+				var _self = this;
+				this.find('.select9891-list-wrap li').each(function (index, element) {
+					if ($(element).attr('value') === id) {	
+						_self.find('.select9891-hover-btn > span').html($(element).html());
+						_self.find('.select9891-hover-btn > span').attr('value', $(element).attr('value'));
+					}
+				});
+			},
+			data: function () {
+				var dataDom = this.find('.select9891-hover-btn > span');
+				return {
+					id: dataDom.attr('value'),
+					value: dataDom.html()
+				}
 			}
 		};
+
 		$.fn.Select9891 = function (method) {
 			//方法调用
 			if (methods[method]) {
@@ -105,9 +125,27 @@
 		{'id': 3, 'text': '33333'},
 		{'id': 4, 'text': '44444'}
 	];
+
+
 	$('#select9891-wrap').Select9891({
-		data: data,
-		placeholder: '请选择'
+		placeholder: '请选择',
+        initSelection: function () {
+            
+        }
 	});
+
+	/*
+	设置默认的值,需要知道数据的格式{id: 1, text: ''}
+	知道数据中的那一条是需要设置的默认值;
+	*/
+	$('#select9891-wrap').Select9891('setDefaultVal', 2);	
+
+	setTimeout(function () {
+		//在合适的时机,获取选中的值的方法
+		var a = $('#select9891-wrap').Select9891('data');
+		console.log(a);
+	}, 2000);
+
+
 </script>
 </html>
