@@ -125,27 +125,21 @@
 		{'id': 3, 'text': '33333'},
 		{'id': 4, 'text': '44444'}
 	];
-
-
 	$('#select9891-wrap').Select9891({
 		placeholder: '请选择',
         initSelection: function () {
             
         }
 	});
-
 	/*
 	设置默认的值,需要知道数据的格式{id: 1, text: ''}
 	知道数据中的那一条是需要设置的默认值;
 	*/
-	$('#select9891-wrap').Select9891('setDefaultVal', 2);	
-
+	$('#select9891-wrap').Select9891('setDefaultVal', 2);
 	setTimeout(function () {
 		//在合适的时机,获取选中的值的方法
 		var a = $('#select9891-wrap').Select9891('data');
 		console.log(a);
 	}, 2000);
-
-
 </script>
 </html>

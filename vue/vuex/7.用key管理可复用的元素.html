@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app1">
+        <template v-if="loginType === 'username'">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入您的用户名">
+        </template>
+        <template v-else>
+            <label>邮箱</label>
+            <input type="text" placeholder="输入您的邮箱地址">
+        </template>
+        <button @click="this.changeType">改变类型</button>
+        <p>对比</p>
+        <template v-if="loginType === 'username'">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入您的用户名" key="username-input">
+        </template>
+        <template v-else>
+            <label>邮箱</label>
+            <input type="text" placeholder="输入您的邮箱地址" key="email-input">
+        </template>
+        <button @click="this.changeType">改变类型</button>
+    </div>
+    <p>
+        注意，&lt;label&gt; 元素仍然会被高效地复用，因为它们没有添加 key 属性
+    </p>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app1',
+        data: {
+            loginType: 'username'
+        },
+        methods: {
+            changeType: function () {
+                return this.loginType = this.loginType === 'username' ? 'email' : 'username';
+            }
+        }
+    })
+</script>
+</html>
