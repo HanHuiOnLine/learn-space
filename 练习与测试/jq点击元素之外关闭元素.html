@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .select-wrap, .select-wrap1{
+            position: relative;
+            width: 100px;
+            border: 1px solid #000;
+        }
+        .select-wrap1{
+            margin-top: 100px;
+        }
+       .select-list{
+        display: none;
+        position: absolute;
+        border: 1px solid red;
+        top: 100%;
+        left: 0
+       }
+    </style>
+</head>
+<body>
+<div class="select-wrap">
+    <div class="select-span">
+        <span>选择一个</span>
+    </div>
+    <ul class="select-list">
+        <li>1111111111</li>
+        <li>2222222222</li>
+        <li>3333333333</li>
+    </ul>
+</div>
+
+<div class="select-wrap1">
+    <div class="select-span">
+        <span>选择一个</span>
+    </div>
+    <ul class="select-list">
+        <li>1111111111</li>
+        <li>2222222222</li>
+        <li>3333333333</li>
+    </ul>
+</div>
+</body>
+<script  src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script>
+    $(".select-wrap .select-span").click(function(){
+        $(".select-wrap .select-list").slideToggle();
+    });
+    $(".select-wrap1 .select-span").click(function(){
+        $(".select-wrap1 .select-list").slideToggle();
+    });
+    //
+    $(".select-wrap .select-list li").on('click', function (e) {
+        e.stopPropagation();
+        $(this).parents('.select-wrap').find('span').html($(this).html());
+         $(this).parents('.select-wrap').find('.select-list').slideUp();
+        $(".select-wrap1 .select-list").slideDown('fast', 'swing', function () {
+            console.log(1);
+        });
+    })
+    $(".select-wrap1 .select-list li").on('click', function (e) {
+        e.stopPropagation();
+        $(this).parents('.select-wrap1').find('span').html($(this).html());
+         $(this).parents('.select-wrap1').find('.select-list').slideUp();
+    })
+    $(document).click(function(e) {
+        var target = $(e.target);
+        if(target.closest(".select-wrap").length == 0) {
+            $(".select-wrap .select-list").slideUp();  
+        };
+        if (target.closest('.select-wrap1').length == 0) {
+            $('.select-wrap1 .select-list').slideUp('fast', 'swing', function () {
+                console.log(2);
+            });
+        };
+        
+
+         // switch (eleDom) {
+         //    case 'select-wrap':
+         //        //
+         //         if(target.closest(".select-wrap").length != 0) {
+         //            return;
+         //         };
+         //        $(".select-wrap .select-list").slideUp();
+         //    break;
+         //    case 'select-wrap1':
+         //        //
+         //         if (target.closest('.select-wrap1').length != 0) {
+         //            return;
+         //         };
+         //        $('.select-wrap1 .select-list').slideUp();
+         //        break;
+         //    default:
+         //        //        
+         // }
+    });
+
+</script>
+</html>
