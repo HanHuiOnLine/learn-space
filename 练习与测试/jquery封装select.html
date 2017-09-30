@@ -42,8 +42,6 @@
             <span value="">默认为一</span>
         </div>
         <ul class="select9891-list-wrap">
-            <li>11111</li>
-            <li>22222</li>
         </ul>
     </div>
 </body>
@@ -64,15 +62,53 @@
 			},
 			init: function (options) {
 				var _self = this;
-				if (options.hasOwnProperty('initSelection')) {
-
-				} else {
-                    //将本地数据加载到下拉列表
-                    var liDom = methods.renderDom(options.data);
-                    this.find('.select9891-list-wrap').html(liDom);
-                }
 				//渲染数据
-				//1.设置默认显示
+				//data属性和ajax属性只能有一个,也就是说,数据来源只能有一个,
+				//如果两者都有,默认渲染data属性里面的数据
+				if (!options.hasOwnProperty('data') && !options.hasOwnProperty('ajax')) {
+					throw new Error('data属性和ajax属性必须有一个,这是数据来源');
+					return false;
+				}
+				if (options.hasOwnProperty('data')) {
+					//将本地数据加载到下拉列表
+					var liDom = methods.renderDom(options.data);
+					this.find('.select9891-list-wrap').html(liDom);
+					//渲染完成之后,设置默认显示的值;
+                    if (options.hasOwnProperty('defaultValue')) {
+                        methods.setDefaultVal(_self, options.defaultValue);
+                    }
+				} else {
+					//ajax加载远程数据
+					var url      = options.ajax.url || '',
+					    type     = options.ajax.type || 'get',
+					    dataType = options.ajax.dataType || 'json',
+                        data     = options.ajax.data || '',
+                        results  = options.ajax.results;
+					$.ajax({
+						url: url,
+						type: type,
+						dataType: dataType,
+						data: data,
+						complete: function (XMLHttpRequest, textStatus) {
+							//textStatus的值：success,notmodified,nocontent,error,timeout,abort,parsererror
+							//获取数据
+							var ajaxReturnData = results(textStatus, $.parseJSON(XMLHttpRequest.responseText));
+							if (Array.isArray(ajaxReturnData)) {
+								//渲染数据
+								var liDom = methods.renderDom(ajaxReturnData);
+								_self.find('.select9891-list-wrap').html(liDom);
+                                //渲染完成之后,设置默认显示的值;
+                                if (options.hasOwnProperty('defaultValue')) {
+                                    methods.setDefaultVal(_self, options.defaultValue);
+                                }
+							} else {
+								throw new Error('results方法返回的不是数组!');
+							}
+						}
+					});
+				}
+				
+				//设置placeholder
 				this.find('.select9891-hover-btn > span').html(options.placeholder);
 
 				//绑定事件
@@ -87,16 +123,24 @@
 					_self.find('.select9891-list-wrap').slideUp('fast', 'swing');
 				});
 			},
-			setDefaultVal: function (id) {
-				var _self = this;
-				this.find('.select9891-list-wrap li').each(function (index, element) {
-					if ($(element).attr('value') === id) {	
+			setDefaultVal: function (thisT, id) {
+                //设置默认值
+                //需要在渲染完成之后
+                /*
+	                设置默认的值,需要知道数据的格式{id: 1, text: ''}
+	                知道数据中的那一条是需要设置的默认值;
+	            */
+				var _self = thisT;
+				_self.find('.select9891-list-wrap li').each(function (index, element) {
+				    console.log($(element).attr('value'));
+					if ($(element).attr('value') === id) {
 						_self.find('.select9891-hover-btn > span').html($(element).html());
 						_self.find('.select9891-hover-btn > span').attr('value', $(element).attr('value'));
 					}
 				});
 			},
 			data: function () {
+			    //获取当前选中的值
 				var dataDom = this.find('.select9891-hover-btn > span');
 				return {
 					id: dataDom.attr('value'),
@@ -119,23 +163,32 @@
 
 </script>
 <script type="text/javascript">
-	var data = [
-		{'id': 1, 'text': '11111'},
-		{'id': 2, 'text': '22222'},
-		{'id': 3, 'text': '33333'},
-		{'id': 4, 'text': '44444'}
-	];
+//	var data = [
+//		{'id': 1, 'text': '11111'},
+//		{'id': 2, 'text': '22222'},
+//		{'id': 3, 'text': '33333'},
+//		{'id': 4, 'text': '44444'}
+//	];
 	$('#select9891-wrap').Select9891({
 		placeholder: '请选择',
-        initSelection: function () {
-            
-        }
+		ajax: {
+			url: './test.txt',
+			results: function (state, response) {
+                console.log(state);
+                console.log(response);
+			    if (state === 'success') {
+			        return response.data;
+                } else {
+			        alert('请求出错');
+                }
+			}
+			
+		},
+        //设置默认显示的值,需要知道需要显示的值的id
+        defaultValue: 2
 	});
-	/*
-	设置默认的值,需要知道数据的格式{id: 1, text: ''}
-	知道数据中的那一条是需要设置的默认值;
-	*/
-	$('#select9891-wrap').Select9891('setDefaultVal', 2);
+
+
 	setTimeout(function () {
 		//在合适的时机,获取选中的值的方法
 		var a = $('#select9891-wrap').Select9891('data');
