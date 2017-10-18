@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <!--header是公共头部,这里放个容器,头部将会被加载到这里-->
+        <div id="common-header"></div>
+        <!--下面是其他本页的其他内容-->
+        <div>正文内容区域</div>
+    </div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    //这里写公用头部
+    //官网提供了vue.extend构造方法,直接用
+    var header = Vue.extend({
+        template: '<div class="wrap"><span>{{a}}</span><p>{{b}}</p></div>',
+        data: function () {
+            return {
+                a: 1,
+                b: '嘿嘿'
+            }
+        }
+    });
+    var commonHeader = new header();
+</script>
+<script type="text/javascript">
+    //这里将公共部分的头部加载进来,加载到我们在本页给的容器中
+    commonHeader.$mount('#common-header');
+    //本页的js
+    var myApp = new Vue({
+        el: '#app',
+        data: {
+
+        }
+    });
+    /* 一点感觉
+    * 1.一般来说,我们不会直接浏览器引用vue.js开发项目;感觉怪怪的,
+    * 2.被迫开发一个页面中直接引用vue.js+jquery的项目,确实很快,30个页面的项目,两个人(后端接口已经有),三周过审上线
+    * */
+</script>
+</html>

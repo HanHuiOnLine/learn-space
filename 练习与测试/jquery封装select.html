@@ -76,6 +76,9 @@
 	<div>
 		<button id="make-sure">确认</button>
 	</div>
+	<div>
+		<button id="reset-style">重置样式</button>
+	</div>
 </body>
 <script  src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
 <script>
@@ -96,7 +99,9 @@
 				return liDom;
 			},
 			init: function (options) {
+			    methods.privateFun.initOptions = options;
 				var _self = this;
+				_self.openState = options.canOpen;
 				//设置placeholder
 				this.find('.select9891-hover-btn > span').html(options.placeholder);
 				//渲染数据
@@ -144,50 +149,41 @@
 						}
 					});
 				}
-				//绑定事件
-				this.on('click', '.select9891-hover-btn', function (e) {
-				    console.log(_self);
-                    var openState = false;
-                    //当参数中的canOpen设置为true时,下拉框为可打开状态
-                    if (options.canOpen === true) {
-                        openState = true;
-                    } else {
-                        //否则,下拉框的状态由enable函数控制
-	                    console.log(_self.openState);
-                        openState = _self.openState;
-                    }
-				    if (openState) {
+                //绑定事件
+				if (options.canOpen === true) {
+                    this.on('click', '.select9891-hover-btn', function (e) {
                         _self.find('.select9891-list-wrap').slideToggle('fast', 'swing', function () {
                             //图标变换
                             methods.privateFun.changeIcon(_self);
                         });
-				    }
-				});
-				//选中下拉框中的数据的某一个
-				this.on('click', '.select9891-list-wrap li', function (e) {
-					e.stopPropagation();
-					var selectVal = $(this).html(),
-					    selectId = $(this).attr('value');
-					_self.find('.select9891-hover-btn > span').html(selectVal);
-					_self.find('.select9891-hover-btn > span').attr('value', selectId);
-					_self.find('.select9891-list-wrap').slideUp('fast', 'swing', function () {
-						//图标变换
-						methods.privateFun.changeIcon(_self);
-					});
-					//选中一个
-					_self.trigger('choseOne');
-				});
-				$(document).click(function(e) {
-					var target = $(e.target);
-					if(target.closest(_self.selector).length == 0) {
-						if (!_self.find('.select9891-list-wrap').is(':hidden')) {
-							_self.find('.select9891-list-wrap').slideUp('fast', 'swing', function () {
-								//图标变换
-								methods.privateFun.changeIcon(_self);
-							});	
-						} 
-					}
-				});
+                        _self.trigger('openClick');
+                    });
+				}
+                //选中下拉框中的数据的某一个
+                this.on('click', '.select9891-list-wrap li', function (e) {
+                    e.stopPropagation();
+                    var selectVal = $(this).html(),
+                        selectId = $(this).attr('value');
+                    _self.find('.select9891-hover-btn > span').html(selectVal);
+                    _self.find('.select9891-hover-btn > span').attr('value', selectId);
+                    _self.find('.select9891-list-wrap').slideUp('fast', 'swing', function () {
+                        //图标变换
+                        methods.privateFun.changeIcon(_self);
+                    });
+                    //选中一个
+                    _self.trigger('choseOne');
+                });
+                $(document).click(function(e) {
+                    var target = $(e.target);
+                    if(target.closest(_self.selector).length == 0) {
+                        if (!_self.find('.select9891-list-wrap').is(':hidden')) {
+                            _self.find('.select9891-list-wrap').slideUp('fast', 'swing', function () {
+                                //图标变换
+                                methods.privateFun.changeIcon(_self);
+                            });
+                        }
+                    }
+                });
 			},
 			setDefaultVal: function (thisDom, id) {
                 //设置默认值,内部使用,不暴露
@@ -225,14 +221,29 @@
 			},
 			enable: function (bean) {
 				var _self = this;
-				//控制下拉框能否被打开
-				_self.openState = bean;
-				console.log(_self);
+				//当bean为true时,取消下拉框的事件绑定,不可下拉
+				if (bean === true) {
+                    _self.off('click', '.select9891-hover-btn');
+                } else {
+                    _self.on('click', '.select9891-hover-btn', function (e) {
+                        _self.find('.select9891-list-wrap').slideToggle('fast', 'swing', function () {
+                            //图标变换
+                            methods.privateFun.changeIcon(_self);
+                        });
+                        _self.trigger('openClick');
+                    });
+				}
             },
 			reset: function () {
 				//重置样式
-				var _self = this;
-				console.log(_self);
+				var _self = this,
+					options = methods.privateFun.initOptions;
+                if (options.hasOwnProperty('defaultValue')) {
+                    methods.setDefaultVal(_self, options.defaultValue);
+                } else {
+                    _self.find('.select9891-hover-btn > span').html(options.placeholder);
+                    _self.find('.select9891-hover-btn > span').attr('value', '');
+                }
 			},
 			privateFun: {
 				//下面是私有方法
@@ -244,13 +255,11 @@
 					} else {
 						_self.find('i.select9891-arrow-icon use').attr('xlink:href', '#icon-jiantou-down');
 					}
-				}
+				},
+				initOptions: {}
 			}
 		};
 		$.fn.Select9891 = function (method) {
-		    //拓展对象
-			var _self = this;
-			$.extend(_self, {openState: false});
 			//方法调用
 			if (methods[method]) {
             	return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -277,8 +286,6 @@
 		ajax: {
 			url: './test.txt',
 			results: function (state, response) {
-                console.log(state);
-                console.log(response);
 			    if (state === 'success' && response.code === 200) {
 			        return response.data;
                 } else {
@@ -310,38 +317,39 @@
     });
 	
 	//open方法
-	
 	//open方法手动打开下拉框
 	//$('#select9891-wrap').Select9891('open');
-	
+
+	//点击框
+	$('#select9891-wrap').on('openClick', function () {
+		console.log('点击框');
+    });
+
+
 	//选择一个
 	//这个是选中一个之后发生的事件
 	$('#select9891-wrap').on('choseOne', function () {
 	    //选中一个后,打开后面一个,顺便将后面一个变成可下拉状态
+        var a = $('#select9891-wrap').Select9891('data');
+        console.log(a);
 		$('#select9891-wrap1').Select9891('open');
-        $('#select9891-wrap1').Select9891('enable', true);
+        $('#select9891-wrap1').Select9891('enable', false);
 	});
 
 
 
-
-
-
-	//
-	var obj = {
-	    area: {state: false, value: ''},
-		server: {state: false, value: ''}
-	};
-	$('#make-sure').click(function () {
-		console.log(22);
+	//确认
+	$('#make-sure').on('click', function () {
+	    console.log(2323);
+        $('#select9891-wrap1').Select9891('enable', true);
     });
-
-
-	setTimeout(function () {
-		//在合适的时机,获取选中的值的方法
-		var a = $('#select9891-wrap').Select9891('data');
-		console.log(a);
-	}, 2000);
+	//重置样式
+	$('#reset-style').on('click', function (e) {
+		console.log('重置样式');
+        $('#select9891-wrap').Select9891('reset');
+        var a = $('#select9891-wrap').Select9891('data');
+        console.log(a);
+    });
 
 </script>
 </html>

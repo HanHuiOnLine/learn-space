@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
-        .select-wrap, .select-wrap1{
+        .select-wrap, .select-wrap1, .test{
             position: relative;
             width: 100px;
             border: 1px solid #000;
         }
-        .select-wrap1{
+        .select-wrap1, .test{
             margin-top: 100px;
         }
        .select-list{
@@ -22,27 +22,30 @@
     </style>
 </head>
 <body>
-<div class="select-wrap">
-    <div class="select-span">
-        <span>选择一个</span>
+    <div class="select-wrap">
+        <div class="select-span">
+            <span>选择一个</span>
+        </div>
+        <ul class="select-list">
+            <li>1111111111</li>
+            <li>2222222222</li>
+            <li>3333333333</li>
+        </ul>
     </div>
-    <ul class="select-list">
-        <li>1111111111</li>
-        <li>2222222222</li>
-        <li>3333333333</li>
-    </ul>
-</div>
 
-<div class="select-wrap1">
-    <div class="select-span">
-        <span>选择一个</span>
+    <div class="select-wrap1">
+        <div class="select-span">
+            <span>选择一个</span>
+        </div>
+        <ul class="select-list">
+            <li>1111111111</li>
+            <li>2222222222</li>
+            <li>3333333333</li>
+        </ul>
     </div>
-    <ul class="select-list">
-        <li>1111111111</li>
-        <li>2222222222</li>
-        <li>3333333333</li>
-    </ul>
-</div>
+
+    <!--测试-->
+    <div class="test">测试</div>
 </body>
 <script  src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
 <script>
@@ -66,13 +69,28 @@
     })
     $(document).click(function(e) {
         var target = $(e.target);
+        //jquery对象中的length 属性包含 jQuery 对象中元素的数目。
         if(target.closest(".select-wrap").length == 0) {
            $(".select-wrap .select-list").slideUp();  
         };
         if (target.closest('.select-wrap1').length == 0) {
            $('.select-wrap1 .select-list').slideUp('fast', 'swing');
         };
-    });
 
+        //测试
+        //closest() 方法获得匹配选择器的第一个祖先元素，从当前元素开始沿 DOM 树向上。
+        //所以点击元素之外的时候,是匹配不到的,所以length为0
+        console.log(target.closest('.test'));
+        if (target.closest('.test').length === 0) {
+            console.log('点击元素之外');
+        }
+    });
+    
+    
+    
+    //测试
+    $('.test').on('click', function (e) {
+        console.log('点击测试按钮');
+    });
 </script>
 </html>

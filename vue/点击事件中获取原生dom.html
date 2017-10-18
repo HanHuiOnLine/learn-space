@@ -5,10 +5,34 @@
     <title>点击事件中获取原生dom</title>
 </head>
 <body>
-
+    <div id="app">
+        <button @click="clickFun($event)">点击</button>
+    </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
 <script type="text/javascript">
+    var myApp = new Vue({
+        el: '#app',
+        data: {
 
+        },
+        methods: {
+            clickFun: function (event) {
+                //如果配合jq使用,直接$(event.currentTarget)就是jq对象了,就可以对dom进行各种jq的操作
+                /*
+                * target在事件流的目标阶段；currentTarget在事件流的捕获，
+                * 目标及冒泡阶段。只有当事件流处在目标阶段的时候，两个的指向才是一样的，
+                * 而当处于捕获和冒泡阶段的时候，target指向被单击的对象而currentTarget指向当前事件活动的对象（一般为父级）。
+                * */
+                console.log(event.currentTarget);
+                /*
+                * 1.用户已经打开过页面(浏览器已经缓存,而且还没有过期)
+                * 2.服务器上页面已经更新(代码更新)
+                * 3.这时候用户访问的仍然是修改前的应用,
+                * 这个怎么搞啊...
+                * */
+            }
+        }
+    });
 </script>
 </html>
