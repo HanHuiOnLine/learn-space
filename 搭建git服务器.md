@@ -44,6 +44,6 @@ chmod 755 /data/repositories
 编辑 /etc/passwd 文件，将最后一行关于 gituser 的登录 shell 配置改为 git-shell 的目录
 最后一行改成gituser:x:500:500::/home/gituser:/usr/local/git/bin/git-shell
 ###9.使用
-克隆 test repo 到本地
+克隆项目test repo 到本地
 cd ~ && git clone gituser@139.199.223.159:/data/repositories/test.git
 需要前面设置的密码
