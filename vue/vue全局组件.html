@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue全局组件</title>
+</head>
+<body>
+    <div id="app">
+		<header>
+			<my-component :header-data="d"></my-component>
+		</header>
+		<div class='content'>{{ con }}</div>
+	</div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    //注册一个全局组件
+	Vue.component('my-component', {
+		//props 的声明需要放在template的前面
+		props: ['headerData'],
+		template: '<div><button @click="clickBtn">{{ mes }}</button><p>{{ headData.user }}</p></div>',
+		data: function () {
+			return {
+				mes: '点击',
+				headData: this.headerData
+			}
+		},
+		created: function () {
+			console.log('创建');
+		},
+		methods: {
+			clickBtn: function () {
+				console.log(1111);
+			}
+		}
+	});
+	var myApp = new Vue({
+		el: '#app',
+		data: {
+			con: '内容',
+			d: {'user': '梵蒂冈地方'}
+		}
+	})
+</script>
+</html>
