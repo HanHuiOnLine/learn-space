@@ -49,9 +49,9 @@
 <body>
     <div id="app">
 		<header>
-			<my-select @on-change="choseGame" placeholder="选择游戏" :open-close="game.state" class-name="game"></my-select>
-			<my-select @on-change="choseArea" placeholder="选择大区" :open-close="area.state" class-name="area"></my-select>
-			<my-select @on-change="choseServer" placeholder="选择服务器" :open-close="server.state" class-name="server"></my-select>
+			<my-select @on-change="choseGame" :items-data="ddata" placeholder="选择游戏" :default-state="game.state" :open-close="game.open" class-name="game"></my-select>
+			<my-select @on-change="choseArea" :items-data="ddata" placeholder="选择大区" :default-state="area.state" :open-close="area.open" class-name="area"></my-select>
+			<my-select @on-change="choseServer" :items-data="ddata" placeholder="选择服务器" :default-state="server.state" :open-close="server.open" class-name="server"></my-select>
 		</header>
 	</div>
 </body>
@@ -72,8 +72,16 @@
 			placeholder: {
 				type: String
 			},
+			//defaultState属性是控制下拉框的初始状态,为true时,下拉框可以打开关闭
+			defaultState: {
+				type: Boolean
+			},
 			openClose: {
 				type: Boolean
+			},
+			itemsData: {
+				type: Array,
+				required: true
 			}
 		},
 		template: '<div id="select9891-wrap" class="style-css" :class="this.className">\
@@ -86,7 +94,7 @@
 							</i>\
 						</div>\
 						<ul class="select9891-list-wrap" v-show="listState">\
-							<li @click.stop="choseOne($event)" v-for="item in testData">{{ item.text }}</li>\
+							<li @click.stop="choseOne($event)" v-for="item in listData">{{ item.text }}</li>\
 						</ul>\
 					</div>',
 		data: function () {
@@ -94,17 +102,23 @@
 				//用于存放选中的值,没有时显示默认文字
 				selectValue: '',
 				selector: this.className,
+				//defaultState属性是控制下拉框的初始状态,为true时,下拉框可以打开
+				//listDefaultSate: this.defaultState,
 				listState: this.openClose,
-				testData: [
-					{'id': 1, 'text': '11111'},
-					{'id': 2, 'text': '22222'},
-					{'id': 3, 'text': '33333'},
-					{'id': 4, 'text': '44444'}
-				]
+				//openCloseState: this.openClose,
+				listData: this.itemsData
 			}
 		},
-		created: function () {
-			
+		watch: {
+			openCloseState: function (val, oldVal) {
+				var _self = this;
+				console.log(val);
+				if (_self.listDefaultSate) {
+					this.listState = val;
+					//图标变换
+					_self.changeIcon($('.' + _self.selector));
+				}
+			}
 		},
 		mounted: function () {
 			var _self = this;
@@ -119,27 +133,16 @@
 				}
 			});
 		},
-		methods: {
-			contains: function (parentEle, childEle) {
-				if (parentEle) {
-					if (parentEle === childEle) {
-						return true;
-					}
-					if (parentEle && parentEle.contains) {
-						return parentEle.contains(childEle);
-					}
-					return !!(parentEle.compareDocumentPosition(childEle) & 16);
-
-				} else {
-					return false;
-				}
-			}, 
+		methods: { 
 			openCloseFun: function (event) {
 				var $this = $(event.currentTarget),
 				    _self = this;
-				this.listState = !this.listState;
-				//图标变换
-				_self.changeIcon($this);		
+				console.log(this.listDefaultSate);	
+				if (_self.listDefaultSate) {
+					this.listState = !this.listState;
+					//图标变换
+					_self.changeIcon($('.' + _self.selector));
+				}
 			},
 			choseOne: function (event) {
 				var $this = $(event.currentTarget),
@@ -147,9 +150,10 @@
 					opValue = $this.html();
 				//选择之后,关闭
 				this.listState = false;
+				_self.changeIcon($('.' + _self.selector));
 				this.selectValue = opValue;	
 				//获取选中的值,并传递出去	
-				this.$emit('on-change', opValue);	
+				this.$emit('on-change', opValue);
 			},
 			changeIcon: function (thisDom) {
 				var _self = thisDom;
@@ -169,32 +173,52 @@
 				} else {
 					return this.selectValue;
 				}
+			},
+			listDefaultSate: function () {
+				//在计算属性中使用props值,保证,props更新时,dom更新
+				return this.defaultState
+			},
+			openCloseState: function () {
+				return this.openClose
 			}
 		}
 	});
+	
+	
 	var myApp = new Vue({
 		el: '#app',
 		data: {
 			con: '内容',
 			d: {'user': '梵蒂冈地方'},
 			game: {
-				state: false,
-				value: ''
+				state: true,
+				value: '',
+				open: false
 			},
 			area: {
 				state: false,
-				value: ''
+				value: '',
+				open: false
 			},
 			server: {
 				state: false,
-				value: ''
-			}
+				value: '',
+				open: false
+			},
+			ddata: [
+					{'id': 1, 'text': '11111'},
+					{'id': 2, 'text': '22222'},
+					{'id': 3, 'text': '33333'},
+					{'id': 4, 'text': '44444'}
+				]
 		},
 		methods: {
 			choseGame: function (val) {
+				//函数参数是用户选中的值
 				console.log(val);
+				//选中游戏之后,让选择游戏大区的下拉框可以打开状态,并打开
 				this.area.state = true;
-				console.log(this.area.state);
+				this.area.open = true;
 			},
 			choseArea: function (val) {
 				console.log(val);
@@ -204,5 +228,6 @@
 			}
 		}
 	})
+
 </script>
 </html>

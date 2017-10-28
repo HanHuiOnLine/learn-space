@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+</head>
+<style type="text/css">
+	.example-7-color-preview {
+	  display: inline-block;
+	  width: 50px;
+	  height: 50px;
+	}
+</style>
+<body>
+	<div id="animated-number-demo">
+	  <input v-model.number="number" type="number" step="20">
+	  <p>{{ animatedNumber }}</p>
+	</div>
+	
+	<div id="example-7">
+	  <input
+		v-model="colorQuery"
+		v-on:keyup.enter="updateColor"
+		placeholder="Enter a color"
+	  >
+	  <button v-on:click="updateColor">Update</button>
+	  <p>Preview:</p>
+	  <span
+		v-bind:style="{ backgroundColor: tweenedCSSColor }"
+		class="example-7-color-preview"
+	  ></span>
+	  <p>{{ tweenedCSSColor }}</p>
+	</div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/color-js@1.0.3"></script>
+<script type="text/javascript">
+	var myApp = new Vue({
+	  el: '#animated-number-demo',
+	  data: {
+		number: 0,
+		animatedNumber: 0
+	  },
+	  watch: {
+		number: function(newValue, oldValue) {
+		  var vm = this
+		  function animate () {
+			if (TWEEN.update()) {
+			  requestAnimationFrame(animate)
+			}
+		  }
+		  new TWEEN.Tween({ tweeningNumber: oldValue })
+			.easing(TWEEN.Easing.Quadratic.Out)
+			.to({ tweeningNumber: newValue }, 500)
+			.onUpdate(function () {
+			  vm.animatedNumber = this.tweeningNumber.toFixed(0)
+			})
+			.start()
+		  animate()
+		}
+	  }
+	});
+	
+	
+	var Color = net.brehaut.Color
+	new Vue({
+	  el: '#example-7',
+	  data: {
+		colorQuery: '',
+		color: {
+		  red: 0,
+		  green: 0,
+		  blue: 0,
+		  alpha: 1
+		},
+		tweenedColor: {}
+	  },
+	  created: function () {
+		this.tweenedColor = Object.assign({}, this.color)
+	  },
+	  watch: {
+		color: function () {
+		  function animate () {
+			if (TWEEN.update()) {
+			  requestAnimationFrame(animate)
+			}
+		  }
+		  new TWEEN.Tween(this.tweenedColor)
+			.to(this.color, 750)
+			.start()
+		  animate()
+		}
+	  },
+	  computed: {
+		tweenedCSSColor: function () {
+		  return new Color({
+			red: this.tweenedColor.red,
+			green: this.tweenedColor.green,
+			blue: this.tweenedColor.blue,
+			alpha: this.tweenedColor.alpha
+		  }).toCSS()
+		}
+	  },
+	  methods: {
+		updateColor: function () {
+		  this.color = new Color(this.colorQuery).toRGB()
+		  this.colorQuery = ''
+		}
+	  }
+	})
+	
+	
+	
+</script>
+</html>

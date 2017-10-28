@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+	<title></title>
+	<style type="text/css">
+		p{
+			width: 200px;
+			height: 100px;
+			border: 1px solid red;
+			overflow: hidden;
+		}
+		.fade-enter-active, .fade-leave-active{
+			transition: height 1s
+		}
+		.fade-enter, .fade-leave-to{
+			height: 0
+		}
+		
+		.list-item {
+		  display: inline-block;
+		  margin-right: 10px;
+		}
+		.list-enter-active, .list-leave-active {
+		  transition: all 1s;
+		}
+		.list-enter, .list-leave-to
+			/* .list-leave-active for below version 2.1.8 */ {
+		  opacity: 0;
+		  transform: translateY(30px);
+		}
+		
+		
+		.flip-list-move {
+		  transition: transform 1s;
+		}
+		
+		
+		.list-complete-item {
+		  transition: all 1s;
+		  display: inline-block;
+		  margin-right: 10px;
+		}
+		.list-complete-enter, .list-complete-leave-to
+			/* .list-complete-leave-active for below version 2.1.8 */ {
+		  opacity: 0;
+		  transform: translateY(30px);
+		}
+		.list-complete-leave-active {
+		  position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div id="demo">
+		<div>
+			<button v-on:click="show = !show">改变</button>
+			<transition name="fade">
+				<p v-show="show">你好</p>
+			</transition>
+		</div>	
+	</div>
+	
+	<div id="example-3">
+	  <button @click="show = !show">
+		Toggle render
+	  </button>
+	  <transition
+		name="custom-classes-transition"
+		enter-active-class="animated tada"
+		leave-active-class="animated bounceOutRight"
+	  >
+		<p v-show="show">hello</p>
+	  </transition>
+	</div>
+	
+	<!--velocity动画-->
+	<div id="example-4">
+	  <button @click="show = !show">
+		Toggle
+	  </button>
+	  <transition
+		v-on:before-enter="beforeEnter"
+		v-on:enter="enter"
+		v-on:leave="leave"
+		v-bind:css="false"
+	  >
+		<p v-show="show">
+		  Demo
+		</p>
+	  </transition>
+	</div>
+	
+	
+	<!--列表的进入,离开过度-->
+	<div id="list-demo" class="demo">
+	  <button v-on:click="add">Add</button>
+	  <button v-on:click="remove">Remove</button>
+	  <transition-group name="list" tag="p">
+		<span v-for="item in items" v-bind:key="item" class="list-item">
+		  {{ item }}
+		</span>
+	  </transition-group>
+	</div>
+	
+	<div id="flip-list-demo" class="demo">
+	  <button v-on:click="shuffle">Shuffle</button>
+	  <transition-group name="flip-list" tag="ul">
+		<li v-for="item in items" v-bind:key="item">
+		  {{ item }}
+		</li>
+	  </transition-group>
+	</div>
+	
+	<div id="list-complete-demo" class="demo">
+	  <button v-on:click="shuffle">Shuffle</button>
+	  <button v-on:click="add">Add</button>
+	  <button v-on:click="remove">Remove</button>
+	  <transition-group name="list-complete" tag="p">
+		<span
+		  v-for="item in items"
+		  v-bind:key="item"
+		  class="list-complete-item"
+		>
+		  {{ item }}
+		</span>
+	  </transition-group>
+	</div>
+	
+	
+	<!--列表的交错过度-->
+	<div id="staggered-list-demo">
+	  <input v-model="query">
+	  <transition-group
+		name="staggered-fade"
+		tag="ul"
+		v-bind:css="false"
+		v-on:before-enter="beforeEnter"
+		v-on:enter="enter"
+		v-on:leave="leave"
+	  >
+		<li
+		  v-for="(item, index) in computedList"
+		  v-bind:key="item.msg"
+		  v-bind:data-index="index"
+		>{{ item.msg }}</li>
+	  </transition-group>
+	</div>
+	
+	
+	<div id="dynamic-fade-demo" class="demo">
+	  Fade In: <input type="range" v-model="fadeInDuration" min="0" v-bind:max="maxFadeDuration">
+	  Fade Out: <input type="range" v-model="fadeOutDuration" min="0" v-bind:max="maxFadeDuration">
+	  <transition
+		v-bind:css="false"
+		v-on:before-enter="beforeEnter"
+		v-on:enter="enter"
+		v-on:leave="leave"
+	  >
+		<p v-if="show">hello</p>
+	  </transition>
+	  <button
+		v-if="stop"
+		v-on:click="stop = false; show = false"
+	  >Start animating</button>
+	  <button
+		v-else
+		v-on:click="stop = true"
+	  >Stop it!</button>
+	</div>
+	
+	
+	
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+<script type="text/javascript">
+	var myApp = new Vue({
+		el: '#demo',
+		data: {
+			show: true
+		}
+	});
+	var myApp2 = new Vue({
+		el: '#example-3',
+		  data: {
+			show: true
+		}
+	});
+	var myApp3 = new Vue({
+	  el: '#example-4',
+	  data: {
+		show: false
+	  },
+	  methods: {
+		beforeEnter: function (el) {
+		  el.style.opacity = 0
+		  el.style.transformOrigin = 'left'
+		},
+		enter: function (el, done) {
+		  Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+		  Velocity(el, { fontSize: '1em' }, { complete: done })
+		},
+		leave: function (el, done) {
+		  Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
+		  Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+		  Velocity(el, {
+			rotateZ: '45deg',
+			translateY: '30px',
+			translateX: '30px',
+			opacity: 0
+		  }, { complete: done })
+		}
+	  }
+	});
+	
+	
+	var myApp4 = new Vue({
+	  el: '#list-demo',
+	  data: {
+		items: [1,2,3,4,5,6,7,8,9],
+		nextNum: 10
+	  },
+	  methods: {
+		randomIndex: function () {
+		  return Math.floor(Math.random() * this.items.length)
+		},
+		add: function () {
+		  this.items.splice(this.randomIndex(), 0, this.nextNum++)
+		},
+		remove: function () {
+		  this.items.splice(this.randomIndex(), 1)
+		},
+	  }
+	});
+	/*
+	    这个例子有个问题，当添加和移除元素的时候，周围的元素会瞬间移动到他们的新布局的位置，
+	而不是平滑的过渡，我们下面会解决这个问题。
+	*/
+	
+	var myApp5 = new Vue({
+	  el: '#flip-list-demo',
+	  data: {
+		items: [1,2,3,4,5,6,7,8,9]
+	  },
+	  methods: {
+		shuffle: function () {
+		  this.items = _.shuffle(this.items)
+		}
+	  }
+	});
+	
+	
+	var myApp6 = new Vue({
+	  el: '#list-complete-demo',
+	  data: {
+		items: [1,2,3,4,5,6,7,8,9],
+		nextNum: 10
+	  },
+	  methods: {
+		randomIndex: function () {
+		  return Math.floor(Math.random() * this.items.length)
+		},
+		add: function () {
+		  this.items.splice(this.randomIndex(), 0, this.nextNum++)
+		},
+		remove: function () {
+		  this.items.splice(this.randomIndex(), 1)
+		},
+		shuffle: function () {
+		  this.items = _.shuffle(this.items)
+		}
+	  }
+	});
+	/*
+	需要注意的是使用 FLIP 过渡的元素不能设置为 display: inline 。
+	作为替代方案，可以设置为 display: inline-block 或者放置于 flex 中
+	*/
+	
+	var myApp7 = new Vue({
+	  el: '#staggered-list-demo',
+	  data: {
+		query: '',
+		list: [
+		  { msg: 'Bruce Lee' },
+		  { msg: 'Jackie Chan' },
+		  { msg: 'Chuck Norris' },
+		  { msg: 'Jet Li' },
+		  { msg: 'Kung Fury' }
+		]
+	  },
+	  computed: {
+		computedList: function () {
+		  var vm = this
+		  return this.list.filter(function (item) {
+			return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+		  })
+		}
+	  },
+	  methods: {
+		beforeEnter: function (el) {
+		  el.style.opacity = 0
+		  el.style.height = 0
+		},
+		enter: function (el, done) {
+		  var delay = el.dataset.index * 150
+		  setTimeout(function () {
+			Velocity(
+			  el,
+			  { opacity: 1, height: '1.6em' },
+			  { complete: done }
+			)
+		  }, delay)
+		},
+		leave: function (el, done) {
+		  var delay = el.dataset.index * 150
+		  setTimeout(function () {
+			Velocity(
+			  el,
+			  { opacity: 0, height: 0 },
+			  { complete: done }
+			)
+		  }, delay)
+		}
+	  }
+	})
+	
+	
+	//可复用的过度
+	/*
+	过渡可以通过 Vue 的组件系统实现复用。要创建一个可复用过渡组件，你需要做的就是将 <transition> 
+	或者 <transition-group> 作为根组件，然后将任何子组件放置在其中就可以了。
+	*/
+	Vue.component('my-special-transition', {
+	  template: '\
+		<transition\
+		  name="very-special-transition"\
+		  mode="out-in"\
+		  v-on:before-enter="beforeEnter"\
+		  v-on:after-enter="afterEnter"\
+		>\
+		  <slot></slot>\
+		</transition>\
+	  ',
+	  methods: {
+		beforeEnter: function (el) {
+		  // ...
+		},
+		afterEnter: function (el) {
+		  // ...
+		}
+	  }
+	})
+	
+	//函数组件更适合完成这个任务：
+	Vue.component('my-special-transition', {
+	  functional: true,
+	  render: function (createElement, context) {
+		var data = {
+		  props: {
+			name: 'very-special-transition',
+			mode: 'out-in'
+		  },
+		  on: {
+			beforeEnter: function (el) {
+			  // ...
+			},
+			afterEnter: function (el) {
+			  // ...
+			}
+		  }
+		}
+		return createElement('transition', data, context.children)
+	  }
+	})
+	
+	//动态过度
+	
+	var myApp7 = new Vue({
+	  el: '#dynamic-fade-demo',
+	  data: {
+		show: true,
+		fadeInDuration: 1000,
+		fadeOutDuration: 1000,
+		maxFadeDuration: 1500,
+		stop: true
+	  },
+	  mounted: function () {
+		this.show = false
+	  },
+	  methods: {
+		beforeEnter: function (el) {
+		  el.style.opacity = 0
+		},
+		enter: function (el, done) {
+		  var vm = this
+		  Velocity(el,
+			{ opacity: 1 },
+			{
+			  duration: this.fadeInDuration,
+			  complete: function () {
+				done()
+				if (!vm.stop) vm.show = false
+			  }
+			}
+		  )
+		},
+		leave: function (el, done) {
+		  var vm = this
+		  Velocity(el,
+			{ opacity: 0 },
+			{
+			  duration: this.fadeOutDuration,
+			  complete: function () {
+				done()
+				vm.show = true
+			  }
+			}
+		  )
+		}
+	  }
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>

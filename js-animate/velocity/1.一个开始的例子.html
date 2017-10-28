@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+	<style type="text/css">
+		.sty{
+			width: 40px;
+			height: 40px;
+			background-color: red;
+			margin-top: 8px;
+		}
+	</style>
+</head>
+<body>
+	<div class="element sty"></div>
+	<div class="element2 sty"></div>	
+	<div class="element3 sty"></div>	
+	<div class="element4 sty"></div>	
+	<div class="element5 sty"></div>	
+</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script type="text/javascript">
+    $('.element').velocity({
+		width: '200px'
+	},{
+		duration: 450,
+		delay: 100
+	});
+	$('.element').velocity({
+		width: 50
+	},{
+		easing: 'easeInSine'
+	});
+	//贝塞尔曲线
+	$('.element2').velocity({
+		width: 200
+	}, [0.17, 0.67, 0.83, 0.67]);
+	// 弹簧物理
+	$('.element3').velocity({
+		width: 200
+	}, [250, 15]);
+	
+	//队列
+	// 自定义队列，这里并不会立即执行
+	$(".element4")
+	  .velocity({ translateX: 75 }, { queue: "a" })
+	  .velocity({ width: 200 }, { queue: "b" })
+	  .velocity({ translateY: 75 }, { queue: "a" })
+	  .velocity({ height: 0 }, { queue: "b" })
+
+	// 2秒后 执行队列"a"的动画
+	setTimeout(function() {
+	  $(".element4").dequeue("a");
+	}, 2000);
+
+	// 4秒后 执行队列"b"的动画
+	setTimeout(function() {
+	  $(".element4").dequeue("b");
+	}, 4000);
+	//注意:loop循环选项 和reverse反向动画指令，不能和队列一起使用。
+	
+	//回调函数
+	$('.element5').velocity({
+		opacity: 0
+	}, {
+		loop: 3,
+		begin: function (elements) {
+			//begin为动画开始前的回调函数，但在循环模式下（设置了loop选项时），
+			//该函数只会在第一次循环前执行一次。
+			console.log(elements);
+		},
+		complete: function (elements) {
+			/*
+			complete为动画结束时的回调函数，在无限循环模式下（设置loop: true） 该回调函数将不会执行，
+			但是有规定次数的循环模式下（比如设置设置loop: 3） 该回调函数 将只会在最后一次循环结束后 执行一次。
+			*/
+			console.log(elements);
+		}
+	});
+	
+	//progress过程
+	/*
+	五个参数:
+		elements：当前执行动画的元素，可以用$(elements)来获取
+		complete：整个动画过程执行到百分之多少，该值是递增的，注意：该值为一个十进制数值 并不带单位 (%)
+		remaining：整个动画过程还剩下多少毫秒，该值是递减的
+		start：动画开始时的绝对时间 (Unix time)
+		tweenValue：动画执行过程中 两个动画属性之间的补间值
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>
