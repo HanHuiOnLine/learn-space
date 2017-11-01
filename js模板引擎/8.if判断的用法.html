@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if判断的用法</title>
+</head>
+<body>
+   
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+				<th>兴趣爱好</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		<tr>
+			<td>{{name }}</td>
+			<td>{{sex }}</td>
+			<td>{{age }}</td>
+			<td>
+				{{#with favorite}}
+					{{#each this}}
+						<p>{{ this }}</p>
+					{{/each}}
+				{{/with}}
+			</td>
+		</tr>
+	{{/each}}
+</script>
+<script type="text/javascript">
+	$(function () {
+		var data = {
+			'student': [
+				{
+					'name': '张三',
+					'sex': '男',
+					'age': 18,
+					'favorite': ['唱歌', '篮球']
+				},
+				{
+					'name': '李四',
+					'sex': '男',
+					'age': 22,
+					'favorite': ['上网', '足球']
+				},{
+					'name': '妞妞',
+					'sex': '女',
+					'age': 18,
+					'favorite': ['电影', '旅游']
+				}
+			]
+		};
+		//注册一个Handlebars Helper,用来将索引+1，因为默认是从0开始的
+		Handlebars.registerHelper('addOne', function (index, options) {
+			//利用+1的时机，在父级循环对象中添加一个_index属性，用来保存父级每次循环的索引
+			this._index = index + 1;
+			return this._index;
+		});
+		//解析模版
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		//生成html
+		var html = myTemplate(data);
+		$('#tableList').append(html);
+		/*
+		 本例和上例不同之处在于favorite属性中不再是map项，而是普通字符串，
+		 因此对于每个项，可以直接用{{this}}读取，this代表当前字符串。
+		*/
+	});
+
+</script>
+</html>

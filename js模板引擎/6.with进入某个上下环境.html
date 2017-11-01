@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>with-进入到某个属性(进入到某个上下文环境)</title>
+</head>
+<body>
+   
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+				<th>兴趣爱好</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		<tr>
+			<td>{{name }}</td>
+			<td>{{sex }}</td>
+			<td>{{age }}</td>
+			<td>
+				{{#with favorite}}
+					{{#each this}}
+						<p>{{ name }}</p>
+					{{/each}}
+				{{/with}}
+			</td>
+		</tr>
+	{{/each}}
+</script>
+<script type="text/javascript">
+	$(function () {
+		var data = {
+			'student': [
+				{
+					'name': '张三',
+					'sex': '男',
+					'age': 18,
+					'favorite': [
+						{
+							'name': '唱歌'
+						},
+						{
+							'name': '篮球'
+						}
+					]
+				},
+				{
+					'name': '李四',
+					'sex': '男',
+					'age': 22,
+					'favorite': [
+						{
+							'name': '上网'
+						},
+						{
+							'name': '足球'
+						}
+					]
+				},{
+					'name': '妞妞',
+					'sex': '女',
+					'age': 18,
+					'favorite': [
+						{
+							'name': '电影'
+						},
+						{
+							'name': '旅游'
+						}
+					]
+				}
+			]
+		};
+		//注册一个Handlebars Helper,用来将索引+1，因为默认是从0开始的
+		Handlebars.registerHelper('addOne', function (index, options) {
+			//利用+1的时机，在父级循环对象中添加一个_index属性，用来保存父级每次循环的索引
+			this._index = index + 1;
+			return this._index;
+		});
+		//解析模版
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		//生成html
+		var html = myTemplate(data);
+		$('#tableList').append(html);
+		/*
+		在循环每名学生时，学生的favorite属性并不是一个普通的字符串，
+		而又是一个json对象，确切的说是一个list，我们需要把学生的爱好全部取出来。
+
+        这时候就需要with命令，这个命令可以让当前的上下文进入到一个属性中，
+		{{#with favorite}}表示进入到favorite属性的上下文中，而favorite属性中又是一个list，
+		因此可以用{{#each this}}进行遍历，表示遍历当前上下文环境，对于每次遍历，都是map结构，
+		取name属性，最终拿到所有兴趣爱好。
+		*/
+	});
+
+</script>
+</html>

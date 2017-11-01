@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this</title>
+</head>
+<body>
+   
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		{{#if name}}
+			<tr>
+				<td>{{ name }}</td>
+				<td>{{ sex }}</td>
+				<td>{{ age }}</td>
+			</tr>
+		{{/if}}
+	{{/each}}
+</script>
+<script type="text/javascript">
+	$(function () {
+		var data = {
+			'student': [
+				{
+					'name': '张三',
+					'sex': '男',
+					'age': 18
+				},
+				{
+					'sex': '男',
+					'age': 22
+				},{
+					'name': '妞妞',
+					'sex': '女',
+					'age': 18
+				}
+			]
+		};
+		//注册一个Handlebars Helper,用来将索引+1，因为默认是从0开始的
+		Handlebars.registerHelper('addOne', function (index, options) {
+			//利用+1的时机，在父级循环对象中添加一个_index属性，用来保存父级每次循环的索引
+			this._index = index + 1;
+			return this._index;
+		});
+		
+		//解析模版
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		
+		//生成html
+		var html = myTemplate(data);
+		$('#tableList').append(html);
+		
+		/*
+		 在遍历student时，由于数据缺失，并不是每一个学生都有name属性，
+		 我们不想显示没有name属性的学生，这时就需要if来做判断。
+
+		 {{#if name}}可以用来判断当前上下文中有没有name属性，实际上，
+		 它是尝试去读取name属性，如果返回的为undefined、null、""、[]、false任意一个，都会导致最终结果为假。
+
+		 if还支持多层次读取，例如：{{#if name.xxx}}，这样写就假设name属性是一个map，
+		 检测name属性中是否包含xxx属性。
+		*/
+	});
+
+</script>
+</html>

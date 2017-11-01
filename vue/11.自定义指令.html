@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>指令</title>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+	/*
+	当页面加载时，元素将获得焦点 (注意：autofocus 在移动版 Safari 上不工作)。
+	事实上，你访问后还没点击任何内容，input 就获得了焦点。现在让我们完善这个指令：
+	*/
+	
+	//// 注册一个全局自定义指令 v-focus
+	Vue.directive('focus', {
+		//当绑定元素插入到DOM中
+		inserted: function (el) {
+			//聚焦元素
+			el.focus()
+		}
+	});
+	
+	//局部指令
+	//组件中接受一个 directives 的选项：
+	directives: {
+		focus: {
+			//指令的定义
+			inserted: function (el) {
+				el.focus()
+			}
+		}
+	}
+	//使用: <input v-focus>
+	
+</script>
+</html>

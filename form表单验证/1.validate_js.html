@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>validate</title>
+	<style type="text/css">
+		.validation-error-label{
+			color: red;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<!--form的action属性设置为空,避免提交后刷新页面-->
+	<form id="logUpForm" action="">
+		<div>
+			<label for="username">用户名:</label>
+			<input id="username" name="username" type="text"/>
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label for="email">邮箱地址:</label>
+			<input id="email" name="email" type="email"/>
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label for="password">登陆密码:</label>
+			<input id="password" name="password" type="password"/>
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label for="confirm_password">确认密码:</label>
+			<input id="confirm_password" name="confirm_password" type="password"/>
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label>性别:</label>
+			<input id="man" name="sex" type="radio" value="男" checked/>男
+			<input id="woman" name="sex" type="radio" value="女"/>女
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label>爱好:</label>
+			<input type="checkbox" value="eat" name="hobby"/>吃
+            <input type="checkbox" value="ball" name="hobby"/>球
+            <input type="checkbox" value="book" name="hobby"/>书
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<label>城市</label>
+			<select name="city">
+				<option value="1">郑州</option>
+				<option value="2">上海</option>
+				<option value="3">杭州</option>
+			</select>
+			<div class="validate-error-message"></div>
+		</div>
+		<div>
+			<input type="submit" value="立即注册"/>
+		</div>
+	</form>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	//更改提示性文字
+	$.extend($.validator.messages, {
+		required: "必选字段",
+		remote: "请修正该字段",
+		email: "请输入正确格式的电子邮件",
+		url: "请输入合法的网址",
+		date: "请输入合法的日期",
+		dateISO: "请输入合法的日期 (ISO).",
+		number: "请输入合法的数字",
+		digits: "只能输入整数",
+		creditcard: "请输入合法的信用卡号",
+		equalTo: "请再次输入相同的值",
+		accept: "请输入拥有合法后缀名的字符串",
+		maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
+		minlength: $.validator.format("请输入一个长度最少是 {0} 的字符串"),
+		rangelength: $.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
+		range: $.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
+		max: $.validator.format("请输入一个最大为 {0} 的值"),
+		min: $.validator.format("请输入一个最小为 {0} 的值")
+	});
+</script>
+<script type="text/javascript">
+	//定义规则
+	var validateRules = {
+		//一个form对应一个对象
+		logUpForm: {
+			//对应的name
+			username: {
+				//定义规则
+				required: true,//必填为true
+				rangelength: [2, 30]//定义用户名2到30个字符
+			},
+			email: {
+				required: true,
+				email: true//是否是email
+			},
+			password: {
+				required: true,
+				rangelength: [6, 16]
+			},
+			confirm_password: {
+				required: true,
+				equalTo: '#password'
+			},
+			hobby: {
+				//checkbox
+				required: true,
+				minlength: 1
+			},
+			city: {
+				required: true,
+				minlength: 1
+			}
+		}
+	};
+	//定义信息
+	var invalidMessages = {
+		logUpForm: {
+			username: {
+				required: '用户名必填!',
+				rangelength: $.validator.format("请输入{0}~{1}位字符")
+			},
+			email: {
+				required: '请输入邮箱地址',
+				email: '邮箱格式不对'
+			},
+			password: {
+				required: '密码必填',
+				rangelength: $.validator.format("密码长度介于 {0} 和 {1} 之间")
+			},
+			confirm_password: {
+				required: '请确认您的密码',
+				equalTo: '两次输入不一致'
+			},
+			hobby: {
+				required: '爱好是必选项',
+				minlength: $.validator.format("至少选择 {0} 项")
+			},
+			city: {
+				required: '城市是必选项',
+				minlength: $.validator.format("至少选择 {0} 项")
+			}
+		}
+	};
+	//封装方法
+	var validateForm = function () {
+		return {
+			init:function (options) {
+				var $form = $("#"+options.formId);
+				$form.validate({
+					lang:"cn",
+					ignore: 'input[type=hidden], .select2-input',
+					errorElement: 'label',
+					errorClass: 'validation-error-label',
+					successClass: 'validation-valid-label',
+					rules:validateRules[options.formId],
+					messages:invalidMessages[options.formId],
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().children('.validate-error-message'));
+					},
+					highlight: function(element, errorClass) {
+						$(element).addClass(errorClass);
+					},
+					unhighlight: function(element, errorClass) {
+						$(element).removeClass(errorClass);
+					},
+					success: function(label) {
+						label.addClass("validation-valid-label").text("输入正确.");
+						$(label).remove();
+					},
+					submitHandler: function (e) {
+						options.submitHandler($form);
+					}
+				})
+			}
+
+		}
+	}();
+</script>
+<script>
+//给jQuery拓展一个格式化form表单数据的方法
+(function ($) {
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+})($);
+</script>
+<script type="text/javascript">
+	//方法调用
+	validateForm.init({
+        formId: "logUpForm",
+        submitHandler: function($form){
+            var form_data = $form.serializeObject();
+			//这就是格式化的数据
+            console.log(form_data);
+			//下面我们就可以传递数据了
+			//ajax请求
+			
+			return false;
+        }
+    });
+</script>
+</html>

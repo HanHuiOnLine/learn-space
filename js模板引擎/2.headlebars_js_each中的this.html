@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板引擎</title>
+</head>
+<body>
+    <!--each基本用法-->
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		<tr>
+			<td>{{ name }}</td>
+			<td>{{ sex }}</td>
+			<td>{{ age }}</td>
+		</tr>
+	{{/each}}
+</script>
+<script type="text/javascript">
+	console.log($);
+	$(function () {
+		var data = [
+			{
+				'name': '张三',
+				'sex': '男',
+				'age': 18
+			},
+			{
+				'name': '李四',
+				'sex': '男',
+				'age': 22
+			},
+			{
+				'name': '妞妞',
+				'sex': '女',
+				'age': 18
+			}
+		]
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		$('#tableList').html(myTemplate(data));
+	});
+	/*
+	很多时候，我们拿到的json对象，本身就是一个list，并不是map，直接就可以遍历，
+	不需要#each student这样指定遍历某个属性。
+    此时可以用#each this，表示遍历当前对象。
+    this表示当前上下文，非常灵活，以后还会提及，读者可以举一反三。
+	*/
+</script>
+</html>

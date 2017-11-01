@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html编码</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+				<th>个人主页</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		<tr>
+			<td>{{name}}</td>
+			<td>{{sex}}</td>
+			<td>{{age}}</td>
+			{{#compare age 20}}
+				<td>{{homePage}}</td>
+			{{else}}
+				<td>{{{homePage}}}</td>
+			{{/compare}}
+		</tr>
+	{{/each}}
+</script>
+<script type="text/javascript">
+	$(function () {
+		var data = {
+			'student': [
+				{
+					'name': '张三',
+					'sex': 1,
+					'age': 18,
+					'homePage': '<a href="javascript: void(0);">张三的个人主页</a>'
+				},
+				{
+					'name': '李四',
+					'sex': 1,
+					'age': 22,
+					'homePage': '<a href="javascript: void(0);">李四的个人主页</a>'
+				},{
+					'name': '妞妞',
+					'sex': 1,
+					'age': 28,
+					'homePage': '<a href="javascript: void(0);">妞妞的个人主页</a>'
+				}
+			]
+		};
+		
+		//注册一个比较大小的Helper,判断v1是否大于v2
+		Handlebars.registerHelper('compare', function (v1, v2, options) {
+			if (v1 > v2) {
+				return options.fn(this);
+			} else {
+				return options.inverse(this);
+			}
+		});
+		
+		//解析模版
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		//生成html
+		var html = myTemplate(data);
+		$('#tableList').append(html);
+		
+		/*
+		
+		通过{{}}取出来的内容，都会经过编码，也就是说，如果取出的内容中包含html标签，
+		会被转码成纯文本，不会被当成html解析，实际上就是做了类似这样的操作：把<用&lt;替代。
+
+        这样做是很好的，既可以显示html代码，又可以避免xss注入。这个功能在做代码展示的时候是非常有用的。
+
+        但是有时候我们可能需要解析html，不要转码，很简单，把{{}}换成{{{}}}就可以啦。
+
+        本例中，年龄大于20的童鞋个人主页被编码，直接展示出来；而年龄小于20的童鞋，
+		个人主页被当成html解析，显示的是一个超链接。
+		*/
+		
+	});
+
+</script>
+</html>

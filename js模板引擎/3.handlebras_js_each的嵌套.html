@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>each的嵌套</title>
+</head>
+<body>
+    <!--each基本用法-->
+	<div id="dataList"></div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each this }}
+		{{#each info}}
+			{{../name}}的{{this}}
+			</br>
+		{{/each}}
+	{{/each}}
+</script>
+<script type="text/javascript">
+	console.log($);
+	$(function () {
+		var data = [
+			{
+				'name': '张三',
+				'info': ['眼睛', '耳朵', '鼻子']
+			},
+			{
+				'name': '李四',
+				'info': ['爸爸', '妈妈', '妻子']
+			}
+		]
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		$('#dataList').html(myTemplate(data));
+	});
+	/*
+	循环嵌套在稍微复杂点的页面设计中即会涉及，Handlebars.js完全支持each嵌套，可以在each中使用each。
+
+    上边的例子演示了两个关键点：each嵌套的可实现性、如何在each嵌套中读取父each中的数据。
+
+    例子很简单，info本身是一个信息列表，是属于某个人的，我们先用each遍历所有的人
+	然后再遍历每个人的info信息，这样就形成了each嵌套。但是我们想在内层each中获取外层each的数据，
+	达到“谁的什么”这样的显示效果。
+
+    显然，如果直接在内层each中使用{{name}}，是取不到任何数据的，
+	因为内层each的上下文是info，而name属性在表示人的上下文中。
+
+    此时，可以用{{../name}}从内层each获取上一级each的name属性，语法和html的路径表示一样，简单吧？
+	*/
+</script>
+</html>

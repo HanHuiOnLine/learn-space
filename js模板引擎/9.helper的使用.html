@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>helper的用法</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+			</tr>
+		</thead>
+		<tbody id="tableList">
+		
+		</tbody>
+	</table>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script id="tab-template" type="text/x-handlebars-template">
+	{{#each student }}
+		{{#if name}}
+			{{#compare age 20}}
+				<tr>
+					<td>{{ name }}</td>
+					<td>{{ sex }}</td>
+					<td>{{ age }}</td>
+				</tr>
+				{{else}}
+				<tr>
+					<td>?</td>
+					<td>?</td>
+					<td>?</td>
+				</tr>
+			{{/compare}}
+		{{/if}}
+	{{/each}}
+</script>
+<script type="text/javascript">
+	$(function () {
+		var data = {
+			'student': [
+				{
+					'name': '张三',
+					'sex': '男',
+					'age': 18
+				},
+				{
+					'sex': '男',
+					'age': 22
+				},{
+					'name': '妞妞',
+					'sex': '女',
+					'age': 28
+				}
+			]
+		};
+		//注册一个比较大小的Helper,判断v1是否大于v2
+		Handlebars.registerHelper('compare', function (v1, v2, options) {
+			if (v1 > v2) {
+				return options.fn(this);
+			} else {
+				return options.inverse(this);
+			}
+		});
+		//解析模版
+		var myTemplate = Handlebars.compile($('#tab-template').html());
+		//生成html
+		var html = myTemplate(data);
+		$('#tableList').append(html);
+		
+		/*
+		 很多时候，我们需要更加复杂的if判断逻辑，显然默认的if不能满足我们的需求。
+		 本例中，利用Handlebars.js中Helper强大的扩展性，定义了一个compare，它用来比较两个数的大小，
+		 如果第一个数大于第二个数，满足条件继续执行，否则执行{{else}}部分。
+		 
+		 Handlebars.registerHelper用来定义Helper，它有两个参数，
+		 第一个参数是Helper名称，第二个参数是一个回调函数，用来执行核心业务逻辑。
+		 本例中的函数，有三个参数，其中前两个参数是需要比较的两个数，第三个参数是固定的，
+		 就叫options，如果加了该参数，就说明这个Helper是一个Block，块级别的Helper，
+		 有一定的语法结构，调用的时候加#号，就像if那样。
+		 
+		 关于options的使用，小菜所了解的就是这种用法，return options.fn(this);
+		 表示满足条件继续执行，也就是执行{{#compare }}和{{else}}之间的代码；
+		 return options.inverse(this);表示不满足条件，也就是执行{{else}}和{{/compare}}之间的代码。
+		 
+		由于这是一个块级别的Helper，所以调用要加#，例如：{{#compare age 20}}，
+		   其中的age就是当前上下文中读取到的年龄，20是小菜随便写的值，
+		   意思是只要age比20大，就显示，否则全显示?。
+		*/
+	});
+
+</script>
+</html>
