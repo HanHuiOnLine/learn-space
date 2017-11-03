@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+	Vue.component('anchored-heading', {
+		render: function (createElement) {
+			return createElement(
+				'h'+this.level,//tag name标签名称
+				this.$slots.default//子组件的阵列
+			)
+		},
+		props: {
+			level: {
+				type: 'Number',
+				required: true
+			}
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+	#aa{
+		width: 200px;
+		height: 200px;
+	}
+</style>
+<body>
+	<div>哈哈哈</div>
+	<iframe id="aa" src="a.html"></iframe>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		
+		$('#aa').contents().find('#bb').css({
+			'color': 'red'
+		});
+	})
+</script>
+</html>

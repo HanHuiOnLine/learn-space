@@ -10,7 +10,6 @@
 		<div id="divdown1"></div>
 	</body>
 	<script type="text/javascript">
-
 		function ShowCountDown(year, month, day, divname) {
 			var now = new Date();
 			var endDate = new Date(year, month - 1, day);
@@ -24,7 +23,7 @@
 			cc.innerHTML = "距离" + year + "年" + month + "月" + day + "日还有：" + day1 + "天" + hour + "小时" + minute + "分" + second + "秒";
 		}
 		window.setInterval(function() {
-			ShowCountDown(2017, 7, 28, 'divdown1');
+			ShowCountDown(2017, 11, 14, 'divdown1');
 		}, 1000);
 	</script>
 

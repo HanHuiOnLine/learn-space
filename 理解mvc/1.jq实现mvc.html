@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" type="text" placeholder="需要做什么?" autofocus/>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox"/>
+			<label for="toggle-all">全选</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer">
+			<span id="todo-count">
+				剩余
+				<strong>0</strong>
+				条任务
+			</span>
+			<button id="clear-completed">清除已完成</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>双击编辑</p>
+	</footer>
+</body>
+<script src=”http://libs.baidu.com/jquery/2.1.1/jquery.min.js”></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js'></script>
+<script type="text/javascript">
+	
+</script>
+<script type="text/javascript">
+	$(function () {
+		var Utils = {
+			uuid: function () {
+				var i, random;
+				var uuid = '';
+				
+				for (var i = 0; i < 32; i++) {
+					random = Math.random()*16 | 0;
+					if (i === 8 || i === 12 || i === 16 || i === 20) {
+						uuid += '-';
+					}
+					uuid += (i === 12 ? 4 :(i === 16 ? (random & 3 | 8) : random)).toString(16);
+				}
+				return uuid;
+			},
+			pluralize: function (count, word) {
+				return count === 1 ? word : word + 's';
+			},
+			store: function (namespace, data) {
+				if (argument.length > 1) {
+					
+				}
+			}
+		}
+	})
+</script>
+</html>
