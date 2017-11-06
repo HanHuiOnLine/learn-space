@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	<button id="throttle">点击</button>
+	<button id="debounce">点击</button>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdnjs.gtimg.com/cdnjs/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script type="text/javascript">
+	/*
+		函数节流
+		函数节流就是预定一个函数只有在大于等于执行周期时才执行，周期内调用不执行。
+		好像水滴攒到一定重量才会落下一样。
+		
+		场景:
+		1.窗口调整（resize）
+		2.页面滚动（scroll）
+		3.抢购疯狂点击（mousedown）
+	*/
+	function throttle (method, delay) {
+		var last = 0;
+		return function () {
+			//获取毫秒数(其他方式获得毫秒数也可以)
+			var now = +new Date();
+			console.log(now);
+			if (now - last > delay) {
+				method.apply(this, arguments);
+				last = now;
+			}
+		}
+	}
+	
+	//具体效果
+	var th = document.getElementById('throttle');
+	th.onclick = throttle(function () {
+		console.log('click');
+	}, 2000);
+	
+	//underscore实现：
+	//注意要引入undercore,这里没有引入
+	_.throttle = function(func, wait, options) {
+		var context, args, result;
+		var timeout = null;
+		var previous = 0;
+		if (!options) options = {};
+		var later = function() {
+			previous = options.leading === false ? 0 : _.now();
+			timeout = null;
+			result = func.apply(context, args);
+			if (!timeout) context = args = null;
+		};
+		return function() {
+			var now = _.now();
+			if (!previous && options.leading === false) previous = now;
+			//计算剩余时间
+			var remaining = wait - (now - previous);
+			context = this;
+			args = arguments;
+			//剩余时间小于等于0或者剩余时间大于等待时间(本地时间变动出现)
+			if (remaining <= 0 || remaining > wait) {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+				previous = now;
+				result = func.apply(context, args);
+				if (!timeout) context = args = null;
+			} else if (!timeout && options.trailing !== false) {
+				timeout = setTimeout(later, remaining);
+			}
+			return result;
+		};
+	}; 
+	
+	
+	//函数防抖
+	/*
+	函数防抖就是在函数需要频繁触发情况时，只有足够空闲的时间，才执行一次。
+	好像公交司机会等人都上车后才出站一样。
+	
+	场景：
+
+	1.实时搜索（keyup）
+	2.拖拽（mousemove）
+	*/
+	
+	//实现
+	function debounce (method, delay) {
+		var timer = null;
+		return function () {
+			var context = this,
+			    args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function () {
+				method.apply(context, args);
+			}, delay);
+		}
+	}
+	
+	//具体效果
+	var de = document.getElementById('debounce');
+	de.onclick = debounce(function () {
+		console.log('click');
+	}, 2000);
+	
+	
+	//underscore实现
+	_.debounce = function(func, wait, immediate) {
+		var timeout, args, context, timestamp, result;
+		var later = function() {
+			var last = _.now() - timestamp;
+			if (last < wait && last >= 0) {
+				timeout = setTimeout(later, wait - last);
+			} else {
+				timeout = null;
+				if (!immediate) {
+					result = func.apply(context, args);
+					if (!timeout) context = args = null;
+				}
+			}
+		};
+		return function() {
+			context = this;
+			args = arguments;
+			timestamp = _.now();
+			var callNow = immediate && !timeout;
+			if (!timeout) timeout = setTimeout(later, wait);
+			if (callNow) {
+				result = func.apply(context, args);
+				context = args = null;
+			}
+			return result;
+		};
+	};
+</script>
+</html>

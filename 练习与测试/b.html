@@ -12,15 +12,14 @@
 </style>
 <body>
 	<div>哈哈哈</div>
-	<iframe id="aa" src="a.html"></iframe>
+	<iframe id="aa" src="a.html" name="cc"></iframe>
 </body>
 <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function () {
-		
-		$('#aa').contents().find('#bb').css({
-			'color': 'red'
-		});
-	})
+	window.onload = function () {
+		var test = document.getElementById('aa').contentWindow.document.getElementById('bb');
+		console.log(test);
+	}
+	
 </script>
 </html>
