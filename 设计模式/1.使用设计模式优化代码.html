@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//1.需求
+	let page = {
+		init: ()=> {
+			//业务代码
+		}
+	};
+	/*
+	现在业务迭代，需要我们在page.init()初始化代码块的最后增加一些功能，
+	同时不影响原先的功能。按照正常的写法，我们可能会像下面这样写：
+	*/
+	
+	//正常想法
+	let page = {
+		init: ()=> {
+			page.newFunction();
+		},
+		newFunction: ()=> {
+			//代码逻辑
+		}
+	};
+	
+	/*
+	这样写是可以解决我们的需求，但是这样的代码是具有侵略性的，
+	我们不得不在原先的代码的合适位置新增我们需要的代码。但我们思考一个问题，
+	如果我们用了某个插件或者某个被ungly、minify之后的代码呢，
+	我们怎么在找到合适的位置添加我们需要的功能呢？大家可以先自己思考一下，再看下面的内容。
+	*/
+	
+	////我们可以在Function的原型链上定义一个扩展函数，以实现我们的需求。
+	Function.prototype.fnAfter = function (fn) {
+		var _self = this;
+		return function () {
+			_self.apply(this, arguments);
+			fn.apply(this, arguments);
+		}
+	};
+	page.init = (page.init || function () {}).fnAfter(function () {
+		console.log('要追加的逻辑');
+	});
+	page.init();
+	
+	/*
+	上面的代码已经能够实现我们的需要了，但是其实还是不够好或者可以写的更灵活一些。
+	因为我希望可以可以做到像jquery的链式调用那样，可以一直往后面追加新的功能。
+	那么我们在上面代码的基础上再扩展下，其实很简单，
+	我们只要再Function.prototype.fnAfter中再返回自身就好了。
+	*/
+	Function.prototype.fnAfter = function(fn) {
+	  var _self = this;
+	  return function() {
+		var fnOrigin = _self.apply(this, arguments);
+		fn.apply(this, arguments);
+		return fnOrigin;
+	  }
+	};
+	//每次扩展的时候我们都需要这么写
+	page.init  = (page.init || function() {}).fnAfter(function() {
+	  //...
+	});
+	//我们能不能再优化下，比如容错代码 || function(){} 在一个地方统一处理  
+	//或者我们新建一个工厂函数来帮我们统一做这样的事情，这里我们就不展开了，文章篇幅有限。
+	
+	/*
+	我们上面的扩展其实就是遵循的是面向对象程序设计中的开放-封闭原则（OCP）。
+	官方对OCP的解释是：软件实体（类、模块、函数…）应该是可以扩展的，但是不可修改。
+	设计模式中有很多模式都遵循了开发-封闭原则，比如：发布-订阅者模式、模板方法模式、策略模式、代理模式。
+	*/
+	
+	/*
+	有的时候我们通过扩展来提高代码的灵活性并不能解决所有的场景需要，
+	在不可避免发生修改的时候，我们可以通过增加配置文件，
+	让用户修改配置文件以实现个性化需求也是合理的。
+	修改配置远比修改源代码要简单的多。
+	*/
+	
+	
+	//单例模式
+	var fn = function () {
+		this.instance = null;
+	};
+	fn.getInstance = function () {
+		//写法1
+		if (!this.instance) {
+			this.instance = new fn();
+		}
+		return this.instance;
+		
+		//写法2
+		return this.instance || (this.instance = new fn());
+	};
+	var fnA = fn.getInstance();
+	var fnB = fn.getInstance();
+	console.log(fnA === fnB);//true
+	/*
+	日常的业务场景中，单例模式也比较常见，比如：一个页面中的模态框只有一个，
+	每次打开与关闭的都应该是同一个，而不是重复新建。而且为了性能优化，
+	我们应该在需要时再创建，而不是页面初始化时就已经存在于dom中，这个就是_惰性单例模式_。
+	*/
+	
+	////假设我们需要点击某个按钮时就显示出模态框，那么我们可以像下面这么实现。
+	var createModal = (function () {
+		var modal = null;
+		return function () {
+			if (!modal) {
+				modal = document.createElement('div');
+				modal.style.display = 'none';
+				document.getElementById('container').append(modal);
+			}
+			return modal;
+		}
+	})();
+	document.getElementById('showModal').click(function () {
+		var modal = createModal();
+		modal.style.display = 'block';
+	});	
+	/*
+	上面的代码中，我们将创建对象和管理实例的逻辑都放在一个地方，
+	违反了单一职责原则，我们应该单独新建一个用于创建单例的方法，
+	这样我们不仅能创建唯一的modal实例，也能创建其他的，职责分开。
+	*/
+	var createSingleInstance = function (fn) {
+		var instance = null;
+		return function () {
+			if (!instance) {
+				instance = fn.apply(this, arguments);
+			}
+			return instance;
+		}
+	};
+	
+	var createModal = function () {
+		var modal = document.createElement('div');
+		modal.style.display = 'none';
+		document.getElementById('container').append(modal);
+		return modal;
+	};
+	
+	var modal = createSingleInstance(createModal);
+	
+	
+	//观察者模式
+	/*
+	像knockout.js中的ko.compute以及vue中的computed函数其实就是这个模式的实践。
+	实现观察者模式的核心就是我们需要有一个变量来保存所有的依赖，
+	一个listen函数用于向变量中添加依赖，一个trigger函数用于触发通知。
+	*/
+	var observal = {
+		eventObj: {},
+		listen: function (key, fn) {
+			this.eventObj[key] = this.eventObj[key] || [];
+			this.eventObj[key].push(fn);
+		},
+		trigger: function (key) {
+			var eventList = this.eventObj[key];
+			if (!eventList || eventList.length < 1) {
+				return;
+			}
+			var length = eventList.length;
+			for (var i = 0; i < length; i++) {
+				var event = eventList[i];
+				event.apply(this, arguments);
+			}
+		}
+	};
+	//定义要监听的事件
+	observal.listen('command1', function () {
+		console.log('黑夜给了我黑色的眼睛,');
+	});
+	observal.listen('command1', function () {
+		console.log('我却用它寻找光明');
+	});
+	
+	//触发某个监听的事件
+	observal.trigger('command1');
+	
+	/*
+	使用观察者模式（发布-订阅模式）我们可以使得代码更灵活、健壮性更高。
+	订阅者不需要了解消息来自哪一个发布者，发布者也不需要知道消息会发送给哪些订阅者。
+    同样的我们可以创建一个公用的函数库，里面存放创建observal的工具方法，
+	需要用到的地方我们就用这个方法创建一个发布订阅对象。
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>

@@ -2,33 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>汉字排序</title>
+    <title></title>
 </head>
 <body>
 
 </body>
-<script src="https://unpkg.com/vue"></script>
 <script type="text/javascript">
-	/*
-	 混合 (mixins) 是一种分发 Vue 组件中可复用功能的非常灵活的方式。
-	 混合对象可以包含任意组件选项。以组件使用混合对象时，
-	 所有混合对象的选项将被混入该组件本身的选项。
-	*/
-	//定义一个混合对象
-	var myMinxin = {
-		created: function () {
-			this.hello();
-		},
-		methods: {
-			hello: function () {
-				console.log(1313);
-			}
+	//将某个字符串重复n次
+	function repeat (str, n) {
+		if (n === 0) {
+			return '';
 		}
-	};
-	//定义一个使用混合对象得组件
-	var Componet = Vue.extend({
-		mixins: [myMinxin]
-	});
-	var 
+		if (n === 1) {
+			return str;
+		}
+		var s1 = str,
+		    s2 = '';
+		for (var i = 0; i < n; i++) {
+			s2 += s1;
+		}
+		return s2;
+	}
+	var a1 = repeat('*', 9);
+	console.log(a1);
 </script>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+		字面量，比如字符中、数、和布尔值，在 ECMAScript 中有两种表现形式。它们每种类型都可以作为值创建，
+		也可以作为对象创建。比如，var oString = 'some content'; 创建了一个字符串值，
+		而 var oString = new String('some content'); 创建了等价的字符串对象。
+
+		所有属性和方法都是在字符串对象而不是值上定义的。如果你对字符串值调用属性和方法，
+		ECMAScript 引擎必须用相同的字符串值隐式地创建一个新的字符串对象，然后才能调用方法。
+		这个对象仅用于这一个需求，如果下次再对字符串值调用某个方法，会再次类似地创建字符串对象。
+	*/
+	//下面的示例的让脚本引擎创建 21 个新的字符串对象。每次访问 length 属性和每次调用 charAt 方法的时候都会创建对象：
+	var s = '0123456789';
+	for(var i = 0; i < s.length; i++) {
+	  s.charAt(i);
+	}
+	
+	//下面的示例与上面那个示例等价，但只创建了一个对象，它的执行结果更好：
+	var s = new String('0123456789');
+	for(var i = 0; i < s.length; i++) {
+	  s.charAt(i);
+	}
+	/*
+	如果你的代码经常调用字面量值的方法，你就应该考虑把它们转换为对象，就像上面的例子那样。
+    注意，虽然本文中大部分观点都与所有浏览器相关，但这种优化主要针对 Opera。它也可能影响其它一些浏览器，
+    但在 Internet Explorer 和 Firefox 中可能会慢一些。
+	*/
+</script>
+</html>

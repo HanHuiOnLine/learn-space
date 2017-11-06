@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	/*
+	 我们希望people对象拥有一个find方法，当不传任何参数时，
+	 就会把people.values里面的所有元素返回来；当传一个参数时,
+	 就把first-name跟这个参数匹配的元素返回来；当传两个参数时，
+	 则把first-name和last-name都匹配的才返回来。
+	 因为find方法是根据参数的个数不同而执行不同的操作的，所以，
+	 我们希望有一个addMethod方法，能够如下的为people添加find的重载
+	*/
+	var people = {
+		values: ["Dean Edwards", "Sam Stephenson", "Alex Russell", "Dean Tom"]
+	};
+	function addMethod (object, name, fn) {
+		var old = object[name];////把前一次添加的方法存在一个临时变量old里面
+		console.log(fn.length);
+		console.log(arguments.length);//3
+		// 重写了object[name]的方法
+		object[name] = function () {
+			//函数的接收参数个数
+			if (fn.length === arguments.length) {
+				// 如果调用object[name]方法时，传入的参数个数跟预期的一致，则直接调用
+				return fn.apply(this, arguments);
+			} else if (typeof old === 'function') {
+				// 否则，判断old是否是函数，如果是，就调用old
+				return old.apply(this, arguments);
+			}
+		}
+	}
+	addMethod(people, 'find', function () {
+		return this.values;
+	});
+	addMethod(people, 'find', function (firstName) {
+		var ret = [];
+		for (var i = 0; i < this.values.length; i++) {
+			if (this.values[i].indexOf(firstName) === 0) {
+			
+				ret.push(this.values[i]);
+			}
+		}
+		return ret;
+	});
+	addMethod(people, "find", function (firstName, lastName) {
+		var ret = [];
+		for (var i = 0; i < this.values.length; i++) {
+			if (this.values[i] === (firstName + ' ' + lastName)) {
+				ret.push(this.values[i]);
+			}
+		}
+		return ret;
+	});
+	console.log(people.find());
+	console.log(people.find("Dean"));
+	console.log(people.find("Dean Edwards"));
+</script>
+</html>

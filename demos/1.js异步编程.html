@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	<button id="btn">点击</button>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	for (var i = 0; i < 3; i++) {
+		setTimeout(function () {
+			console.log('timeout' + i);
+		})
+	}
+	console.log('global1');
+	new Promise(function (resolve) {
+		console.log('promise1');
+		for (var i = 0; i < 1000; i++) {
+			i == 98 && resolve();
+		}
+		console.log('promise2');
+	})
+	  .then(function () {
+		console.log('then1');
+	  }); 
+	console.log('global2');
+	
+	//结果
+	/*
+	promise1
+	promise2
+	global1
+	then1
+	(3)timeout3
+	*/	
+	
+	
+	//原理
+	
+	//1.浏览器内核的多线程
+	/*
+	一个浏览器至少实现三个常驻的线程：javascript引擎线程，GUI渲染线程，浏览器事件触发线程。
+	1.js引擎，基于事件驱动 单线程 执行的，js引擎一直等待着任务队列中任务的到来，
+	  然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。
+	2.GUI线程，当界面需要重绘或由于某种操作引发回流时，该线程就会执行。它和JS引擎是互斥的。
+	3.浏览器事件触发线程，当一个事件被触发时，该线程会把事件添加到待处理队列的队尾，
+	  等待js引擎的处理，这些事件可来自JavaScript引擎当前执行的代码块如，setTimeOut, 
+	  也可以来自浏览器内核的其他线程如鼠标点击，AJAX异步请求等，但由于JS的单线程关系，
+	  所有这些事件都得排队等待JS引擎处理。	
+	*/
+	
+	//2.事件循环机制
+	//看图https://img.funteas.com/811d82c0a84fe03d1000352c5e83a3b4.png?imageView2/2/w/800
+	/*
+	1.任务队列又分为macro-task（宏任务）与micro-task（微任务），在最新标准中，它们被分别称为task与jobs。
+	2.macro-task大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I/O, UI rendering。
+	3.micro-task【先执行】大概包括: process.nextTick, Promise, Object.observe(已废弃), MutationObserver(html5新特性)
+	
+	setTimeout/Promise等我们称之为任务源。而进入任务队列的是他们指定的具体执行任务。
+	
+	事件循环的顺序，决定了JavaScript代码的执行顺序。它从script(整体代码)开始第一次循环
+	之后全局上下文进入函数调用栈。直到调用栈清空(只剩全局)，然后执行所有的micro-task。
+	当所有可执行的micro-task执行完毕之后。循环再次从macro-task开始，
+	找到其中一个任务队列执行完毕，然后再执行所有的macro-task，这样一直循环下去。
+	*/
+	
+	//异步实现
+	
+	//1.回调函数
+	function want () {
+		console.log('回调代码');
+	}
+	function fn (want) {
+		console.log('执行自己的代码');
+		//执行回调函数
+		want && want();
+	}
+	fn(want);
+	
+	//2.事件监听(事件发布/订阅)
+	/*
+	事件监听是一种非常常见的异步编程模式，它是一种典型的逻辑分离方式，
+	对代码解耦很有用处。通常情况下，我们需要考虑哪些部分是不变的，哪些是容易变化的，
+	把不变的部分封装在组件内部，供外部调用，需要自定义的部分暴露在外部处理。
+	从某种意义上说，事件的设计就是组件的接口设计。
+	*/
+	
+	//(1)jQuery事件监听
+	$('#btn').on('myEvent', function (e) {
+		console.log('这是一个事件');
+	});
+	$('#btn').trigger('myEvent');
+	//(2)发布/订阅模式
+	var PubSub = function(){
+        this.handlers = {}; 
+    };
+    PubSub.prototype.subscribe = function(eventType, handler) {
+        if (!(eventType in this.handlers)) {
+            this.handlers[eventType] = [];
+        }
+        this.handlers[eventType].push(handler); //添加事件监听器
+        return this;//返回上下文环境以实现链式调用
+    };
+    PubSub.prototype.publish = function(eventType) {
+        var _args = Array.prototype.slice.call(arguments, 1);
+        for (var i = 0, _handlers = this.handlers[eventType]; i < _handlers.length; i++) {
+            _handlers[i].apply(this, _args);//遍历事件监听器
+        }
+        return this;
+    };
+    var event = new PubSub;//构造PubSub实例
+    event.subscribe('list', function(msg) {
+        console.log(msg);
+    });
+    event.publish('list', {data: ['one,', 'two']});
+    //Object {data: Array[2]}
+	
+	//3. Promise对象
+	
+	/*
+	ES 6中原生提供了Promise对象，Promise对象代表了某个未来才会知道结果的事件(一般是一个异步操作)，
+	并且这个事件对外提供了统一的API，可供进一步处理。
+    使用Promise对象可以用同步操作的流程写法来表达异步操作，避免了层层嵌套的异步回调，
+    代码也更加清晰易懂，方便维护，也可以捕捉异常。
+	*/
+	function fn1 (num) {
+		return new Promise(function (resolve, reject) {
+			if (typeof num == 'number') {
+				resolve();
+			} else {
+				reject(errot);
+			}
+		})
+		    .then(function () {
+				console.log('参数是一个number值');
+			}, function () {
+				console.log('参数不是一个number');
+			})
+	}
+	fn1('abc');
+	fn1(123);
+	
+	//promise实现原理
+	
+	//1.简单雏形
+	function Promise (fn) {
+		var value = null,
+		    callbacks = [];
+		this.then = function (onFulfilled) {
+			callbacks.push(onFulfilled);
+		};
+		function resolve (value) {
+			callbacks.forEach(function (callback) {
+				callback(value);
+			});
+		}
+		fn(resolve);	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>
