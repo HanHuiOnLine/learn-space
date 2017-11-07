@@ -159,9 +159,34 @@
 		fn(resolve);	
 	}
 	
+	/*
+	如果promise内部的函数是同步函数，我们要加入一些处理，保证在resolve执行之前，then方法已经注册完所有的回调； 
 	
+	通过setTimeout机制，将resolve中执行回调的逻辑放置到JS任务队列末尾，以保证在resolve执行时，
+	then方法的回调函数已经注册完成.
+	*/
 	
-	
+	//2.加入延时处理
+	// 极简promise雏形，加入延时处理
+	function Promise (fn) {
+		var value = null,
+		    callbacks = [];//callbacks为数组，因为可能同时有很多个回调
+		this.then = function (onFulfilled) {
+			callbacks.push(onFulfilled);
+		};
+		function resolve (value) {
+			setTimeout(function () {
+				callbacks.forEach(function (callback) {
+					callback(value);
+				})
+			}, 0)
+		}
+		fn(resolve);
+	}
+	/*
+	如果Promise异步操作已经成功，这时，在异步操作成功之前注册的回调都会执行，
+	但是在Promise异步操作成功这之后调用的then注册的回调就再也不会执行了，这显然不是我们想要的
+	*/
 	
 	
 	
