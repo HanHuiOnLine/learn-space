@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
-
-</body>
-<script type="text/javascript">
-	//将某个字符串重复n次
-	function repeat (str, n) {
-		if (n === 0) {
-			return '';
-		}
-		if (n === 1) {
-			return str;
-		}
-		var s1 = str,
-		    s2 = '';
-		for (var i = 0; i < n; i++) {
-			s2 += s1;
-		}
-		return s2;
+<style>
+	.wrap{
+		width: 500px;
+		height: 600px;
+		border: 1px solid #000;
+		position: relative;
 	}
-	var a1 = repeat('*', 9);
-	console.log(a1);
-</script>
+	.wrap div{
+		color: #fff;
+		width: 70px;
+		height: 20px;
+	}
+	.first{
+		background-color: red;
+		position: absolute;
+	}
+	.second{
+		background-color: green;
+		position: absolute;
+		right: 0;
+	}
+</style>
+<body>
+	<div class="wrap">
+		<div class="first">11111</div>
+		<div class="second">22222</div>
+	<div>
+</body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style type="text/css">
+	/*
+	CSS中原生的变量定义语法是：--*
+	变量使用语法是：var(--*);其中*表示我们的变量名称;
+	但是，不能包含$，[，^，(，%等字符
+	普通字符局限在只要是“数字[0-9]”“字母[a-zA-Z]”“下划线_”和“短横线-”这些组合，
+	但是可以是中文，日文或者韩文
+	*/
+	
+	
+	:root{
+		--1: #369;
+		--color: purple;
+	}
+	aside{
+		--color: green;
+	}
+	#alert{
+		--color: red;
+	}
+	*{
+		color: var(--color);
+	}
+	.bg{
+		background-color: var(--1);
+		width: 100px;
+		height: 20px;
+		--白色: #fff;
+		color: var(--白色);
+	}
+</style>
+<body>
+	<div class="bg">哈哈哈哈</div>
+	<p>这是p标签</p>
+	<aside>这是aside标签</aside>
+	<aside id="alert">
+		有ID的aside标签
+		<span>,我应该会继承吧</span>
+	</aside>
+</body>
+</html>
