@@ -5,31 +5,22 @@
     <title></title>
 </head>
 <style>
-	.wrap{
-		width: 500px;
-		height: 600px;
-		border: 1px solid #000;
-		position: relative;
-	}
-	.wrap div{
-		color: #fff;
-		width: 70px;
-		height: 20px;
-	}
-	.first{
-		background-color: red;
-		position: absolute;
-	}
-	.second{
-		background-color: green;
-		position: absolute;
-		right: 0;
-	}
+	
 </style>
 <body>
-	<div class="wrap">
-		<div class="first">11111</div>
-		<div class="second">22222</div>
-	<div>
+	
 </body>
+<script type="text/javascript">
+	function compare (value1, value2) {
+		if (value1 < value2) {
+			return -1;
+		} else if (value1 > value2) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	var arg = [1,6,2,4,5];
+	console.log(arg.sort(compare));
+</script>
 </html>
