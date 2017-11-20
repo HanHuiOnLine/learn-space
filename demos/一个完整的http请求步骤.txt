@@ -10,3 +10,13 @@
 	通常服务器的HTTP响应会携带内容，也就是有一个Body，包含响应的内容，网页的HTML源码就在Body中。
 步骤3：如果浏览器还需要继续向服务器请求其他资源，比如图片，就再次发出HTTP请求，重复步骤1、2。
 web采用的HTTP协议采用了非常简单的请求-响应模式,当我们编写一个页面时，我们只需要在HTTP请求中把HTML发送出去，不需要考虑如何附带图片、视频等，浏览器如果需要请求图片和视频，它会发送另一个HTTP请求，因此，一个HTTP请求只处理一个资源。
+function add (int a, int b) {
+	//a, b被确认为int类型
+	return a+b;
+}
+var c = add(1, 2);
+var d = add('hello', world);
+function add1 (x) {
+	x = x|0;  //x: int
+	return (x+1)|0;
+}
