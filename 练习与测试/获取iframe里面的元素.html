@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+    <iframe id="if" width="300" height="200" src="http://localhost:63342/tabProject/test2.html?_ijt=qcp7si1ch8elprocqmd5qiee8f" frameborder="1"></iframe>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    //window.domain = 'localhost:63342/tabProject/';
+    $(function () {
+        //$('#if').contents().find('#b').css('color', 'red');
+        var ifra = document.getElementById('if');
+        ifra.onload = function () {
+            var a = ifra.contentWindow.document.getElementById('b');
+            console.log(a);
+            a.style.color = 'red';
+        };
+    })
+</script>
+</html>

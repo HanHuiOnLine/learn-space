@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	<div id="bb">113133</div>
+</body>
+<script type="text/javascript">
+	/*在数组中查找所有出现的元素的方法*/
+	function findAll (ary, ele) {
+		var results = [],
+		    len = a.length,
+			pos = 0;
+		while (pos < len) {
+			pos = ary.indexOf(ele, pos);
+			if (pos === -1) break;
+			results.push(pos);
+			pos++;
+		}
+		return results;
+	}
+	var a = [1,2,3,2,3];
+	var b = findAll(a, 1);
+	console.log(b);
+	
+	/*数组去重*/
+	Array.prototype.unique = function unique() {
+		var obj = {};
+		for (var i = 0; i < this.length; i++) {
+			var current = this[i];
+			if (obj[current] === current) {
+				current = this[this.length - 1];
+				this.length--;
+				i--;
+				continue;
+			}
+			obj[current] = current
+		}
+		obj = null;
+		return this;
+	}
+	/*冒泡排序*/
+	Array.prototype.bubbleSort = function bubbleSort() {
+		var temp = null;
+		for (var i = 0; i < this.length - 1; i++) {
+			for (var k = 0; k < this.length - 1 - i; k++) {
+				if (this[k] > this[k + 1]) {
+					temp = this[k];
+					this[k] = this[k + 1];
+					this[k + 1] = temp;
+				}
+			}
+		}
+		return this;
+	}
+</script>
+</html>
