@@ -1,0 +1,5 @@
+1.安装完成之后使用(ip addr)不能检测到ip信息,且不能联网
+解决: 1. vi /etc/sysconfig/network-scripts/ifcfg-ens33
+将最后一行(ONBOOT=no默认为不启动网卡，改成“yes”)
+2.重启网络服务(sudo service network restart)
+3.再次使用(ip addr)可以看到ip地址,而且可以连上网络了
