@@ -40,7 +40,7 @@ cd /data/repositories/ && git init --bare test.git
 ###8.配置用户权限
 chown -R gituser:gituser /data/repositories
 chmod 755 /data/repositories
-查找 git-shell 所在目录(如果是按照上面的步骤,这个位置应该是 /usr/local/git/bin/git-shell, 否则请通过 which git-shell 命令查看位置),
+查找 git-shell 所在目录(如果是按照上面的步骤,这个位置应该是 /usr/local/git/bin/git-shell, 否则请通过 whereis git-shell 命令查看位置),
 编辑 /etc/passwd 文件，将最后一行关于 gituser 的登录 shell 配置改为 git-shell 的目录
 最后一行改成gituser:x:500:500::/home/gituser:/usr/local/git/bin/git-shell
 ###9.使用

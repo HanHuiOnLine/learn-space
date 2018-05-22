@@ -1,0 +1,1 @@
+{"net":{"http_server_properties":{"servers":[{"https://beacons.gcp.gvt2.com":{"alternative_service":[{"advertised_versions":[39],"expiration":"13173754715721242","port":443,"protocol_str":"quic"}],"network_stats":{"srtt":64078},"supports_spdy":true}}],"supports_quic":{"address":"192.168.44.11","used_quic":true},"version":5}}}

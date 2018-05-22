@@ -1,0 +1,27 @@
+D .
+D comp
+R 05535841 b.jpg
+P D12221A9 bg.png
+P 9EDA959E hscroll$bar.png
+P 1AB768D4 hscroll$down.png
+P 685261D3 hscroll$up.png
+P E466EB1C hslider$bar.png
+P 9E4DD730 progress$bar.png
+P 52107B89 vscroll$bar.png
+P E26B933E vscroll$down.png
+P B9680947 vscroll$up.png
+P E466EB1C vslider$bar.png
+R C9387E1C w.jpg
+D gold
+P CC9F63B1 coin2_0.png
+P 0C3A34E3 coin2_1.png
+P 554DAEE6 coin2_10.png
+P C15C93BB coin2_11.png
+P 2E2CC998 coin2_2.png
+P E2F42B58 coin2_3.png
+P 8D0EB7F4 coin2_4.png
+P 99513EC5 coin2_5.png
+P 98B1EB08 coin2_6.png
+P F70335E5 coin2_7.png
+P FEDE17D1 coin2_8.png
+P 2230BF3B coin2_9.png
