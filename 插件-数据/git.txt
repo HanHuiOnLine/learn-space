@@ -154,3 +154,11 @@ git rm filename
 
 git mv #修改文件名，或搬移目录 
 git mv filename newfilename
+
+9.本地新建文件夹并关联到远程仓库
+（1）在文件夹下【git init】
+（2）【git add .】【git commit -m "init"】
+（3）【git remote add origin https://github.com/*****/*****.git】
+（4）git pull origin master --allow-unrelated-histories】
+     在比较新的Git版本中需要带参数【--allow-unrelated-histories】，不然会报错【refusing to merge unrelated histories】
+（5）【git push -u origin master】
